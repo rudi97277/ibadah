@@ -1,0 +1,69 @@
+{
+  "number": 2,
+  "title": "HAI SEG'NAP CIPTAAN TUHAN",
+  "title_full": "002 HAI SEG'NAP CIPTAAN TUHAN",
+  "time_signature": "3/2",
+  "key": "2#=D",
+  "author": null,
+  "youtube_url": "https://www.youtube.com/embed/KCXzH-_WwXM",
+  "verses": [
+    {
+      "label": "1/4",
+      "type": "verse",
+      "lines": [
+        "Hai seg'nap ciptaan Tuhan",
+        "Nyanyikan lagu pujian",
+        "Puji Tuhan, Haleluya",
+        "Pancaran sinar mentari",
+        "Cahaya bulan berseri"
+      ],
+      "text": "Hai seg'nap ciptaan Tuhan\nNyanyikan lagu pujian\nPuji Tuhan, Haleluya\nPancaran sinar mentari\nCahaya bulan berseri"
+    },
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Puji Tuhan, Puji Tuhan",
+        "Haleluya, haleluya, haleluya"
+      ],
+      "text": "Puji Tuhan, Puji Tuhan\nHaleluya, haleluya, haleluya"
+    },
+    {
+      "label": "2/4",
+      "type": "verse",
+      "lines": [
+        "Desiran angin menghembus",
+        "Awan bergulung menembus",
+        "Puji Tuhan, Haleluya",
+        "Di kala fajar merekah",
+        "Dan waktu senja nyanyilah"
+      ],
+      "text": "Desiran angin menghembus\nAwan bergulung menembus\nPuji Tuhan, Haleluya\nDi kala fajar merekah\nDan waktu senja nyanyilah"
+    },
+    {
+      "label": "3/4",
+      "type": "verse",
+      "lines": [
+        "Aliran air yang jernih",
+        "Menyanyikan lagu kasih",
+        "Puji Tuhan, Haleluya",
+        "Bagai api yang membara",
+        "Dan menghangatkan udara"
+      ],
+      "text": "Aliran air yang jernih\nMenyanyikan lagu kasih\nPuji Tuhan, Haleluya\nBagai api yang membara\nDan menghangatkan udara"
+    },
+    {
+      "label": "4/4",
+      "type": "verse",
+      "lines": [
+        "Sembah sujudlah pada-Nya",
+        "Datang dan t'rima berkat-Nya",
+        "Puji Tuhan, Haleluya",
+        "Puji Bapa dan Putra-Nya",
+        "Puji Roh Kudus, serta-Nya"
+      ],
+      "text": "Sembah sujudlah pada-Nya\nDatang dan t'rima berkat-Nya\nPuji Tuhan, Haleluya\nPuji Bapa dan Putra-Nya\nPuji Roh Kudus, serta-Nya"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/02/002-hai-segnap-ciptaan-tuhan.html"
+}

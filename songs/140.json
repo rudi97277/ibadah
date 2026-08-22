@@ -1,0 +1,67 @@
+{
+  "number": 140,
+  "title": "TAK 'KAN LAMA LAGI",
+  "title_full": "140 TAK 'KAN LAMA LAGI",
+  "time_signature": "6/4",
+  "key": "1#=G",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "1/4",
+      "type": "verse",
+      "lines": [
+        "Takkan lama lagi",
+        "Umur dunia ini",
+        "Lalu berjumpa kekasih",
+        "Yang s'karang di kubur"
+      ],
+      "text": "Takkan lama lagi\nUmur dunia ini\nLalu berjumpa kekasih\nYang s'karang di kubur"
+    },
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Sucikan jiwaku",
+        "Sambut hari itu",
+        "Ya Yesus, oleh darah-Mu",
+        "Basuhkan dosaku"
+      ],
+      "text": "Sucikan jiwaku\nSambut hari itu\nYa Yesus, oleh darah-Mu\nBasuhkan dosaku"
+    },
+    {
+      "label": "2/4",
+      "type": "verse",
+      "lines": [
+        "Takkan lama lagi",
+        "Topan bergemuruh",
+        "Lalu kita akan pergi",
+        "Ke neg'ri yang teduh"
+      ],
+      "text": "Takkan lama lagi\nTopan bergemuruh\nLalu kita akan pergi\nKe neg'ri yang teduh"
+    },
+    {
+      "label": "3/4",
+      "type": "verse",
+      "lines": [
+        "Sedikitlah lagi",
+        "Hati sedih dan g'lap",
+        "Lalu masuk t'rang surgawi",
+        "Tak lagi meratap"
+      ],
+      "text": "Sedikitlah lagi\nHati sedih dan g'lap\nLalu masuk t'rang surgawi\nTak lagi meratap"
+    },
+    {
+      "label": "4/4",
+      "type": "verse",
+      "lines": [
+        "Di sini berpisah",
+        "Menangis, berduka",
+        "Di sana tak lagi pisah",
+        "Senang dan bahagia"
+      ],
+      "text": "Di sini berpisah\nMenangis, berduka\nDi sana tak lagi pisah\nSenang dan bahagia"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/03/140-tak-kan-lama-lagi.html"
+}

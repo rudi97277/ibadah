@@ -1,0 +1,39 @@
+{
+  "number": 405,
+  "title": "ADA BALSEM DI GILEAD",
+  "title_full": "405 ADA BALSEM DI GILEAD",
+  "time_signature": "4/4",
+  "key": "1b=F",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Ada balsem di Gilead, Yang sembuhkan luka",
+        "Ada balsem di Gilead, Sembuhkan jiwamu"
+      ],
+      "text": "Ada balsem di Gilead, Yang sembuhkan luka\nAda balsem di Gilead, Sembuhkan jiwamu"
+    },
+    {
+      "label": "1/2",
+      "type": "verse",
+      "lines": [
+        "Sering aku kecewa, Kerjaku percuma",
+        "Tapi oleh Roh Allah, Jiwaku s'lamatlah"
+      ],
+      "text": "Sering aku kecewa, Kerjaku percuma\nTapi oleh Roh Allah, Jiwaku s'lamatlah"
+    },
+    {
+      "label": "2/2",
+      "type": "verse",
+      "lines": [
+        "Meski tak fasih lidah, Tak pandai berdoa",
+        "C'ritakan kasih Yesus, Yang mati buat semua"
+      ],
+      "text": "Meski tak fasih lidah, Tak pandai berdoa\nC'ritakan kasih Yesus, Yang mati buat semua"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/05/405-ada-balsem-di-gilead.html"
+}

@@ -1,0 +1,56 @@
+{
+  "number": 99,
+  "title": "BAPAKU MAHA KUASA",
+  "title_full": "099 BAPAKU MAHA KUASA",
+  "time_signature": "4/4",
+  "key": "1#=G",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "1/3",
+      "type": "verse",
+      "lines": [
+        "Bapaku maha kuasa",
+        "Ku takkan sangkal Dia",
+        "Maha kuat, maha ajaib",
+        "Langitlah saksi-Nya"
+      ],
+      "text": "Bapaku maha kuasa\nKu takkan sangkal Dia\nMaha kuat, maha ajaib\nLangitlah saksi-Nya"
+    },
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Ajaiblah, ajaiblah bintang diciptakan",
+        "Ajaiblah, ajaiblah dunia dijadikan",
+        "Tapi kes'lamatan dan kesucian",
+        "Itu kar'na ajaiblah kasih-Nya"
+      ],
+      "text": "Ajaiblah, ajaiblah bintang diciptakan\nAjaiblah, ajaiblah dunia dijadikan\nTapi kes'lamatan dan kesucian\nItu kar'na ajaiblah kasih-Nya"
+    },
+    {
+      "label": "2/3",
+      "type": "verse",
+      "lines": [
+        "Kulihat kemuliaan-Nya",
+        "Tapi belum semua",
+        "Ajaiblah Dia dan takhta-Nya",
+        "Kekal selamanya"
+      ],
+      "text": "Kulihat kemuliaan-Nya\nTapi belum semua\nAjaiblah Dia dan takhta-Nya\nKekal selamanya"
+    },
+    {
+      "label": "3/3",
+      "type": "verse",
+      "lines": [
+        "Kitab suci menc'ritakan",
+        "Hikmat dan kuasa-Nya",
+        "Kicau burung, harum bunga",
+        "Menyaksikan Dia"
+      ],
+      "text": "Kitab suci menc'ritakan\nHikmat dan kuasa-Nya\nKicau burung, harum bunga\nMenyaksikan Dia"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/03/99-bapaku-maha-kuasa.html"
+}

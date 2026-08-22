@@ -1,0 +1,74 @@
+[
+  {
+    "id": "misi-kita",
+    "title": "Misi Kita",
+    "key": "",
+    "time_signature": "",
+    "author": "",
+    "is_custom": true,
+    "verses": [
+      {
+        "type": "verse",
+        "label": "1/2",
+        "lines": [
+          "Kita terpanggil, untuk b'ritakan, hanya Yesuslah jalan",
+          "Rendahkan hati, lakukan tugas, kerjakanlah tiap hari",
+          "Nubuat dig'napi, janganlah lengah, kabarkan tentang Yesus",
+          "Yang Mahakasih, s'rahkan hidup-Nya, Dialah Jurus'lamat"
+        ]
+      },
+      {
+        "type": "chorus",
+        "label": "Refrein",
+        "lines": [
+          "Berdasar Alkitab, tekun pada misi, hingga lihat Tuhan datang",
+          "Dengar suara t'rompet, merdu membahana, mulia kedatangan-Nya",
+          "Raja s'gala raja, agung dan berjaya, sungguh mulia hari itu"
+        ]
+      },
+      {
+        "type": "verse",
+        "label": "2/2",
+        "lines": [
+          "Mari berdoa 'tuk hujan akhir, bersatu kita jalan",
+          "Bergandeng tangan, pergi kabarkan, agar dunia percaya",
+          "Dialah Tuhan yang maha tinggi, sembah puji pada-Nya",
+          "Mukjizat nyata oleh kuasa Roh bila kita setia"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ssa",
+    "title": "Lagu Tema SSA 2026",
+    "key": "",
+    "time_signature": "",
+    "author": "",
+    "is_custom": true,
+    "verses": [
+      {
+        "type": "verse",
+        "label": "",
+        "lines": [
+          "Dengar suara trompet membahana",
+          "Tanda Yesus datang s'bagai Raja",
+          "Menjemput kita anak yang setia",
+          "Diangkat, dibawa ke Surga",
+          "Ayo kita siap dan sedia",
+          "b'ritakanlah ke seluruh dunia",
+          "Agar dunia mau percaya",
+          "Yesuslah jalan kes'lamatan",
+          "Misi kita, agar dunia",
+          "Dengar berita kita",
+          "Yesus mati mengganti kita",
+          "Agar kita masuk Surga",
+          "Ayo kita siap dan sedia",
+          "B'ritakanlah ke seluruh dunia",
+          "Agar dunia mau percaya",
+          "Yesuslah jalan kes'lamatan",
+          "Yesuslah jalan kes'lamatan"
+        ]
+      }
+    ]
+  }
+]

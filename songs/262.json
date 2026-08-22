@@ -1,0 +1,56 @@
+{
+  "number": 262,
+  "title": "HAI SAUDARA MENGAPA?",
+  "title_full": "262 HAI SAUDARA MENGAPA?",
+  "time_signature": "9/8",
+  "key": "2#=D",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "1/4",
+      "type": "verse",
+      "lines": [
+        "Hai saudara mengapa",
+        "Tak datang pada Yesus",
+        "Dengarlah panggilan-Nya",
+        "Hai saudara, datanglah"
+      ],
+      "text": "Hai saudara mengapa\nTak datang pada Yesus\nDengarlah panggilan-Nya\nHai saudara, datanglah"
+    },
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Datanglah, datanglah,",
+        "Mengapa berlambatan?",
+        "Datanglah, datanglah,",
+        "T'rimalah berkat Tuhan"
+      ],
+      "text": "Datanglah, datanglah,\nMengapa berlambatan?\nDatanglah, datanglah,\nT'rimalah berkat Tuhan"
+    },
+    {
+      "label": "3/4",
+      "type": "verse",
+      "lines": [
+        "Tak ada perdamaian",
+        "Dalam dunia yang fana",
+        "Datanglah pada Tuhan",
+        "Perhentian t'rimalah"
+      ],
+      "text": "Tak ada perdamaian\nDalam dunia yang fana\nDatanglah pada Tuhan\nPerhentian t'rimalah"
+    },
+    {
+      "label": "4/4",
+      "type": "verse",
+      "lines": [
+        "Datang mengaku dosa",
+        "Tuhan takkan tolakkan",
+        "Haraplah kepada-Nya",
+        "Ia akan s'lamatkan"
+      ],
+      "text": "Datang mengaku dosa\nTuhan takkan tolakkan\nHaraplah kepada-Nya\nIa akan s'lamatkan"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/04/262-hai-saudara-mengapa.html"
+}

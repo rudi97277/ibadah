@@ -1,0 +1,67 @@
+{
+  "number": 408,
+  "title": "BERDIAM, BERDIAM",
+  "title_full": "408 BERDIAM, BERDIAM",
+  "time_signature": "4/4",
+  "key": "2b=Bb",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "1/4",
+      "type": "verse",
+      "lines": [
+        "Berdiam, berdiam",
+        "Bisik pun jangan",
+        "Berdiam dan dengar",
+        "Tuhan berfirman"
+      ],
+      "text": "Berdiam, berdiam\nBisik pun jangan\nBerdiam dan dengar\nTuhan berfirman"
+    },
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Berjalan perlahan",
+        "Tuhanmu hadir",
+        "Berjalan perlahan",
+        "Datanglah hampir"
+      ],
+      "text": "Berjalan perlahan\nTuhanmu hadir\nBerjalan perlahan\nDatanglah hampir"
+    },
+    {
+      "label": "2/4",
+      "type": "verse",
+      "lines": [
+        "Berdiam, berdiam",
+        "Suci rumah-Nya",
+        "Tenangkan langkahmu",
+        "Dengar Sabda-Nya"
+      ],
+      "text": "Berdiam, berdiam\nSuci rumah-Nya\nTenangkan langkahmu\nDengar Sabda-Nya"
+    },
+    {
+      "label": "3/4",
+      "type": "verse",
+      "lines": [
+        "Berdiam, berdiam",
+        "Dan berdoalah",
+        "Di sini bagaikan",
+        "Firdaus rasanya"
+      ],
+      "text": "Berdiam, berdiam\nDan berdoalah\nDi sini bagaikan\nFirdaus rasanya"
+    },
+    {
+      "label": "4/4",
+      "type": "verse",
+      "lines": [
+        "Berdiam, berdiam",
+        "T'rima berkatNya",
+        "Berdiam dan tunggu",
+        "Sembahlah Allah"
+      ],
+      "text": "Berdiam, berdiam\nT'rima berkatNya\nBerdiam dan tunggu\nSembahlah Allah"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/05/408-berdiam-berdiam.html"
+}

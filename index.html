@@ -1,0 +1,2676 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lagu Sion - Fullscreen Presentation</title>
+  <style>
+    /* ==========================================================================
+       RESET & BASE STYLES - PURE WHITE BACKGROUND FOR PROJECTOR / POWERPOINT
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #ffffff;
+      color: #111111;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      overflow: hidden;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Fullscreen container */
+    #app {
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      height: 100vh;
+      background-color: #ffffff;
+      position: relative;
+    }
+
+    /* ==========================================================================
+       HEADER & FLOATING CONTROLS
+       ========================================================================== */
+    /* Hover Trigger Zones for instantaneous hover appearance */
+    .top-hover-zone {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 45px;
+      z-index: 49;
+      background: transparent;
+    }
+
+    .bottom-hover-zone {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 45px;
+      z-index: 49;
+      background: transparent;
+    }
+
+    .top-toolbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #e0e0e0;
+      z-index: 50;
+      opacity: 0;
+      transform: translateY(-100%);
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .top-hover-zone:hover ~ .top-toolbar,
+    .top-toolbar:hover,
+    .top-toolbar.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .top-toolbar.force-hide {
+      opacity: 0 !important;
+      transform: translateY(-100%) !important;
+      pointer-events: none !important;
+    }
+
+    .bottom-toolbar.force-hide {
+      opacity: 0 !important;
+      transform: translateY(100%) !important;
+      pointer-events: none !important;
+    }
+
+    .toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn {
+      background: #f4f4f5;
+      color: #222222;
+      border: 1px solid #d4d4d8;
+      border-radius: 6px;
+      padding: 7px 12px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .btn:hover {
+      background: #e4e4e7;
+      border-color: #a1a1aa;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-primary {
+      background: #18181b;
+      color: #ffffff;
+      border-color: #18181b;
+    }
+
+    .btn-primary:hover {
+      background: #27272a;
+    }
+
+    .btn-icon {
+      padding: 7px 10px;
+      font-size: 16px;
+    }
+
+    .number-jump-input {
+      width: 80px;
+      padding: 6px 10px;
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+      border: 1px solid #d4d4d8;
+      border-radius: 6px;
+      outline: none;
+      background: #ffffff;
+      color: #111111;
+    }
+
+    .number-jump-input:focus {
+      border-color: #18181b;
+      box-shadow: 0 0 0 2px rgba(24, 24, 27, 0.15);
+    }
+
+    /* ==========================================================================
+       MAIN PRESENTATION SLIDE VIEW - CENTERED & HIGH CONTRAST
+       ========================================================================== */
+    .slide-viewport {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 70px 40px 60px 40px;
+      background-color: #ffffff;
+      cursor: pointer;
+    }
+
+    .slide-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .song-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #000000;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .song-meta {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #555555;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .meta-badge {
+      background: #f0f0f0;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .verse-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 12px;
+      padding: 6px 24px;
+      border-radius: 28px;
+      background: #18181b;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+      transition: all 0.2s ease;
+    }
+
+    .verse-badge.chorus {
+      background: #b91c1c;
+      color: #ffffff;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 1400px;
+      text-align: center;
+    }
+
+    .lyrics-container {
+      font-size: 3.4rem;
+      font-weight: 700;
+      line-height: 1.45;
+      color: #000000;
+      white-space: pre-line;
+      text-align: center;
+      transition: font-size 0.15s ease;
+      letter-spacing: -0.2px;
+    }
+
+    /* All Verses Scrollable Mode (Full Width & Sticky Header) */
+    .full-song-container {
+      display: none;
+      width: 100%;
+      max-width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+      overflow: hidden;
+      user-select: text;
+    }
+
+    .full-song-container.active {
+      display: flex;
+    }
+
+    .full-song-header-sticky {
+      width: 100%;
+      padding: 0 0 14px 0;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #e2e8f0;
+      text-align: center;
+      flex-shrink: 0;
+      box-sizing: border-box;
+      z-index: 10;
+    }
+
+    .full-verses-scroll-area {
+      flex: 1;
+      width: 100%;
+      max-width: 100%;
+      overflow-y: auto;
+      padding: 30px 40px 100px 40px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    .full-verse-block {
+      max-width: 1400px;
+      margin: 0 auto 48px auto;
+      padding: 24px 20px;
+      border-bottom: 1px dashed #e2e8f0;
+    }
+
+    .full-verse-block:last-child {
+      border-bottom: none;
+    }
+
+    .full-verse-label {
+      display: inline-block;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #18181b;
+      margin-bottom: 16px;
+      padding: 4px 18px;
+      border-radius: 20px;
+      background: #f1f5f9;
+      letter-spacing: 0.5px;
+    }
+
+    .full-verse-label.chorus {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .full-verse-lines {
+      font-size: var(--full-verse-font-size, 3.4rem);
+      font-weight: 700;
+      line-height: 1.5;
+      color: #000000;
+      white-space: pre-line;
+      text-align: center;
+      transition: font-size 0.15s ease;
+      letter-spacing: -0.2px;
+    }
+
+    /* ==========================================================================
+       BOTTOM PROGRESS & VERSE QUICK-JUMP
+       ========================================================================== */
+    .bottom-toolbar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid #e0e0e0;
+      z-index: 50;
+      opacity: 0;
+      transform: translateY(100%);
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .bottom-hover-zone:hover ~ .bottom-toolbar,
+    .bottom-toolbar:hover,
+    .bottom-toolbar.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .verse-jump-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .verse-btn {
+      padding: 5px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 6px;
+      border: 1px solid #d4d4d8;
+      background: #ffffff;
+      color: #333333;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .verse-btn:hover {
+      background: #f4f4f5;
+    }
+
+    .verse-btn.active {
+      background: #18181b;
+      color: #ffffff;
+      border-color: #18181b;
+    }
+
+    .verse-btn.is-chorus {
+      color: #b91c1c;
+      border-color: #fca5a5;
+    }
+
+    .verse-btn.is-chorus.active {
+      background: #b91c1c;
+      color: #ffffff;
+      border-color: #b91c1c;
+    }
+
+    .status-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: #71717a;
+    }
+
+    /* ==========================================================================
+       SIDEBAR SEARCH & SONG LIST DRAWER
+       ========================================================================== */
+    .drawer-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .drawer-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .drawer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 420px;
+      max-width: 90vw;
+      height: 100vh;
+      background: #ffffff;
+      box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+      z-index: 101;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(-100%);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #e4e4e7;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .drawer-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #111111;
+    }
+
+    .search-box-container {
+      padding: 12px 20px;
+      border-bottom: 1px solid #f4f4f5;
+      background: #fafafa;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 15px;
+      border: 1px solid #d4d4d8;
+      border-radius: 8px;
+      outline: none;
+      background: #ffffff;
+    }
+
+    .search-input:focus {
+      border-color: #18181b;
+      box-shadow: 0 0 0 2px rgba(24, 24, 27, 0.1);
+    }
+
+    .song-list {
+      flex: 1;
+      overflow-y: auto;
+      list-style: none;
+    }
+
+    .song-item {
+      padding: 12px 20px;
+      border-bottom: 1px solid #f4f4f5;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s;
+    }
+
+    .song-item:hover {
+      background: #f4f4f5;
+    }
+
+    .song-item.active {
+      background: #e4e4e7;
+      font-weight: 700;
+    }
+
+    .song-item-num {
+      font-weight: 800;
+      width: 48px;
+      color: #18181b;
+      font-size: 15px;
+    }
+
+    .song-item-title {
+      flex: 1;
+      font-size: 14px;
+      color: #27272a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-right: 8px;
+    }
+
+    .song-item-verses {
+      font-size: 12px;
+      color: #71717a;
+      font-weight: 500;
+    }
+
+    .btn-tab {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-tab:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .btn-tab.active {
+      background: #0f172a;
+      color: #ffffff;
+      border-color: #0f172a;
+    }
+
+    .btn-add-queue {
+      padding: 3px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 4px;
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      cursor: pointer;
+      margin-left: 6px;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+
+    .btn-add-queue:hover {
+      background: #0f172a;
+      color: #ffffff;
+      border-color: #0f172a;
+    }
+
+    /* Playlist Items & Queue Modal */
+    .playlist-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      margin-bottom: 6px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      gap: 8px;
+      transition: background 0.15s ease;
+    }
+
+    .playlist-item:hover {
+      background: #f1f5f9;
+    }
+
+    .playlist-item.active {
+      background: #eff6ff;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 1px #3b82f6;
+    }
+
+    .playlist-item-info {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .playlist-item-num {
+      font-size: 12px;
+      font-weight: 700;
+      color: #64748b;
+      min-width: 20px;
+    }
+
+    .playlist-item-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1e293b;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .playlist-badge-active {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 6px;
+      background: #2563eb;
+      color: #ffffff;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .playlist-item-actions {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-sm {
+      padding: 3px 7px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 4px;
+    }
+
+    /* ==========================================================================
+       SETTINGS MODAL / DIALOG
+       ========================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal {
+      background: #ffffff;
+      border-radius: 12px;
+      width: 480px;
+      max-width: 90vw;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .modal-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .setting-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .setting-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333333;
+    }
+
+    .setting-control select,
+    .setting-control input[type="range"] {
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid #d4d4d8;
+      font-size: 14px;
+    }
+
+    /* ==========================================================================
+       BLANK SCREEN OVERLAY
+       ========================================================================== */
+    #blank-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #ffffff;
+      z-index: 999;
+      display: none;
+      cursor: pointer;
+    }
+
+    #blank-screen.active {
+      display: block;
+    }
+
+    /* Helper notification toast */
+    .toast {
+      position: fixed;
+      bottom: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #18181b;
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      z-index: 150;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app">
+    <!-- Top Hover Trigger Zone & Toolbar -->
+    <div class="top-hover-zone" id="top-hover-zone"></div>
+    <header class="top-toolbar" id="top-toolbar">
+      <div class="toolbar-group">
+        <button class="btn btn-primary" id="btn-toggle-drawer" title="Buka Daftar Lagu (M / /)">
+          📚 Daftar Lagu
+        </button>
+        <div style="display: flex; align-items: center; gap: 4px;">
+          <label for="jump-num-input" style="font-size: 13px; font-weight: 600; color: #555;">No:</label>
+          <input type="number" id="jump-num-input" class="number-jump-input" min="1" max="525" placeholder="1-525" title="Masukkan nomor lagu dan tekan Enter">
+          <button class="btn" id="btn-jump-go">Buka</button>
+        </div>
+      </div>
+
+      <div class="toolbar-group">
+        <button class="btn" id="btn-toggle-playlist" title="Atur Urutan Lagu Ibadah (Playlist)">
+          📋 Urutan Lagu <span id="playlist-count-badge" style="background: #2563eb; color: #fff; padding: 1px 6px; border-radius: 10px; font-size: 11px; margin-left: 3px; display: none;">0</span>
+        </button>
+        <button class="btn" id="btn-prev-song" title="Lagu Sebelumnya (P)">⏮ Sblm</button>
+        <button class="btn" id="btn-next-song" title="Lagu Berikutnya (N)">Brkt ⏭</button>
+      </div>
+
+      <div class="toolbar-group">
+        <button class="btn" id="btn-view-mode" title="Ubah Tampilan Slide / Tampilkan Semua">📄 Tampilkan Semua</button>
+        <button class="btn btn-icon" id="btn-font-dec" title="Kecilkan Huruf (-)">A-</button>
+        <button class="btn btn-icon" id="btn-font-inc" title="Besarkan Huruf (+)">A+</button>
+        <button class="btn" id="btn-blank" title="Whiteout / Layar Putih Bersih (B / .)">⚪ Blank (B)</button>
+        <button class="btn btn-primary" id="btn-fullscreen" title="Layar Penuh / Fullscreen (F / F11)">⛶ Fullscreen</button>
+        <button class="btn btn-icon" id="btn-settings" title="Pengaturan">⚙️</button>
+      </div>
+    </header>
+
+    <!-- Main Projection View Area -->
+    <main class="slide-viewport" id="slide-viewport">
+      <!-- Slide Mode (Default) -->
+      <div id="slide-content" style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div class="slide-header">
+          <h1 class="song-title" id="disp-title">001 DI HADAPAN HADIRAT-MU</h1>
+          <div class="song-meta" id="disp-meta">
+            <span class="meta-badge" id="disp-key">Nada: 2#=D</span>
+            <span class="meta-badge" id="disp-time">Ketukan: 4/4</span>
+          </div>
+          <div>
+            <span class="verse-badge" id="disp-verse-badge">1/4</span>
+          </div>
+        </div>
+
+        <div class="slide-body">
+          <div class="lyrics-container" id="disp-lyrics">
+            Di hadapan hadirat-Mu
+            Kami umat-Mu menyembah
+            Mengakui Engkau Tuhan
+            Allah kekal, Maha kuasa
+          </div>
+        </div>
+      </div>
+
+      <!-- Full Song Mode (All Verses on One Page - Sticky Header & Full Width Scroll) -->
+      <div class="full-song-container" id="full-song-content">
+        <div class="full-song-header-sticky">
+          <div class="slide-header" style="margin-bottom: 0;">
+            <h1 class="song-title" id="full-disp-title">001 DI HADAPAN HADIRAT-MU</h1>
+            <div class="song-meta" id="full-disp-meta">
+              <span class="meta-badge" id="full-disp-key">Nada: 2#=D</span>
+              <span class="meta-badge" id="full-disp-time">Ketukan: 4/4</span>
+              <span class="meta-badge" id="full-disp-author">Isaac Watts</span>
+            </div>
+          </div>
+        </div>
+        <div class="full-verses-scroll-area" id="full-verses-scroll-area">
+          <div id="full-verses-list"></div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bottom Hover Trigger Zone & Toolbar -->
+    <div class="bottom-hover-zone" id="bottom-hover-zone"></div>
+    <footer class="bottom-toolbar" id="bottom-toolbar">
+      <div class="toolbar-group">
+        <button class="btn" id="btn-prev-slide" title="Slide Sebelumnya (Panah Kiri / Page Up)">◀ Sblm</button>
+        <button class="btn btn-primary" id="btn-next-slide" title="Slide Berikutnya (Spasi / Panah Kanan / Page Down)">Brkt ▶</button>
+      </div>
+
+      <div class="toolbar-group verse-jump-group" id="verse-jump-buttons">
+        <!-- Generated verse jump pills -->
+      </div>
+
+      <div class="toolbar-group">
+        <span class="status-text" id="status-indicator">Lagu 1 / 525</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Blank Screen Overlay (Whiteout for sermons/prayer) -->
+  <div id="blank-screen" title="Klik atau tekan B untuk kembali"></div>
+
+  <!-- Drawer Sidebar for Song Search & Selection -->
+  <div class="drawer-backdrop" id="drawer-backdrop"></div>
+  <aside class="drawer" id="drawer">
+    <div class="drawer-header">
+      <h2 class="drawer-title" id="drawer-main-title">Daftar Lagu</h2>
+      <button class="btn btn-icon" id="btn-close-drawer">✕</button>
+    </div>
+
+    <!-- Category Tabs & Add Song Button -->
+    <div style="display: flex; gap: 6px; padding: 10px 14px 6px 14px; background: #ffffff;">
+      <button class="btn btn-tab active" id="tab-lagu-sion" style="flex: 1; padding: 6px 8px; font-size: 12px; font-weight: 700; border-radius: 6px;">
+        📚 Lagu Sion (<span id="count-lagu-sion">525</span>)
+      </button>
+      <button class="btn btn-tab" id="tab-lagu-tambahan" style="flex: 1; padding: 6px 8px; font-size: 12px; font-weight: 700; border-radius: 6px;">
+        🎵 Tambahan (<span id="count-lagu-tambahan">1</span>)
+      </button>
+      <button class="btn btn-primary" id="btn-open-add-song" title="Tambah Lagu Baru (Tanpa Nomor)" style="padding: 6px 10px; font-size: 12px; font-weight: 700; border-radius: 6px; white-space: nowrap;">
+        ➕ Baru
+      </button>
+    </div>
+
+    <div class="search-box-container">
+      <input type="text" id="song-search-input" class="search-input" placeholder="🔍 Cari nomor atau judul lagu...">
+    </div>
+    <ul class="song-list" id="song-list-items">
+      <!-- Generated list of songs -->
+    </ul>
+  </aside>
+
+  <!-- Settings Modal -->
+  <div class="modal-backdrop" id="settings-modal-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">⚙️ Pengaturan Tampilan & File JSON</h3>
+        <button class="btn btn-icon" id="btn-close-settings">✕</button>
+      </div>
+      <div class="setting-row">
+        <label class="setting-label" for="setting-font-family">Jenis Huruf:</label>
+        <div class="setting-control">
+          <select id="setting-font-family">
+            <option value="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Sans-Serif (Modern Standar)</option>
+            <option value="serif">Serif (Klasik / Buku)</option>
+            <option value="Arial, sans-serif">Arial</option>
+            <option value="Georgia, serif">Georgia</option>
+            <option value="'Segoe UI', sans-serif">Segoe UI</option>
+          </select>
+        </div>
+      </div>
+      <div class="setting-row">
+        <label class="setting-label" for="setting-font-size">Ukuran Huruf Slide:</label>
+        <div class="setting-control" style="display: flex; align-items: center; gap: 8px;">
+          <input type="range" id="setting-font-size" min="1.8" max="8.0" step="0.1" value="3.4">
+          <span id="font-size-val" style="font-size: 13px; font-weight: 700; width: 45px;">3.4rem</span>
+        </div>
+      </div>
+      <div class="setting-row">
+        <label class="setting-label" for="setting-show-meta">Tampilkan Info Nada & Ketukan:</label>
+        <div class="setting-control">
+          <input type="checkbox" id="setting-show-meta" checked style="width: 18px; height: 18px;">
+        </div>
+      </div>
+      <div class="setting-row">
+        <label class="setting-label" for="setting-autohide-nav">Auto-Hide Toolbar (Hanya Muncul Saat Hover):</label>
+        <div class="setting-control">
+          <input type="checkbox" id="setting-autohide-nav" checked style="width: 18px; height: 18px;">
+        </div>
+      </div>
+      <div class="setting-row">
+        <label class="setting-label" for="setting-split-verses">Bagi Lirik Panjang Jadi Sub-Slide:</label>
+        <div class="setting-control">
+          <input type="checkbox" id="setting-split-verses" checked style="width: 18px; height: 18px;">
+        </div>
+      </div>
+      <div class="setting-row">
+        <label class="setting-label" for="setting-interleave-ref">Alur Menyanyi (1 ➔ Ref ➔ 2 ➔ Ref):</label>
+        <div class="setting-control">
+          <input type="checkbox" id="setting-interleave-ref" checked style="width: 18px; height: 18px;">
+        </div>
+      </div>
+
+      <div style="margin-top: 16px; padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
+        <div style="font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 8px;" id="settings-save-status">
+          💾 Status: Tersimpan otomatis
+        </div>
+        <div>
+          <button class="btn btn-primary" id="btn-connect-file" title="Hubungkan file settings.json di disk agar terupdate langsung saat diedit">🔗 Hubungkan File settings.json</button>
+        </div>
+      </div>
+
+      <div style="margin-top: 18px; text-align: right;">
+        <button class="btn btn-primary" id="btn-save-settings">Tutup & Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Worship Playlist / Queue Modal -->
+  <div class="modal-backdrop" id="playlist-modal-backdrop">
+    <div class="modal" style="width: 560px; max-height: 85vh; display: flex; flex-direction: column;">
+      <div class="modal-header" style="margin-bottom: 14px;">
+        <h3 class="modal-title">📋 Urutan Lagu Ibadah (Playlist)</h3>
+        <button class="btn btn-icon" id="btn-close-playlist">✕</button>
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <label for="playlist-batch-input" style="font-size: 13px; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">
+          Input Cepat (Ketik nomor lagu dipisah koma/spasi, misal: <code>2, 5, 6, 73, 239</code>):
+        </label>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="playlist-batch-input" class="search-input" placeholder="Contoh: 2, 5, 6, 73, 239" style="flex: 1; padding: 7px 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
+          <button class="btn btn-primary" id="btn-apply-playlist-batch">Set Urutan</button>
+        </div>
+      </div>
+
+      <div style="font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 6px; display: flex; justify-content: space-between;">
+        <span>DAFTAR ANTREAN LAGU:</span>
+        <span id="playlist-status-hint">0 lagu terdaftar</span>
+      </div>
+
+      <div style="flex: 1; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 8px; background: #f8fafc; padding: 8px; min-height: 180px; max-height: 280px;" id="playlist-items-container">
+        <!-- Rendered items in playlist -->
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px;">
+        <button class="btn" id="btn-clear-playlist" style="color: #b91c1c; border-color: #fca5a5;">🗑️ Kosongkan</button>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-primary" id="btn-start-playlist">▶ Buka Lagu Pertama</button>
+          <button class="btn" id="btn-done-playlist">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Tambah Lagu Baru (Tanpa Nomor) -->
+  <div class="modal-backdrop" id="add-song-modal-backdrop">
+    <div class="modal" style="width: 580px; max-height: 90vh; display: flex; flex-direction: column;">
+      <div class="modal-header" style="margin-bottom: 14px;">
+        <h3 class="modal-title">🎵 Tambah Lagu Baru (Tanpa Nomor)</h3>
+        <button class="btn btn-icon" id="btn-close-add-song">✕</button>
+      </div>
+
+      <div style="flex: 1; overflow-y: auto; padding-right: 4px;">
+        <div style="margin-bottom: 12px;">
+          <label for="new-song-title" style="font-size: 13px; font-weight: 700; color: #374151; display: block; margin-bottom: 4px;">
+            Judul Lagu: *
+          </label>
+          <input type="text" id="new-song-title" class="search-input" placeholder="Contoh: Misi Kita / Sentuh Hatiku" style="width: 100%; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+          <div>
+            <label for="new-song-key" style="font-size: 12px; font-weight: 600; color: #64748b; display: block; margin-bottom: 4px;">Nada Dasar:</label>
+            <input type="text" id="new-song-key" class="search-input" placeholder="Misal: G / 1=D" style="width: 100%; padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+          </div>
+          <div>
+            <label for="new-song-time" style="font-size: 12px; font-weight: 600; color: #64748b; display: block; margin-bottom: 4px;">Ketukan:</label>
+            <input type="text" id="new-song-time" class="search-input" placeholder="Misal: 4/4 / 3/4" style="width: 100%; padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+          </div>
+          <div>
+            <label for="new-song-author" style="font-size: 12px; font-weight: 600; color: #64748b; display: block; margin-bottom: 4px;">Pengarang:</label>
+            <input type="text" id="new-song-author" class="search-input" placeholder="Opsional" style="width: 100%; padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+          </div>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+            <label for="new-song-lyrics" style="font-size: 13px; font-weight: 700; color: #374151;">Lirik Lagu: *</label>
+            <span style="font-size: 11px; color: #64748b;">Pisahkan bagian dengan baris kosong. Awali 'Reff:' untuk refrein.</span>
+          </div>
+          <textarea id="new-song-lyrics" class="search-input" rows="9" placeholder="Contoh:&#10;Kita terpanggil, untuk b'ritakan...&#10;&#10;Reff:&#10;Berdasar Alkitab, tekun pada misi...&#10;&#10;Mari berdoa 'tuk hujan akhir..." style="width: 100%; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; font-size: 13px; line-height: 1.5; resize: vertical;"></textarea>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; border-top: 1px solid #e2e8f0; padding-top: 12px;">
+        <button class="btn" id="btn-cancel-add-song">Batal</button>
+        <button class="btn btn-primary" id="btn-save-new-song">💾 Simpan Lagu</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Notifikasi</div>
+
+  <script>
+    /* ==========================================================================
+       LAGU SION PRESENTATION VIEWER SCRIPT (Pure JSON Mode)
+       ========================================================================== */
+    (function() {
+      // Application State
+      let songsData = {};
+      let songsIndex = [];
+      let currentSongNumber = 1;
+      let currentVerseIndex = 0;
+      let isFullSongMode = false;
+      let fontSizeRem = 3.4;
+      let hideNavTimer = null;
+      let isNavAutoHiding = true;
+
+      // DOM Elements
+      const app = document.getElementById('app');
+      const topToolbar = document.getElementById('top-toolbar');
+      const bottomToolbar = document.getElementById('bottom-toolbar');
+      const slideViewport = document.getElementById('slide-viewport');
+      const slideContent = document.getElementById('slide-content');
+      const fullSongContent = document.getElementById('full-song-content');
+      
+      const dispTitle = document.getElementById('disp-title');
+      const dispMeta = document.getElementById('disp-meta');
+      const dispKey = document.getElementById('disp-key');
+      const dispTime = document.getElementById('disp-time');
+      const dispVerseBadge = document.getElementById('disp-verse-badge');
+      const dispLyrics = document.getElementById('disp-lyrics');
+      
+      const fullDispTitle = document.getElementById('full-disp-title');
+      const fullDispMeta = document.getElementById('full-disp-meta');
+      const fullDispKey = document.getElementById('full-disp-key');
+      const fullDispTime = document.getElementById('full-disp-time');
+      const fullDispAuthor = document.getElementById('full-disp-author');
+      const fullVersesList = document.getElementById('full-verses-list');
+
+      const verseJumpButtons = document.getElementById('verse-jump-buttons');
+      const statusIndicator = document.getElementById('status-indicator');
+      const jumpNumInput = document.getElementById('jump-num-input');
+      const btnJumpGo = document.getElementById('btn-jump-go');
+
+      const drawer = document.getElementById('drawer');
+      const drawerBackdrop = document.getElementById('drawer-backdrop');
+      const btnToggleDrawer = document.getElementById('btn-toggle-drawer');
+      const btnCloseDrawer = document.getElementById('btn-close-drawer');
+      const songSearchInput = document.getElementById('song-search-input');
+      const songListItems = document.getElementById('song-list-items');
+
+      const btnPrevSong = document.getElementById('btn-prev-song');
+      const btnNextSong = document.getElementById('btn-next-song');
+      const btnPrevSlide = document.getElementById('btn-prev-slide');
+      const btnNextSlide = document.getElementById('btn-next-slide');
+      const btnViewMode = document.getElementById('btn-view-mode');
+      const btnFontInc = document.getElementById('btn-font-inc');
+      const btnFontDec = document.getElementById('btn-font-dec');
+      const btnFullscreen = document.getElementById('btn-fullscreen');
+      const btnBlank = document.getElementById('btn-blank');
+      const blankScreen = document.getElementById('blank-screen');
+
+      const settingsModalBackdrop = document.getElementById('settings-modal-backdrop');
+      const btnSettings = document.getElementById('btn-settings');
+      const btnCloseSettings = document.getElementById('btn-close-settings');
+      const btnSaveSettings = document.getElementById('btn-save-settings');
+      const settingFontFamily = document.getElementById('setting-font-family');
+      const settingFontSize = document.getElementById('setting-font-size');
+      const fontSizeVal = document.getElementById('font-size-val');
+      const settingShowMeta = document.getElementById('setting-show-meta');
+      const settingAutohideNav = document.getElementById('setting-autohide-nav');
+      const toast = document.getElementById('toast');
+
+      const defaultSettings = {
+        font_family: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+        font_size_rem: 3.4,
+        show_metadata: true,
+        autohide_nav: true,
+        auto_split_long_verses: true,
+        refrain_interleaving: true,
+        worship_playlist: []
+      };
+      let appSettings = { ...defaultSettings };
+
+      const settingSplitVerses = document.getElementById('setting-split-verses');
+      const settingInterleaveRef = document.getElementById('setting-interleave-ref');
+      const settingsSaveStatus = document.getElementById('settings-save-status');
+      const btnConnectFile = document.getElementById('btn-connect-file');
+
+      // Playlist DOM Elements
+      const btnTogglePlaylist = document.getElementById('btn-toggle-playlist');
+      const playlistCountBadge = document.getElementById('playlist-count-badge');
+      const playlistModalBackdrop = document.getElementById('playlist-modal-backdrop');
+      const btnClosePlaylist = document.getElementById('btn-close-playlist');
+      const btnDonePlaylist = document.getElementById('btn-done-playlist');
+      const playlistBatchInput = document.getElementById('playlist-batch-input');
+      const btnApplyPlaylistBatch = document.getElementById('btn-apply-playlist-batch');
+      const playlistItemsContainer = document.getElementById('playlist-items-container');
+      const playlistStatusHint = document.getElementById('playlist-status-hint');
+      const btnClearPlaylist = document.getElementById('btn-clear-playlist');
+      const btnStartPlaylist = document.getElementById('btn-start-playlist');
+
+      // Custom / Unnumbered Songs DOM Elements
+      let customSongs = [];
+      let currentActiveTab = 'sion'; // 'sion' | 'tambahan'
+      let currentSongId = 1;
+
+      const tabLaguSion = document.getElementById('tab-lagu-sion');
+      const tabLaguTambahan = document.getElementById('tab-lagu-tambahan');
+      const countLaguSion = document.getElementById('count-lagu-sion');
+      const countLaguTambahan = document.getElementById('count-lagu-tambahan');
+      const btnOpenAddSong = document.getElementById('btn-open-add-song');
+      const addSongModalBackdrop = document.getElementById('add-song-modal-backdrop');
+      const btnCloseAddSong = document.getElementById('btn-close-add-song');
+      const btnCancelAddSong = document.getElementById('btn-cancel-add-song');
+      const btnSaveNewSong = document.getElementById('btn-save-new-song');
+      const newSongTitle = document.getElementById('new-song-title');
+      const newSongKey = document.getElementById('new-song-key');
+      const newSongTime = document.getElementById('new-song-time');
+      const newSongAuthor = document.getElementById('new-song-author');
+      const newSongLyrics = document.getElementById('new-song-lyrics');
+
+      let diskFileHandle = null;
+
+      // Connect directly to local settings.json using File System Access API (Chrome/Edge)
+      async function connectDiskFileHandle() {
+        if (!('showOpenFilePicker' in window)) {
+          alert('Browser ini belum mendukung File System Access API langsung. Silakan jalankan "./server-linux" atau "server-windows.exe" untuk auto-update file langsung.');
+          return;
+        }
+
+        try {
+          const [handle] = await window.showOpenFilePicker({
+            types: [{
+              description: 'JSON Settings File',
+              accept: { 'application/json': ['.json'] }
+            }],
+            multiple: false
+          });
+
+          if (handle) {
+            diskFileHandle = handle;
+            const file = await diskFileHandle.getFile();
+            const text = await file.text();
+            try {
+              const parsed = JSON.parse(text);
+              appSettings = { ...defaultSettings, ...parsed };
+              applySettingsToUI();
+            } catch (e) {}
+
+            settingsSaveStatus.textContent = `💾 Terhubung ke file: ${file.name} (Auto-update aktif!)`;
+            settingsSaveStatus.style.color = '#15803d';
+            btnConnectFile.textContent = '✅ Terhubung ke ' + file.name;
+            showToast('File settings.json terhubung!');
+            saveAppSettings(true);
+          }
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            console.warn('File connection error:', err);
+          }
+        }
+      }
+
+      // Initialize
+      async function init() {
+        await loadAppSettings();
+        await loadCustomSongs();
+        await loadSongsIndex();
+
+        updateCustomSongsCount();
+        renderDrawerList('');
+
+        // Restore last opened song and slide index (fallback to 1 if first time)
+        let initialSong = 1;
+        let initialSlide = 0;
+        try {
+          const savedSong = localStorage.getItem('lagu_sion_last_song');
+          const savedSlide = localStorage.getItem('lagu_sion_last_slide');
+          if (savedSong) {
+            initialSong = savedSong;
+            if (savedSlide !== null && !isNaN(parseInt(savedSlide))) {
+              initialSlide = parseInt(savedSlide);
+            }
+          } else if (appSettings.worship_playlist && appSettings.worship_playlist.length > 0) {
+            initialSong = appSettings.worship_playlist[0];
+          }
+        } catch (e) {}
+
+        await loadSong(initialSong, initialSlide);
+        setupEventListeners();
+        startAutoHideTimer();
+
+        // Background preload all_songs.json for ultra-fast song switching
+        try {
+          fetch('all_songs.json', { cache: 'no-store' })
+            .then(res => res.ok ? res.json() : null)
+            .then(allData => {
+              if (allData && Object.keys(allData).length > 0) {
+                songsData = { ...allData, ...songsData };
+              }
+            })
+            .catch(() => {});
+        } catch (e) {}
+      }
+
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+      }
+
+      // Load Songs Index from index.json
+      async function loadSongsIndex() {
+        try {
+          const res = await fetch('index.json', { cache: 'no-store' });
+          if (res.ok) {
+            const data = await res.json();
+            songsIndex = Array.isArray(data) ? data : [];
+          }
+        } catch (e) {
+          console.warn('Could not fetch index.json:', e);
+        }
+      }
+
+      // Load Custom Songs from Server API, local custom_songs.json, or localStorage
+      async function loadCustomSongs() {
+        let loaded = null;
+        try {
+          const res = await fetch('/api/custom_songs', { cache: 'no-store' });
+          if (res.ok) {
+            const data = await res.json();
+            if (Array.isArray(data) && data.length > 0) loaded = data;
+          }
+        } catch (e) {}
+
+        if (!loaded || loaded.length === 0) {
+          try {
+            const res = await fetch('custom_songs.json?t=' + Date.now(), { cache: 'no-store' });
+            if (res.ok) {
+              const data = await res.json();
+              if (Array.isArray(data) && data.length > 0) loaded = data;
+            }
+          } catch (e) {}
+        }
+
+        if (!loaded || loaded.length === 0) {
+          try {
+            const localStr = localStorage.getItem('lagu_sion_custom_songs');
+            if (localStr) {
+              const localData = JSON.parse(localStr);
+              if (Array.isArray(localData)) loaded = localData;
+            }
+          } catch (e) {}
+        }
+
+        customSongs = Array.isArray(loaded) ? loaded : [];
+        updateCustomSongsCount();
+      }
+
+      function updateCustomSongsCount() {
+        if (countLaguTambahan) countLaguTambahan.textContent = customSongs.length;
+        if (countLaguSion) countLaguSion.textContent = (songsIndex && songsIndex.length) ? songsIndex.length : 525;
+      }
+
+      function findSong(idOrNum) {
+        if (idOrNum === undefined || idOrNum === null) return null;
+        const strVal = String(idOrNum).trim();
+        
+        // 1. Check customSongs first by id or title
+        const custom = customSongs.find(s => s.id === strVal || String(s.id).toLowerCase() === strVal.toLowerCase() || (s.title && s.title.toLowerCase() === strVal.toLowerCase()));
+        if (custom) return custom;
+
+        // 2. Check songsData by number
+        const num = parseInt(idOrNum);
+        if (!isNaN(num) && (songsData[num] || songsData[String(num)])) {
+          return songsData[num] || songsData[String(num)];
+        }
+        return null;
+      }
+
+      // Load Settings: Membaca file settings.json terbaru dari disk / server / localStorage
+      async function loadAppSettings() {
+        let loaded = null;
+
+        // 1. Coba baca dari server API
+        try {
+          const res = await fetch('/api/settings', { cache: 'no-store' });
+          if (res.ok) {
+            const apiData = await res.json();
+            if (apiData && Object.keys(apiData).length > 0) loaded = apiData;
+          }
+        } catch (e) {}
+
+        // 2. Coba baca file settings.json langsung
+        if (!loaded || !loaded.font_size_rem) {
+          try {
+            const res = await fetch('settings.json?t=' + Date.now(), { cache: 'no-store' });
+            if (res.ok) {
+              const fileData = await res.json();
+              if (fileData && Object.keys(fileData).length > 0) loaded = fileData;
+            }
+          } catch (e) {}
+        }
+
+        // 3. Jika belum dapat, ambil dari localStorage
+        if (!loaded || Object.keys(loaded).length === 0) {
+          try {
+            const localStr = localStorage.getItem('lagu_sion_settings');
+            if (localStr) {
+              loaded = JSON.parse(localStr);
+            }
+          } catch (e) {}
+        }
+
+        appSettings = { ...defaultSettings, ...(loaded || {}) };
+        applySettingsToUI();
+      }
+
+      // Apply loaded settings to DOM and UI controls
+      function applySettingsToUI() {
+        document.body.style.fontFamily = appSettings.font_family;
+        settingFontFamily.value = appSettings.font_family;
+
+        fontSizeRem = parseFloat(appSettings.font_size_rem) || 3.4;
+        dispLyrics.style.fontSize = `${fontSizeRem}rem`;
+        document.documentElement.style.setProperty('--full-verse-font-size', `${fontSizeRem}rem`);
+        document.querySelectorAll('.full-verse-lines').forEach(el => {
+          el.style.fontSize = `${fontSizeRem}rem`;
+        });
+        settingFontSize.value = fontSizeRem;
+        fontSizeVal.textContent = `${fontSizeRem.toFixed(1)}rem`;
+
+        settingShowMeta.checked = appSettings.show_metadata !== false;
+        dispMeta.style.display = settingShowMeta.checked ? 'flex' : 'none';
+        fullDispMeta.style.display = settingShowMeta.checked ? 'flex' : 'none';
+
+        isNavAutoHiding = appSettings.autohide_nav !== false;
+        settingAutohideNav.checked = isNavAutoHiding;
+
+        settingSplitVerses.checked = appSettings.auto_split_long_verses !== false;
+        settingInterleaveRef.checked = appSettings.refrain_interleaving !== false;
+
+        updatePlaylistBadge();
+      }
+
+      // Save settings to LocalStorage and send update to server (settings.json)
+      async function saveAppSettings(notify = false) {
+        if (settingFontFamily && settingFontFamily.value) appSettings.font_family = settingFontFamily.value;
+        if (settingFontSize && settingFontSize.value) appSettings.font_size_rem = parseFloat(settingFontSize.value);
+        if (settingShowMeta) appSettings.show_metadata = settingShowMeta.checked;
+        if (settingAutohideNav) appSettings.autohide_nav = settingAutohideNav.checked;
+        if (settingSplitVerses) appSettings.auto_split_long_verses = settingSplitVerses.checked;
+        if (settingInterleaveRef) appSettings.refrain_interleaving = settingInterleaveRef.checked;
+
+        applySettingsToUI();
+        if (currentSongNumber) {
+          loadSong(currentSongNumber, currentVerseIndex);
+        }
+
+        // Save in LocalStorage
+        try {
+          localStorage.setItem('lagu_sion_settings', JSON.stringify(appSettings));
+        } catch (e) {}
+
+        // Direct write to disk file if connected via File System Access API (Chrome/Edge)
+        let savedToDiskFile = false;
+        if (diskFileHandle) {
+          try {
+            const writable = await diskFileHandle.createWritable();
+            await writable.write(JSON.stringify(appSettings, null, 2));
+            await writable.close();
+            savedToDiskFile = true;
+          } catch (e) {
+            console.warn('File handle write failed:', e);
+          }
+        }
+
+        // Send to server API to write settings.json directly on disk if running on server
+        let savedToServer = false;
+        try {
+          const res = await fetch('/api/settings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(appSettings)
+          });
+          if (res.ok) {
+            savedToServer = true;
+          }
+        } catch (e) {}
+
+        if (savedToDiskFile || savedToServer) {
+          settingsSaveStatus.textContent = '💾 Status: Berhasil disimpan & diperbarui langsung di file settings.json!';
+          settingsSaveStatus.style.color = '#15803d';
+        } else {
+          settingsSaveStatus.textContent = '💾 Status: Tersimpan di browser (Jalankan server-linux / server-windows.exe untuk auto-update file settings.json)';
+          settingsSaveStatus.style.color = '#0284c7';
+        }
+
+        if (notify) {
+          showToast((savedToDiskFile || savedToServer) ? 'Pengaturan disimpan ke settings.json' : 'Pengaturan disimpan');
+        }
+      }
+
+      /* ==========================================================================
+         WORSHIP PLAYLIST / QUEUE MANAGEMENT
+         ========================================================================== */
+      function updatePlaylistBadge() {
+        const list = Array.isArray(appSettings.worship_playlist) ? appSettings.worship_playlist : [];
+        if (list.length > 0) {
+          playlistCountBadge.textContent = list.length;
+          playlistCountBadge.style.display = 'inline-block';
+        } else {
+          playlistCountBadge.style.display = 'none';
+        }
+      }
+
+      function renderPlaylistModal() {
+        playlistItemsContainer.innerHTML = '';
+        const list = Array.isArray(appSettings.worship_playlist) ? appSettings.worship_playlist : [];
+        updatePlaylistBadge();
+
+        if (list.length === 0) {
+          playlistStatusHint.textContent = '0 lagu terdaftar';
+          playlistBatchInput.value = '';
+          playlistItemsContainer.innerHTML = `
+            <div style="text-align: center; padding: 32px 16px; color: #94a3b8; font-size: 13px; line-height: 1.6;">
+              🎵 <b>Belum ada lagu dalam urutan ibadah.</b><br>
+              Ketik nomor lagu di atas (misal: <code>2, 5, 6, 73, 239</code>) lalu klik <b>Set Urutan</b>,<br>
+              atau klik tombol <b>➕ Antrean</b> di menu <b>Daftar Lagu</b>.
+            </div>
+          `;
+          return;
+        }
+
+        playlistStatusHint.textContent = `${list.length} lagu dalam antrean`;
+        playlistBatchInput.value = list.join(', ');
+
+        list.forEach((item, idx) => {
+          const song = findSong(item) || { id: item, number: parseInt(item) || null, title: `Lagu ${item}` };
+          const itemDiv = document.createElement('div');
+          itemDiv.className = 'playlist-item';
+          const isPlaying = (String(currentSongId) === String(item) || String(currentSongNumber) === String(item));
+          if (isPlaying) {
+            itemDiv.classList.add('active');
+          }
+
+          const infoDiv = document.createElement('div');
+          infoDiv.className = 'playlist-item-info';
+          infoDiv.title = `Klik untuk langsung membuka lagu ini`;
+          
+          const labelPrefix = (song && song.number) ? `<b>#${String(song.number).padStart(3, '0')}</b>` : `<b>🎵</b>`;
+          infoDiv.innerHTML = `
+            <span class="playlist-item-num">${idx + 1}.</span>
+            <span class="playlist-item-title">${labelPrefix} ${song.title || ''}</span>
+            ${isPlaying ? '<span class="playlist-badge-active">▶ Sedang Tayang</span>' : ''}
+          `;
+          infoDiv.addEventListener('click', () => {
+            loadSong(item, 0);
+            playlistModalBackdrop.classList.remove('open');
+          });
+
+          const actionsDiv = document.createElement('div');
+          actionsDiv.className = 'playlist-item-actions';
+
+          // Up button
+          const btnUp = document.createElement('button');
+          btnUp.className = 'btn btn-sm';
+          btnUp.textContent = '▲';
+          btnUp.title = 'Pindahkan urutan ke atas';
+          btnUp.disabled = (idx === 0);
+          btnUp.addEventListener('click', (e) => {
+            e.stopPropagation();
+            movePlaylistItem(idx, -1);
+          });
+
+          // Down button
+          const btnDown = document.createElement('button');
+          btnDown.className = 'btn btn-sm';
+          btnDown.textContent = '▼';
+          btnDown.title = 'Pindahkan urutan ke bawah';
+          btnDown.disabled = (idx === list.length - 1);
+          btnDown.addEventListener('click', (e) => {
+            e.stopPropagation();
+            movePlaylistItem(idx, 1);
+          });
+
+          // Remove button
+          const btnDel = document.createElement('button');
+          btnDel.className = 'btn btn-sm';
+          btnDel.textContent = '✕';
+          btnDel.title = 'Hapus lagu dari urutan';
+          btnDel.style.color = '#dc2626';
+          btnDel.addEventListener('click', (e) => {
+            e.stopPropagation();
+            removeFromPlaylist(idx);
+          });
+
+          actionsDiv.appendChild(btnUp);
+          actionsDiv.appendChild(btnDown);
+          actionsDiv.appendChild(btnDel);
+
+          itemDiv.appendChild(infoDiv);
+          itemDiv.appendChild(actionsDiv);
+          playlistItemsContainer.appendChild(itemDiv);
+        });
+      }
+
+      function addToPlaylist(idOrNum) {
+        if (!idOrNum) return;
+        const song = findSong(idOrNum);
+        if (!song && isNaN(parseInt(idOrNum))) return;
+
+        if (!Array.isArray(appSettings.worship_playlist)) {
+          appSettings.worship_playlist = [];
+        }
+        const itemVal = (song && song.is_custom) ? song.id : (parseInt(idOrNum) || idOrNum);
+        appSettings.worship_playlist.push(itemVal);
+        saveAppSettings(false);
+        updatePlaylistBadge();
+        if (playlistModalBackdrop.classList.contains('open')) {
+          renderPlaylistModal();
+        }
+        const title = song ? song.title : `Lagu ${itemVal}`;
+        showToast(`"${title}" ditambahkan ke urutan ibadah`);
+      }
+
+      function removeFromPlaylist(idx) {
+        if (!Array.isArray(appSettings.worship_playlist)) return;
+        appSettings.worship_playlist.splice(idx, 1);
+        saveAppSettings(false);
+        renderPlaylistModal();
+        updatePlaylistBadge();
+      }
+
+      function movePlaylistItem(idx, direction) {
+        if (!Array.isArray(appSettings.worship_playlist)) return;
+        const list = appSettings.worship_playlist;
+        const newIdx = idx + direction;
+        if (newIdx < 0 || newIdx >= list.length) return;
+        const temp = list[idx];
+        list[idx] = list[newIdx];
+        list[newIdx] = temp;
+        saveAppSettings(false);
+        renderPlaylistModal();
+      }
+
+      function applyBatchPlaylistInput(str) {
+        if (!str) str = '';
+        const tokens = str.split(/[,\s]+/).map(t => t.trim()).filter(t => t.length > 0);
+        const validItems = [];
+        tokens.forEach(tok => {
+          const num = parseInt(tok);
+          if (!isNaN(num) && num >= 1 && num <= 525) {
+            validItems.push(num);
+          } else {
+            const found = findSong(tok);
+            if (found) validItems.push(found.id || tok);
+          }
+        });
+        appSettings.worship_playlist = validItems;
+        saveAppSettings(false);
+        renderPlaylistModal();
+        updatePlaylistBadge();
+        showToast(`Urutan ibadah diperbarui (${appSettings.worship_playlist.length} lagu)`);
+      }
+
+      function clearPlaylist() {
+        appSettings.worship_playlist = [];
+        saveAppSettings(false);
+        renderPlaylistModal();
+        updatePlaylistBadge();
+        showToast('Urutan ibadah dikosongkan');
+      }
+
+      // Save a new custom song from modal
+      async function saveNewCustomSong() {
+        const title = (newSongTitle.value || '').trim();
+        const lyrics = (newSongLyrics.value || '').trim();
+        const key = (newSongKey.value || '').trim();
+        const time = (newSongTime.value || '').trim();
+        const author = (newSongAuthor.value || '').trim();
+
+        if (!title) {
+          alert('Mohon masukkan judul lagu.');
+          newSongTitle.focus();
+          return;
+        }
+
+        if (!lyrics) {
+          alert('Mohon masukkan lirik lagu.');
+          newSongLyrics.focus();
+          return;
+        }
+
+        // Parse lyrics into verses
+        const blocks = lyrics.split(/\n\s*\n+/);
+        const parsedBlocks = [];
+
+        blocks.forEach((blk) => {
+          const rawLines = blk.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+          if (rawLines.length === 0) return;
+
+          const firstLine = rawLines[0].toLowerCase();
+          let isChorus = false;
+          let customLabel = '';
+          let linesToKeep = [...rawLines];
+
+          if (firstLine.startsWith('reff:') || firstLine.startsWith('reff') || firstLine.startsWith('chorus:') || firstLine.startsWith('refrein:') || firstLine.startsWith('ref:')) {
+            isChorus = true;
+            if (rawLines[0].match(/^(reff|refrein|chorus|koor)[:\s]*$/i)) {
+              linesToKeep.shift();
+            } else {
+              linesToKeep[0] = linesToKeep[0].replace(/^(reff|refrein|chorus|koor)[:\s]*/i, '').trim();
+            }
+          } else {
+            const matchCustomLabel = rawLines[0].match(/^([0-9]+\/[0-9]+|bait\s*[0-9]+|[0-9]+)[\.:\s]*$/i);
+            if (matchCustomLabel) {
+              customLabel = matchCustomLabel[1];
+              linesToKeep.shift();
+            }
+          }
+
+          if (linesToKeep.length > 0) {
+            parsedBlocks.push({
+              isChorus: isChorus,
+              customLabel: customLabel,
+              lines: linesToKeep
+            });
+          }
+        });
+
+        const totalNormalVerses = parsedBlocks.filter(b => !b.isChorus).length;
+        let normalVerseIdx = 0;
+
+        const verses = parsedBlocks.map(b => {
+          if (b.isChorus) {
+            return {
+              type: 'chorus',
+              label: 'Refrein',
+              lines: b.lines
+            };
+          } else {
+            normalVerseIdx++;
+            let label = b.customLabel;
+            if (!label || !label.includes('/')) {
+              label = `${normalVerseIdx}/${totalNormalVerses || 1}`;
+            }
+            return {
+              type: 'verse',
+              label: label,
+              lines: b.lines
+            };
+          }
+        });
+
+        const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || `song-${Date.now()}`;
+        let finalId = slug;
+        let counter = 1;
+        while (customSongs.some(s => s.id === finalId)) {
+          finalId = `${slug}-${counter++}`;
+        }
+
+        const newSong = {
+          id: finalId,
+          title: title,
+          key: key,
+          time_signature: time,
+          author: author,
+          is_custom: true,
+          verses: verses
+        };
+
+        customSongs.push(newSong);
+        updateCustomSongsCount();
+
+        try {
+          localStorage.setItem('lagu_sion_custom_songs', JSON.stringify(customSongs));
+        } catch (e) {}
+
+        try {
+          await fetch('/api/custom_songs', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(customSongs)
+          });
+        } catch (e) {}
+
+        addSongModalBackdrop.classList.remove('open');
+        newSongTitle.value = '';
+        newSongKey.value = '';
+        newSongTime.value = '';
+        newSongAuthor.value = '';
+        newSongLyrics.value = '';
+
+        currentActiveTab = 'tambahan';
+        tabLaguTambahan.classList.add('active');
+        tabLaguSion.classList.remove('active');
+        renderDrawerList('');
+        loadSong(newSong.id, 0);
+        showToast(`Lagu "${title}" berhasil ditambahkan!`);
+      }
+
+      let currentSlideSequence = [];
+
+      // Split a verse into sub-pages (1a, 1b...) based on line count (>=5 lines) OR line length (long 4-line verses like Lagu 7)
+      // NOTE: Refrein / Chorus is NEVER divided into sub-slides (always stays complete in 1 slide)
+      // Split a verse or refrain into sub-pages (1a, 1b... or Refrein a, Refrein b...) based on line count or line length
+      function splitVerseIntoPages(v, totalVersesCount) {
+        const rawLines = v.lines || (v.text ? v.text.split('\n') : []);
+        const lines = rawLines.map(l => l.trim()).filter(l => l.length > 0);
+        if (lines.length === 0) return [];
+
+        const isChorus = v.type === 'chorus' || (v.label && (v.label.toLowerCase().includes('ref') || v.label.toLowerCase().includes('koor') || v.label.toLowerCase().includes('chorus')));
+        const baseLabel = v.label || (isChorus ? 'Refrein' : (totalVersesCount ? `1/${totalVersesCount}` : '1/1'));
+
+        if (!appSettings.auto_split_long_verses) {
+          return [{
+            ...v,
+            lines: lines,
+            text: lines.join('\n'),
+            displayLabel: baseLabel,
+            label: baseLabel,
+            isChorus: isChorus
+          }];
+        }
+
+        const totalChars = lines.reduce((sum, l) => sum + l.length, 0);
+        const maxLineLen = Math.max(...lines.map(l => l.length));
+
+        let shouldSplit = false;
+        let chunks = [];
+        const n = lines.length;
+
+        if (n >= 5) {
+          shouldSplit = true;
+          if (n === 5 || n === 6) {
+            chunks = [lines.slice(0, 3), lines.slice(3)];
+          } else if (n === 7 || n === 8) {
+            chunks = [lines.slice(0, 4), lines.slice(4)];
+          } else {
+            for (let i = 0; i < n; i += 4) {
+              chunks.push(lines.slice(i, i + 4));
+            }
+          }
+        } else if (n === 4) {
+          // If 4 lines are long (maxLineLen >= 28 or totalChars >= 100), split into 2 slides of 2 lines
+          if (maxLineLen >= 28 || totalChars >= 100) {
+            shouldSplit = true;
+            chunks = [lines.slice(0, 2), lines.slice(2)];
+          }
+        } else if (n === 3) {
+          // If 3 lines are long (e.g. Misi Kita with ~60 chars per line, totalChars >= 105 or maxLineLen >= 35), split into 2 lines & 1 line
+          if (maxLineLen >= 35 || totalChars >= 105) {
+            shouldSplit = true;
+            chunks = [lines.slice(0, 2), lines.slice(2)];
+          }
+        }
+
+        if (!shouldSplit || chunks.length <= 1) {
+          return [{
+            ...v,
+            lines: lines,
+            text: lines.join('\n'),
+            displayLabel: baseLabel,
+            label: baseLabel,
+            isChorus: isChorus
+          }];
+        }
+
+        return chunks.map((chunkLines, cIdx) => {
+          return {
+            ...v,
+            displayLabel: baseLabel,
+            label: baseLabel,
+            lines: chunkLines,
+            text: chunkLines.join('\n'),
+            subPageIndex: cIdx,
+            subPageTotal: chunks.length,
+            isChorus: isChorus
+          };
+        });
+      }
+
+      // Build slide sequence with automatic Refrein interleaving and long-verse paging (1a, 1b...)
+      function buildSlideSequence(song) {
+        const verses = song ? (song.verses || []) : [];
+        if (verses.length === 0) return [];
+
+        const isChorus = (v) => v.type === 'chorus' || (v.label && (v.label.toLowerCase().includes('ref') || v.label.toLowerCase().includes('koor') || v.label.toLowerCase().includes('chorus')));
+
+        const choruses = verses.filter(isChorus);
+        const normalVerses = verses.filter(v => !isChorus(v));
+
+        const sequence = [];
+
+        if (!appSettings.refrain_interleaving || choruses.length === 0 || normalVerses.length === 0) {
+          verses.forEach((v) => {
+            const pages = splitVerseIntoPages(v, verses.length);
+            pages.forEach((p) => {
+              sequence.push({
+                ...p,
+                slideIndex: sequence.length,
+                isChorus: isChorus(v)
+              });
+            });
+          });
+          return sequence;
+        }
+
+        // Interleave main chorus after each normal verse
+        const mainChorus = choruses[0];
+        const chorusPages = splitVerseIntoPages(mainChorus, 0);
+
+        normalVerses.forEach((nv) => {
+          const nvPages = splitVerseIntoPages(nv, normalVerses.length);
+          nvPages.forEach((p) => {
+            sequence.push({
+              ...p,
+              slideIndex: sequence.length,
+              isChorus: false
+            });
+          });
+
+          chorusPages.forEach((cp) => {
+            sequence.push({
+              ...cp,
+              slideIndex: sequence.length,
+              isChorus: true,
+              displayLabel: cp.displayLabel || 'Refrein'
+            });
+          });
+        });
+
+        return sequence;
+      }
+
+      // Load specific song (by number 1-525 or custom song ID) and slide index
+      async function loadSong(songIdOrNum, slideIdx = 0) {
+        let song = findSong(songIdOrNum);
+        let num = parseInt(songIdOrNum);
+
+        if (!song && !isNaN(num) && num >= 1 && num <= 525) {
+          try {
+            const resp = await fetch(`songs/${num}.json`);
+            song = await resp.json();
+            songsData[num] = song;
+          } catch (err) {
+            console.error(`Failed to load song ${num}:`, err);
+            return;
+          }
+        }
+
+        if (!song) {
+          console.warn('Song not found:', songIdOrNum);
+          return;
+        }
+
+        currentSongId = song.id || song.number || songIdOrNum;
+        currentSongNumber = song.number || currentSongId;
+        if (song.number) {
+          jumpNumInput.value = song.number;
+        } else {
+          jumpNumInput.value = '';
+        }
+
+        currentSlideSequence = buildSlideSequence(song);
+        if (slideIdx >= currentSlideSequence.length) slideIdx = Math.max(0, currentSlideSequence.length - 1);
+        if (slideIdx < 0) slideIdx = 0;
+        currentVerseIndex = slideIdx;
+
+        // Save last opened song and slide to localStorage so page refresh preserves state
+        try {
+          localStorage.setItem('lagu_sion_last_song', String(currentSongId));
+          localStorage.setItem('lagu_sion_last_slide', String(slideIdx));
+        } catch (e) {}
+
+        renderSlide(song, slideIdx);
+        renderFullSong(song);
+        renderVerseJumpPills(currentSlideSequence, slideIdx);
+        updateActiveDrawerItem(currentSongId);
+
+        const list = Array.isArray(appSettings.worship_playlist) ? appSettings.worship_playlist : [];
+        const playlistIdx = list.findIndex(item => String(item) === String(currentSongId) || String(item) === String(song.number));
+        if (playlistIdx !== -1) {
+          const nextItem = (playlistIdx < list.length - 1) ? list[playlistIdx + 1] : null;
+          let nextLabel = ' (Lagu Terakhir)';
+          if (nextItem) {
+            const nextSongObj = findSong(nextItem);
+            nextLabel = nextSongObj && nextSongObj.number ? ` ➔ Brkt: #${nextSongObj.number}` : (nextSongObj ? ` ➔ Brkt: ${nextSongObj.title}` : ` ➔ Brkt: ${nextItem}`);
+          }
+          const songDisplayName = song.number ? `Lagu ${song.number}` : song.title;
+          statusIndicator.textContent = `[Urutan ${playlistIdx + 1}/${list.length}] ${songDisplayName} (${slideIdx + 1}/${currentSlideSequence.length || 1})${nextLabel}`;
+        } else {
+          if (song.number) {
+            statusIndicator.textContent = `Lagu ${song.number} / 525 (${slideIdx + 1}/${currentSlideSequence.length || 1})`;
+          } else {
+            statusIndicator.textContent = `${song.title} (${slideIdx + 1}/${currentSlideSequence.length || 1})`;
+          }
+        }
+      }
+
+      // Render single slide
+      function renderSlide(song, slideIdx) {
+        const titleText = (song && song.number)
+          ? `${String(song.number).padStart(3, '0')} ${song.title.toUpperCase()}`
+          : (song ? song.title.toUpperCase() : '');
+        dispTitle.textContent = titleText;
+
+        // Meta info
+        if (song.key) {
+          dispKey.style.display = 'inline-block';
+          dispKey.textContent = `Nada: ${song.key}`;
+        } else {
+          dispKey.style.display = 'none';
+        }
+
+        if (song.time_signature) {
+          dispTime.style.display = 'inline-block';
+          dispTime.textContent = `Ketukan: ${song.time_signature}`;
+        } else {
+          dispTime.style.display = 'none';
+        }
+
+        if (currentSlideSequence.length > 0 && currentSlideSequence[slideIdx]) {
+          const slide = currentSlideSequence[slideIdx];
+          const badgeText = slide.displayLabel || slide.label || `1/1`;
+          dispVerseBadge.textContent = badgeText;
+          if (slide.isChorus || slide.type === 'chorus' || badgeText.toLowerCase().includes('ref')) {
+            dispVerseBadge.classList.add('chorus');
+          } else {
+            dispVerseBadge.classList.remove('chorus');
+          }
+
+          dispLyrics.textContent = slide.lines ? slide.lines.join('\n') : (slide.text || '');
+        } else {
+          dispVerseBadge.textContent = '1/1';
+          dispVerseBadge.classList.remove('chorus');
+          dispLyrics.textContent = '-';
+        }
+      }
+
+      // Build whole verses sequence for Full Song Mode (without 1a/1b sub-page splitting)
+      function buildFullSongSequence(song) {
+        const verses = song ? (song.verses || []) : [];
+        if (verses.length === 0) return [];
+
+        const isChorus = (v) => v.type === 'chorus' || (v.label && (v.label.toLowerCase().includes('ref') || v.label.toLowerCase().includes('koor') || v.label.toLowerCase().includes('chorus')));
+        const choruses = verses.filter(isChorus);
+        const normalVerses = verses.filter(v => !isChorus(v));
+
+        if (!appSettings.refrain_interleaving || choruses.length === 0 || normalVerses.length === 0) {
+          return verses.map((v, i) => ({
+            ...v,
+            displayLabel: v.label || (isChorus(v) ? 'Refrein' : `${i + 1}/${verses.length}`),
+            lines: v.lines || (v.text ? v.text.split('\n') : []),
+            isChorus: isChorus(v)
+          }));
+        }
+
+        const mainChorus = choruses[0];
+        const fullSequence = [];
+        normalVerses.forEach((nv, nvIdx) => {
+          fullSequence.push({
+            ...nv,
+            displayLabel: nv.label || `${nvIdx + 1}/${normalVerses.length}`,
+            lines: nv.lines || (nv.text ? nv.text.split('\n') : []),
+            isChorus: false
+          });
+          fullSequence.push({
+            ...mainChorus,
+            displayLabel: mainChorus.label || 'Refrein',
+            lines: mainChorus.lines || (mainChorus.text ? mainChorus.text.split('\n') : []),
+            isChorus: true
+          });
+        });
+        return fullSequence;
+      }
+
+      // Render full song view with whole verses and inherited font size
+      function renderFullSong(song) {
+        const titleText = (song && song.number)
+          ? `${String(song.number).padStart(3, '0')} ${song.title.toUpperCase()}`
+          : (song ? song.title.toUpperCase() : '');
+        fullDispTitle.textContent = titleText;
+        fullDispKey.textContent = song.key ? `Nada: ${song.key}` : '';
+        fullDispKey.style.display = song.key ? 'inline-block' : 'none';
+        fullDispTime.textContent = song.time_signature ? `Ketukan: ${song.time_signature}` : '';
+        fullDispTime.style.display = song.time_signature ? 'inline-block' : 'none';
+        fullDispAuthor.textContent = song.author ? song.author : (song.original_title || '');
+        fullDispAuthor.style.display = (song.author || song.original_title) ? 'inline-block' : 'none';
+
+        fullVersesList.innerHTML = '';
+        const itemsToRender = buildFullSongSequence(song);
+        
+        itemsToRender.forEach((v, idx) => {
+          const block = document.createElement('div');
+          block.className = 'full-verse-block';
+
+          const label = document.createElement('div');
+          label.className = 'full-verse-label';
+          if (v.isChorus) {
+            label.classList.add('chorus');
+          }
+          label.textContent = v.displayLabel || v.label || (v.isChorus ? 'Refrein' : `${idx + 1}`);
+
+          const lines = document.createElement('div');
+          lines.className = 'full-verse-lines';
+          lines.style.fontSize = `${fontSizeRem}rem`;
+          lines.textContent = v.lines ? v.lines.join('\n') : (v.text || '');
+
+          block.appendChild(label);
+          block.appendChild(lines);
+          fullVersesList.appendChild(block);
+        });
+      }
+
+      // Render verse quick jump buttons
+      function renderVerseJumpPills(sequence, currentIdx) {
+        verseJumpButtons.innerHTML = '';
+        sequence.forEach((s, idx) => {
+          const btn = document.createElement('button');
+          btn.className = 'verse-btn';
+          let label = s.displayLabel || s.label || `${idx + 1}`;
+          if (s.isChorus || s.type === 'chorus' || label.toLowerCase().includes('ref')) {
+            btn.classList.add('is-chorus');
+            label = 'Ref';
+          } else {
+            const m = label.match(/^(\d+)/i);
+            if (m) label = m[1];
+          }
+
+          btn.textContent = label;
+          if (idx === currentIdx) {
+            btn.classList.add('active');
+          }
+
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            loadSong(currentSongId, idx);
+          });
+          verseJumpButtons.appendChild(btn);
+        });
+      }
+
+      // Navigation: Next slide & Next song with Playlist support
+      function nextSlide() {
+        if (currentVerseIndex < currentSlideSequence.length - 1) {
+          loadSong(currentSongId, currentVerseIndex + 1);
+        } else {
+          nextSong();
+        }
+      }
+
+      // Navigation: Previous slide & Prev song with Playlist support
+      function prevSlide() {
+        if (currentVerseIndex > 0) {
+          loadSong(currentSongId, currentVerseIndex - 1);
+        } else {
+          prevSong(true);
+        }
+      }
+
+      function nextSong() {
+        const list = Array.isArray(appSettings.worship_playlist) ? appSettings.worship_playlist : [];
+        if (list.length > 0) {
+          const currIdx = list.findIndex(item => String(item) === String(currentSongId) || String(item) === String(currentSongNumber));
+          if (currIdx !== -1 && currIdx < list.length - 1) {
+            loadSong(list[currIdx + 1], 0);
+            return;
+          } else if (currIdx === -1) {
+            loadSong(list[0], 0);
+            return;
+          }
+        }
+
+        // Sequential fallback for numeric songs
+        const num = parseInt(currentSongNumber);
+        if (!isNaN(num) && num < 525) {
+          loadSong(num + 1, 0);
+        }
+      }
+
+      async function prevSong(toLastSlide = false) {
+        const list = Array.isArray(appSettings.worship_playlist) ? appSettings.worship_playlist : [];
+        if (list.length > 0) {
+          const currIdx = list.findIndex(item => String(item) === String(currentSongId) || String(item) === String(currentSongNumber));
+          if (currIdx > 0) {
+            const targetId = list[currIdx - 1];
+            if (toLastSlide) {
+              let prevSongObj = findSong(targetId);
+              if (!prevSongObj && !isNaN(parseInt(targetId))) {
+                try {
+                  const resp = await fetch(`songs/${targetId}.json`);
+                  if (resp.ok) {
+                    prevSongObj = await resp.json();
+                    songsData[targetId] = prevSongObj;
+                  }
+                } catch (e) {}
+              }
+              const prevSeq = prevSongObj ? buildSlideSequence(prevSongObj) : [];
+              loadSong(targetId, Math.max(0, prevSeq.length - 1));
+            } else {
+              loadSong(targetId, 0);
+            }
+            return;
+          }
+        }
+
+        // Sequential fallback for numeric songs
+        const num = parseInt(currentSongNumber);
+        if (!isNaN(num) && num > 1) {
+          const targetNum = num - 1;
+          if (toLastSlide) {
+            let prevSongObj = findSong(targetNum);
+            if (!prevSongObj) {
+              try {
+                const resp = await fetch(`songs/${targetNum}.json`);
+                if (resp.ok) {
+                  prevSongObj = await resp.json();
+                  songsData[targetNum] = prevSongObj;
+                }
+              } catch (e) {}
+            }
+            const prevSeq = prevSongObj ? buildSlideSequence(prevSongObj) : [];
+            loadSong(targetNum, Math.max(0, prevSeq.length - 1));
+          } else {
+            loadSong(targetNum, 0);
+          }
+        }
+      }
+
+      let suppressHoverUntilMove = false;
+      let lastFullscreenMousePos = { x: 0, y: 0 };
+
+      function hideToolbarsImmediately() {
+        if (document.activeElement) document.activeElement.blur();
+        topToolbar.classList.remove('show');
+        bottomToolbar.classList.remove('show');
+        topToolbar.classList.add('force-hide');
+        bottomToolbar.classList.remove('force-hide');
+        suppressHoverUntilMove = true;
+
+        setTimeout(() => {
+          topToolbar.classList.remove('force-hide');
+          bottomToolbar.classList.remove('force-hide');
+          suppressHoverUntilMove = false;
+        }, 1200);
+      }
+
+      // Instantaneous hover reveal and dismiss for clean fullscreen presentation
+      function startAutoHideTimer() {
+        window.addEventListener('mousemove', (e) => {
+          if (suppressHoverUntilMove) {
+            topToolbar.classList.remove('force-hide');
+            bottomToolbar.classList.remove('force-hide');
+            suppressHoverUntilMove = false;
+          }
+
+          const topThreshold = 65;
+          const bottomThreshold = window.innerHeight - 60;
+          const isOverlayOpen = drawer.classList.contains('open') || settingsModalBackdrop.classList.contains('open') || playlistModalBackdrop.classList.contains('open') || addSongModalBackdrop.classList.contains('open');
+
+          if (isOverlayOpen) {
+            topToolbar.classList.add('show');
+            bottomToolbar.classList.add('show');
+            return;
+          }
+
+          const isJumpInputFocused = (document.activeElement === jumpNumInput);
+
+          // Top toolbar hover check
+          if (e.clientY <= topThreshold) {
+            topToolbar.classList.add('show');
+          } else if (!topToolbar.matches(':hover') && !isJumpInputFocused) {
+            topToolbar.classList.remove('show');
+          }
+
+          // Bottom toolbar hover check
+          if (e.clientY >= bottomThreshold) {
+            bottomToolbar.classList.add('show');
+          } else if (!bottomToolbar.matches(':hover')) {
+            bottomToolbar.classList.remove('show');
+          }
+        });
+
+        // Hide immediately when cursor leaves the window
+        document.addEventListener('mouseleave', () => {
+          if (!drawer.classList.contains('open') && !settingsModalBackdrop.classList.contains('open') && !playlistModalBackdrop.classList.contains('open') && !addSongModalBackdrop.classList.contains('open')) {
+            topToolbar.classList.remove('show');
+            bottomToolbar.classList.remove('show');
+          }
+        });
+
+        // Auto blur buttons on mouseup so button focus never holds the toolbar open
+        document.addEventListener('mouseup', (e) => {
+          const btn = e.target.closest('button');
+          if (btn) {
+            setTimeout(() => btn.blur(), 50);
+          }
+        });
+
+        document.addEventListener('fullscreenchange', () => {
+          hideToolbarsImmediately();
+        });
+      }
+
+      // Render Song List in Drawer with tabs support (Lagu Sion vs Lagu Tambahan)
+      function renderDrawerList(filterText = '') {
+        songListItems.innerHTML = '';
+        const fragment = document.createDocumentFragment();
+        filterText = (filterText || '').trim().toLowerCase();
+
+        if (currentActiveTab === 'tambahan') {
+          // Render Custom Songs (Tanpa Nomor)
+          const filtered = customSongs.filter(s => {
+            if (!filterText) return true;
+            return (s.title && s.title.toLowerCase().includes(filterText)) ||
+                   (s.verses && s.verses.some(v => v.lines && v.lines.some(l => l.toLowerCase().includes(filterText))));
+          });
+
+          if (filtered.length === 0) {
+            songListItems.innerHTML = `
+              <li style="padding: 30px 16px; text-align: center; color: #94a3b8; font-size: 13px; line-height: 1.6;">
+                Belum ada lagu tambahan yang cocok.<br>
+                Klik tombol <b>➕ Baru</b> di atas untuk menambahkan lagu pujian.
+              </li>
+            `;
+            return;
+          }
+
+          filtered.forEach((item) => {
+            const li = document.createElement('li');
+            li.className = 'song-item';
+            li.dataset.songId = item.id;
+            if (String(currentSongId) === String(item.id)) {
+              li.classList.add('active');
+            }
+            
+            const infoSpan = document.createElement('div');
+            infoSpan.style.display = 'flex';
+            infoSpan.style.alignItems = 'center';
+            infoSpan.style.flex = '1';
+            infoSpan.style.overflow = 'hidden';
+            infoSpan.style.cursor = 'pointer';
+            const countTambahan = (item.verses && item.verses.length) ? `(${item.verses.length})` : '';
+            infoSpan.innerHTML = `
+              <span class="song-item-num" style="color: #2563eb; font-size: 16px; width: 36px;">🎵</span>
+              <span class="song-item-title" style="font-weight: 600;">${item.title}</span>
+              <span class="song-item-verses">${countTambahan}</span>
+            `;
+            infoSpan.addEventListener('click', () => {
+              loadSong(item.id, 0);
+              closeDrawer();
+            });
+
+            const btnAdd = document.createElement('button');
+            btnAdd.className = 'btn-add-queue';
+            btnAdd.textContent = '➕ Antrean';
+            btnAdd.title = `Tambahkan "${item.title}" ke Urutan Ibadah`;
+            btnAdd.addEventListener('click', (e) => {
+              e.stopPropagation();
+              addToPlaylist(item.id);
+            });
+
+            li.appendChild(infoSpan);
+            li.appendChild(btnAdd);
+            fragment.appendChild(li);
+          });
+        } else {
+          // Render Lagu Sion (1 - 525)
+          const filtered = songsIndex.filter(s => {
+            if (!filterText) return true;
+            return String(s.number).includes(filterText) ||
+                   (s.title && s.title.toLowerCase().includes(filterText));
+          });
+
+          if (filtered.length === 0) {
+            songListItems.innerHTML = `
+              <li style="padding: 30px 16px; text-align: center; color: #94a3b8; font-size: 13px;">
+                Tidak ada lagu sion ditemukan.
+              </li>
+            `;
+            return;
+          }
+
+          filtered.forEach(item => {
+            const li = document.createElement('li');
+            li.className = 'song-item';
+            li.dataset.songId = item.number;
+            if (String(currentSongId) === String(item.number)) {
+              li.classList.add('active');
+            }
+            
+            const infoSpan = document.createElement('div');
+            infoSpan.style.display = 'flex';
+            infoSpan.style.alignItems = 'center';
+            infoSpan.style.flex = '1';
+            infoSpan.style.overflow = 'hidden';
+            infoSpan.style.cursor = 'pointer';
+            const countSion = item.verse_count ? `(${item.verse_count})` : '';
+            infoSpan.innerHTML = `
+              <span class="song-item-num">${String(item.number).padStart(3, '0')}</span>
+              <span class="song-item-title">${item.title}</span>
+              <span class="song-item-verses">${countSion}</span>
+            `;
+            infoSpan.addEventListener('click', () => {
+              loadSong(item.number, 0);
+              closeDrawer();
+            });
+
+            const btnAdd = document.createElement('button');
+            btnAdd.className = 'btn-add-queue';
+            btnAdd.textContent = '➕ Antrean';
+            btnAdd.title = `Tambahkan Lagu ${item.number} ke Urutan Ibadah`;
+            btnAdd.addEventListener('click', (e) => {
+              e.stopPropagation();
+              addToPlaylist(item.number);
+            });
+
+            li.appendChild(infoSpan);
+            li.appendChild(btnAdd);
+            fragment.appendChild(li);
+          });
+        }
+        songListItems.appendChild(fragment);
+      }
+
+      function updateActiveDrawerItem(songId) {
+        document.querySelectorAll('.song-item').forEach(el => {
+          if (String(el.dataset.songId) === String(songId)) {
+            el.classList.add('active');
+            el.scrollIntoView({ block: 'nearest' });
+          } else {
+            el.classList.remove('active');
+          }
+        });
+      }
+
+      function openDrawer() {
+        drawer.classList.add('open');
+        drawerBackdrop.classList.add('open');
+        songSearchInput.value = '';
+        renderDrawerList('');
+        setTimeout(() => songSearchInput.focus(), 150);
+      }
+
+      function closeDrawer() {
+        drawer.classList.remove('open');
+        drawerBackdrop.classList.remove('open');
+      }
+
+      function filterSongs(query) {
+        renderDrawerList(query);
+      }
+
+      // Event Listeners
+      function setupEventListeners() {
+        // Slide View Click -> Next Verse
+        slideViewport.addEventListener('click', (e) => {
+          if (isFullSongMode) return;
+          // Click left 25% goes prev, right 75% goes next
+          const rect = slideViewport.getBoundingClientRect();
+          const clickX = e.clientX - rect.left;
+          if (clickX < rect.width * 0.2) {
+            prevSlide();
+          } else {
+            nextSlide();
+          }
+        });
+
+        // Jump Number input
+        jumpNumInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            loadSong(jumpNumInput.value, 0);
+            jumpNumInput.blur();
+          }
+        });
+        btnJumpGo.addEventListener('click', () => loadSong(jumpNumInput.value, 0));
+
+        // Toolbar Buttons
+        btnPrevSlide.addEventListener('click', prevSlide);
+        btnNextSlide.addEventListener('click', nextSlide);
+        btnPrevSong.addEventListener('click', prevSong);
+        btnNextSong.addEventListener('click', nextSong);
+
+        // Drawer & Category Tabs
+        btnToggleDrawer.addEventListener('click', openDrawer);
+        btnCloseDrawer.addEventListener('click', closeDrawer);
+        drawerBackdrop.addEventListener('click', closeDrawer);
+        songSearchInput.addEventListener('input', (e) => filterSongs(e.target.value));
+
+        tabLaguSion.addEventListener('click', () => {
+          currentActiveTab = 'sion';
+          tabLaguSion.classList.add('active');
+          tabLaguTambahan.classList.remove('active');
+          songSearchInput.placeholder = '🔍 Cari nomor atau judul lagu...';
+          renderDrawerList(songSearchInput.value);
+        });
+
+        tabLaguTambahan.addEventListener('click', () => {
+          currentActiveTab = 'tambahan';
+          tabLaguTambahan.classList.add('active');
+          tabLaguSion.classList.remove('active');
+          songSearchInput.placeholder = '🔍 Cari judul lagu tambahan atau lirik...';
+          renderDrawerList(songSearchInput.value);
+        });
+
+        // Add Song Modal
+        btnOpenAddSong.addEventListener('click', () => {
+          addSongModalBackdrop.classList.add('open');
+          setTimeout(() => newSongTitle.focus(), 150);
+        });
+        btnCloseAddSong.addEventListener('click', () => addSongModalBackdrop.classList.remove('open'));
+        btnCancelAddSong.addEventListener('click', () => addSongModalBackdrop.classList.remove('open'));
+        btnSaveNewSong.addEventListener('click', saveNewCustomSong);
+        addSongModalBackdrop.addEventListener('click', (e) => {
+          if (e.target === addSongModalBackdrop) addSongModalBackdrop.classList.remove('open');
+        });
+
+        // View Mode Toggle
+        btnViewMode.addEventListener('click', () => {
+          isFullSongMode = !isFullSongMode;
+          if (isFullSongMode) {
+            slideContent.style.display = 'none';
+            fullSongContent.classList.add('active');
+            btnViewMode.textContent = '📽️ Mode Slide';
+          } else {
+            slideContent.style.display = 'flex';
+            fullSongContent.classList.remove('active');
+            btnViewMode.textContent = '📄 Tampilkan Semua';
+          }
+        });
+
+        // Font Size Adjusters
+        btnFontInc.addEventListener('click', () => {
+          fontSizeRem = Math.min(8.0, fontSizeRem + 0.3);
+          dispLyrics.style.fontSize = `${fontSizeRem}rem`;
+          document.documentElement.style.setProperty('--full-verse-font-size', `${fontSizeRem}rem`);
+          document.querySelectorAll('.full-verse-lines').forEach(el => el.style.fontSize = `${fontSizeRem}rem`);
+          settingFontSize.value = fontSizeRem;
+          fontSizeVal.textContent = `${fontSizeRem.toFixed(1)}rem`;
+          saveAppSettings(false);
+        });
+        btnFontDec.addEventListener('click', () => {
+          fontSizeRem = Math.max(1.8, fontSizeRem - 0.3);
+          dispLyrics.style.fontSize = `${fontSizeRem}rem`;
+          document.documentElement.style.setProperty('--full-verse-font-size', `${fontSizeRem}rem`);
+          document.querySelectorAll('.full-verse-lines').forEach(el => el.style.fontSize = `${fontSizeRem}rem`);
+          settingFontSize.value = fontSizeRem;
+          fontSizeVal.textContent = `${fontSizeRem.toFixed(1)}rem`;
+          saveAppSettings(false);
+        });
+
+        // Fullscreen API
+        btnFullscreen.addEventListener('click', () => {
+          if (!document.fullscreenElement) {
+            hideToolbarsImmediately();
+            document.documentElement.requestFullscreen().catch(err => {
+              console.warn('Fullscreen request failed:', err);
+            });
+          } else {
+            document.exitFullscreen().catch(() => {});
+          }
+        });
+
+        // Blank Whiteout Screen (for sermon / prayer)
+        btnBlank.addEventListener('click', () => blankScreen.classList.toggle('active'));
+        blankScreen.addEventListener('click', () => blankScreen.classList.remove('active'));
+
+        // Settings Modal
+        btnSettings.addEventListener('click', () => settingsModalBackdrop.classList.add('open'));
+        btnCloseSettings.addEventListener('click', () => settingsModalBackdrop.classList.remove('open'));
+        btnSaveSettings.addEventListener('click', () => {
+          saveAppSettings(true);
+          settingsModalBackdrop.classList.remove('open');
+        });
+        settingsModalBackdrop.addEventListener('click', (e) => {
+          if (e.target === settingsModalBackdrop) {
+            saveAppSettings(false);
+            settingsModalBackdrop.classList.remove('open');
+          }
+        });
+
+        // Playlist Modal
+        btnTogglePlaylist.addEventListener('click', () => {
+          renderPlaylistModal();
+          playlistModalBackdrop.classList.add('open');
+          setTimeout(() => playlistBatchInput.focus(), 150);
+        });
+        btnClosePlaylist.addEventListener('click', () => playlistModalBackdrop.classList.remove('open'));
+        btnDonePlaylist.addEventListener('click', () => playlistModalBackdrop.classList.remove('open'));
+        playlistModalBackdrop.addEventListener('click', (e) => {
+          if (e.target === playlistModalBackdrop) playlistModalBackdrop.classList.remove('open');
+        });
+
+        btnApplyPlaylistBatch.addEventListener('click', () => {
+          applyBatchPlaylistInput(playlistBatchInput.value);
+        });
+        playlistBatchInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            applyBatchPlaylistInput(playlistBatchInput.value);
+          }
+        });
+
+        btnClearPlaylist.addEventListener('click', () => {
+          if (confirm('Kosongkan semua lagu dari daftar urutan ibadah?')) {
+            clearPlaylist();
+          }
+        });
+
+        btnStartPlaylist.addEventListener('click', () => {
+          const list = Array.isArray(appSettings.worship_playlist) ? appSettings.worship_playlist : [];
+          if (list.length > 0) {
+            loadSong(list[0], 0);
+            playlistModalBackdrop.classList.remove('open');
+          } else {
+            alert('Silakan masukkan nomor lagu terlebih dahulu.');
+          }
+        });
+
+        // Settings Inputs live change
+        settingFontFamily.addEventListener('change', () => saveAppSettings(false));
+        settingFontSize.addEventListener('input', (e) => {
+          fontSizeRem = parseFloat(e.target.value);
+          dispLyrics.style.fontSize = `${fontSizeRem}rem`;
+          document.documentElement.style.setProperty('--full-verse-font-size', `${fontSizeRem}rem`);
+          document.querySelectorAll('.full-verse-lines').forEach(el => el.style.fontSize = `${fontSizeRem}rem`);
+          fontSizeVal.textContent = `${fontSizeRem.toFixed(1)}rem`;
+        });
+        settingFontSize.addEventListener('change', () => saveAppSettings(false));
+        settingShowMeta.addEventListener('change', () => saveAppSettings(false));
+        settingAutohideNav.addEventListener('change', () => saveAppSettings(false));
+        settingSplitVerses.addEventListener('change', () => saveAppSettings(false));
+        settingInterleaveRef.addEventListener('change', () => saveAppSettings(false));
+
+        // Connect settings.json on disk directly
+        btnConnectFile.addEventListener('click', connectDiskFileHandle);
+
+        // Keyboard Shortcuts
+        window.addEventListener('keydown', (e) => {
+          // If typing in input, don't trigger global shortcuts
+          if (['INPUT', 'SELECT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+            if (e.key === 'Escape') {
+              document.activeElement.blur();
+              closeDrawer();
+              playlistModalBackdrop.classList.remove('open');
+              settingsModalBackdrop.classList.remove('open');
+              addSongModalBackdrop.classList.remove('open');
+            }
+            return;
+          }
+
+          switch (e.key) {
+            case 'ArrowRight':
+            case ' ':
+            case 'PageDown':
+            case 'ArrowDown':
+              e.preventDefault();
+              nextSlide();
+              break;
+
+            case 'ArrowLeft':
+            case 'PageUp':
+            case 'ArrowUp':
+              e.preventDefault();
+              prevSlide();
+              break;
+
+            case 'n':
+            case 'N':
+              nextSong();
+              break;
+
+            case 'p':
+            case 'P':
+              prevSong();
+              break;
+
+            case 'f':
+            case 'F':
+            case 'F11':
+              if (e.key !== 'F11') e.preventDefault();
+              if (!document.fullscreenElement) {
+                hideToolbarsImmediately();
+                document.documentElement.requestFullscreen().catch(() => {});
+              } else {
+                document.exitFullscreen().catch(() => {});
+              }
+              break;
+
+            case 'b':
+            case 'B':
+            case '.':
+              blankScreen.classList.toggle('active');
+              break;
+
+            case 'm':
+            case 'M':
+            case '/':
+              e.preventDefault();
+              if (drawer.classList.contains('open')) {
+                closeDrawer();
+              } else {
+                openDrawer();
+              }
+              break;
+
+            case 'l':
+            case 'L':
+              e.preventDefault();
+              if (playlistModalBackdrop.classList.contains('open')) {
+                playlistModalBackdrop.classList.remove('open');
+              } else {
+                renderPlaylistModal();
+                playlistModalBackdrop.classList.add('open');
+                setTimeout(() => playlistBatchInput.focus(), 150);
+              }
+              break;
+
+            case '+':
+            case '=':
+              btnFontInc.click();
+              break;
+
+            case '-':
+            case '_':
+              btnFontDec.click();
+              break;
+
+            case 'Escape':
+              closeDrawer();
+              playlistModalBackdrop.classList.remove('open');
+              settingsModalBackdrop.classList.remove('open');
+              addSongModalBackdrop.classList.remove('open');
+              blankScreen.classList.remove('active');
+              break;
+          }
+        });
+      }
+
+      init();
+    })();
+  </script>
+</body>
+</html>

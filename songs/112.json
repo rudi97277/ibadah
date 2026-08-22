@@ -1,0 +1,45 @@
+{
+  "number": 112,
+  "title": "T'LAH LAHIR YESUS YANG KUDUS",
+  "title_full": "112 T'LAH LAHIR YESUS YANG KUDUS",
+  "time_signature": "4/4",
+  "key": "1b=F",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "T'lah lahir Yesus yang kudus",
+        "Tiup suling dan petik kecapi",
+        "T'lah lahir Yesus yang kudus",
+        "Bernyanyilah memuji"
+      ],
+      "text": "T'lah lahir Yesus yang kudus\nTiup suling dan petik kecapi\nT'lah lahir Yesus yang kudus\nBernyanyilah memuji"
+    },
+    {
+      "label": "1/2",
+      "type": "verse",
+      "lines": [
+        "Dia lahir di kandang hina",
+        "Di atas jerami dibaringkan",
+        "Dia lahir di kandang hina",
+        "Mari kita sembah Dia"
+      ],
+      "text": "Dia lahir di kandang hina\nDi atas jerami dibaringkan\nDia lahir di kandang hina\nMari kita sembah Dia"
+    },
+    {
+      "label": "2/2",
+      "type": "verse",
+      "lines": [
+        "Pada zaman dulu kala",
+        "Kedatangan-Nya t'lah dib'ritakan",
+        "Pada zaman dulu kala",
+        "Lahir-Nya t'lah dinyatakan"
+      ],
+      "text": "Pada zaman dulu kala\nKedatangan-Nya t'lah dib'ritakan\nPada zaman dulu kala\nLahir-Nya t'lah dinyatakan"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/03/112-tlah-lahir-yesus-yang-kudus.html"
+}

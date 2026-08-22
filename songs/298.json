@@ -1,0 +1,54 @@
+{
+  "number": 298,
+  "title": "S'LAMAT DI LENGAN YESUS",
+  "title_full": "298 S'LAMAT DI LENGAN YESUS",
+  "time_signature": "4/4",
+  "key": "1#=G",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "1/3",
+      "type": "verse",
+      "lines": [
+        "S'lamat di lengan Yesus dan di ribaan-Nya",
+        "Sana aku sentosa dan berbahagia",
+        "Dengar malaikat nyanyi lagu dari surga",
+        "Nama Yesus dipuji di atas laut kaca"
+      ],
+      "text": "S'lamat di lengan Yesus dan di ribaan-Nya\nSana aku sentosa dan berbahagia\nDengar malaikat nyanyi lagu dari surga\nNama Yesus dipuji di atas laut kaca"
+    },
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "S'lamat di lengan Yesus dan di ribaan-Nya",
+        "Sana aku sentosa dan berbahagia"
+      ],
+      "text": "S'lamat di lengan Yesus dan di ribaan-Nya\nSana aku sentosa dan berbahagia"
+    },
+    {
+      "label": "2/3",
+      "type": "verse",
+      "lines": [
+        "Pada ribaan Tuhan aku akan s'lamat",
+        "Meski banyak godaan tiada ku terjerat",
+        "Lepaslah dari susah, bebas dari takut",
+        "Dari s'gala bahaya aku akan luput"
+      ],
+      "text": "Pada ribaan Tuhan aku akan s'lamat\nMeski banyak godaan tiada ku terjerat\nLepaslah dari susah, bebas dari takut\nDari s'gala bahaya aku akan luput"
+    },
+    {
+      "label": "3/3",
+      "type": "verse",
+      "lines": [
+        "Lindungi aku, Tuhan, dari kejahatan",
+        "Engkau yang kuharapkan, Engkau Batu Zaman",
+        "Biarlah aku sabar sampai Engkau datang",
+        "Sampai terbitlah fajar di pantai surga t'rang"
+      ],
+      "text": "Lindungi aku, Tuhan, dari kejahatan\nEngkau yang kuharapkan, Engkau Batu Zaman\nBiarlah aku sabar sampai Engkau datang\nSampai terbitlah fajar di pantai surga t'rang"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/05/298-slamat-di-lengan-yesus.html"
+}

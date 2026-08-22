@@ -1,0 +1,69 @@
+{
+  "number": 360,
+  "title": "ADA NEG'RI AMAT INDAH",
+  "title_full": "360 ADA NEG'RI AMAT INDAH",
+  "time_signature": "4/4",
+  "key": "1#=G",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "1/4",
+      "type": "verse",
+      "lines": [
+        "Ada neg'ri amat indah",
+        "Tuhan sedia bagi kita",
+        "Amat mulia cahayanya",
+        "Ku rindu tiba di sana"
+      ],
+      "text": "Ada neg'ri amat indah\nTuhan sedia bagi kita\nAmat mulia cahayanya\nKu rindu tiba di sana"
+    },
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Neg'ri suci, neg'ri indah",
+        "Ku rindu masuk ke sana",
+        "Dan memandang laut kaca",
+        "Rumah elok bagi kita",
+        "Di dunia baru yang kekal",
+        "Kita akan tetap tinggal"
+      ],
+      "text": "Neg'ri suci, neg'ri indah\nKu rindu masuk ke sana\nDan memandang laut kaca\nRumah elok bagi kita\nDi dunia baru yang kekal\nKita akan tetap tinggal"
+    },
+    {
+      "label": "2/4",
+      "type": "verse",
+      "lines": [
+        "Bersama Jurus'lamatku",
+        "Yang akan pegang tanganku",
+        "Menuntun aku berjalan",
+        "Ke negeri kemuliaan"
+      ],
+      "text": "Bersama Jurus'lamatku\nYang akan pegang tanganku\nMenuntun aku berjalan\nKe negeri kemuliaan"
+    },
+    {
+      "label": "3/4",
+      "type": "verse",
+      "lines": [
+        "Udaranya harum segar",
+        "Bunga elok kekal mekar",
+        "Nyanyi burung tak terputus",
+        "Sungai hidup mengalir t'rus"
+      ],
+      "text": "Udaranya harum segar\nBunga elok kekal mekar\nNyanyi burung tak terputus\nSungai hidup mengalir t'rus"
+    },
+    {
+      "label": "4/4",
+      "type": "verse",
+      "lines": [
+        "Alunan musik menggema",
+        "Teramat merdu suaranya",
+        "Malaikat memuji Tuhan",
+        "Bersama umat tebusan"
+      ],
+      "text": "Alunan musik menggema\nTeramat merdu suaranya\nMalaikat memuji Tuhan\nBersama umat tebusan"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/05/360-ada-negri-amat-indah.html"
+}

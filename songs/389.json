@@ -1,0 +1,56 @@
+{
+  "number": 389,
+  "title": "SATU MASA YANG TERTENTU",
+  "title_full": "389 SATU MASA YANG TERTENTU",
+  "time_signature": "3/4",
+  "key": "3b=Eb",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "1/3",
+      "type": "verse",
+      "lines": [
+        "Satu masa yang tertentu",
+        "Hidupku akan tamatlah",
+        "Tapi akan bangkit aku",
+        "Dan masuk istana Raja"
+      ],
+      "text": "Satu masa yang tertentu\nHidupku akan tamatlah\nTapi akan bangkit aku\nDan masuk istana Raja"
+    },
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Aku akan lihat Tuhan",
+        "Kasih-Nya s'lamatkan aku",
+        "Aku akan lihat Tuhan",
+        "Kasih-Nya s'lamatkan aku"
+      ],
+      "text": "Aku akan lihat Tuhan\nKasih-Nya s'lamatkan aku\nAku akan lihat Tuhan\nKasih-Nya s'lamatkan aku"
+    },
+    {
+      "label": "2/3",
+      "type": "verse",
+      "lines": [
+        "Satu masa akan datang",
+        "Tubuh yang fana pun rapuh",
+        "Tapi aku rasa senang",
+        "Sebab surgalah tempatku"
+      ],
+      "text": "Satu masa akan datang\nTubuh yang fana pun rapuh\nTapi aku rasa senang\nSebab surgalah tempatku"
+    },
+    {
+      "label": "3/3",
+      "type": "verse",
+      "lines": [
+        "Satu masa akan datang",
+        "Bumi 'kan dibinasakan",
+        "Tapi Tuhan menyapaku",
+        "\"Masuk dan t'rima perhentian\""
+      ],
+      "text": "Satu masa akan datang\nBumi 'kan dibinasakan\nTapi Tuhan menyapaku\n\"Masuk dan t'rima perhentian\""
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/05/389-satu-masa-yang-tertentu.html"
+}

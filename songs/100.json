@@ -1,0 +1,67 @@
+{
+  "number": 100,
+  "title": "MARILAH BERSUKACITA",
+  "title_full": "100 MARILAH BERSUKACITA",
+  "time_signature": "4/4",
+  "key": "3b=Eb",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "1/4",
+      "type": "verse",
+      "lines": [
+        "Marilah bersukacita",
+        "Jangan bersungut-sungut",
+        "Kar'na Allah Bapa kita",
+        "Diamkan angin ribut"
+      ],
+      "text": "Marilah bersukacita\nJangan bersungut-sungut\nKar'na Allah Bapa kita\nDiamkan angin ribut"
+    },
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Tetaplah bersuka cita",
+        "Menyanyi dan memuji",
+        "Setia melakukan kerja kita",
+        "Dengan sepenuh hati"
+      ],
+      "text": "Tetaplah bersuka cita\nMenyanyi dan memuji\nSetia melakukan kerja kita\nDengan sepenuh hati"
+    },
+    {
+      "label": "2/4",
+      "type": "verse",
+      "lines": [
+        "Tangan-Nya lindungi kita",
+        "Di saat pencobaan",
+        "Janganlah berputus asa",
+        "Ingatlah janji Tuhan"
+      ],
+      "text": "Tangan-Nya lindungi kita\nDi saat pencobaan\nJanganlah berputus asa\nIngatlah janji Tuhan"
+    },
+    {
+      "label": "3/4",
+      "type": "verse",
+      "lines": [
+        "Kita rasa amat susah",
+        "Bila tidak setia",
+        "Melakukan kerja kita",
+        "Yang ditugaskan Bapa"
+      ],
+      "text": "Kita rasa amat susah\nBila tidak setia\nMelakukan kerja kita\nYang ditugaskan Bapa"
+    },
+    {
+      "label": "4/4",
+      "type": "verse",
+      "lines": [
+        "S'lalu senang umat Tuhan",
+        "Jalannya t'rus bersinar",
+        "Kita tolak kejahatan",
+        "Sambut kasih yang benar"
+      ],
+      "text": "S'lalu senang umat Tuhan\nJalannya t'rus bersinar\nKita tolak kejahatan\nSambut kasih yang benar"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/03/100-marilah-bersukacita.html"
+}

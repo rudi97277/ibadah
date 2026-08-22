@@ -1,0 +1,56 @@
+{
+  "number": 102,
+  "title": "ADA LAGU MERDU",
+  "title_full": "102 ADA LAGU MERDU",
+  "time_signature": "3/4",
+  "key": "1#=G",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "1/4",
+      "type": "verse",
+      "lines": [
+        "Ada lagu merdu, Dan bintang gemerlap",
+        "Ada doa ibu, Dan bayi terlelap",
+        "Cahaya bintang seiring lagu indah",
+        "Di palungan Betlehem lahir sang Raja"
+      ],
+      "text": "Ada lagu merdu, Dan bintang gemerlap\nAda doa ibu, Dan bayi terlelap\nCahaya bintang seiring lagu indah\nDi palungan Betlehem lahir sang Raja"
+    },
+    {
+      "label": "2/4",
+      "type": "verse",
+      "lines": [
+        "Besar kesukaan, Lahir Putra Allah",
+        "Dari sang Perawan, Dialah Tuhan kita",
+        "Cahaya bintang seiring lagu indah",
+        "Di palungan Betlehem lahir sang Raja"
+      ],
+      "text": "Besar kesukaan, Lahir Putra Allah\nDari sang Perawan, Dialah Tuhan kita\nCahaya bintang seiring lagu indah\nDi palungan Betlehem lahir sang Raja"
+    },
+    {
+      "label": "3/4",
+      "type": "verse",
+      "lines": [
+        "Gemerlapnya bintang, Bagai mutiara",
+        "Lagu berkumandang, Di seluruh dunia",
+        "Hangatnya hati, bagaikan lagu indah",
+        "Bagi umat manusia, Kristuslah Raja"
+      ],
+      "text": "Gemerlapnya bintang, Bagai mutiara\nLagu berkumandang, Di seluruh dunia\nHangatnya hati, bagaikan lagu indah\nBagi umat manusia, Kristuslah Raja"
+    },
+    {
+      "label": "4/4",
+      "type": "verse",
+      "lines": [
+        "Kita penuh suka, Menyanyi bersama",
+        "Lagu damai indah, Datang dari surga",
+        "Bersoraklah kar'na kabar baik itu",
+        "Sambutlah bayi Yesus, Jurus'lamatmu"
+      ],
+      "text": "Kita penuh suka, Menyanyi bersama\nLagu damai indah, Datang dari surga\nBersoraklah kar'na kabar baik itu\nSambutlah bayi Yesus, Jurus'lamatmu"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/03/102-ada-lagu-merdu.html"
+}

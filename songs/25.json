@@ -1,0 +1,45 @@
+{
+  "number": 25,
+  "title": "PUJI TUHAN YANG MULIA",
+  "title_full": "025 PUJI TUHAN YANG MULIA",
+  "time_signature": "4/4",
+  "key": "1b =F",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "1/3",
+      "type": "verse",
+      "lines": [
+        "Puji Tuhan yang mulia, Haleluya",
+        "Hai orang saleh semua, Haleluya",
+        "Malaikat yang di surga, Haleluya",
+        "Mengagungkan kasih-Nya, Haleluya"
+      ],
+      "text": "Puji Tuhan yang mulia, Haleluya\nHai orang saleh semua, Haleluya\nMalaikat yang di surga, Haleluya\nMengagungkan kasih-Nya, Haleluya"
+    },
+    {
+      "label": "2/3",
+      "type": "verse",
+      "lines": [
+        "Di surga dan di dunia, Haleluya",
+        "C'ritakan \"Ajaib Allah\", Haleluya",
+        "Dari zaman ke zaman, Haleluya",
+        "S'lamanya puji Tuhan, Haleluya"
+      ],
+      "text": "Di surga dan di dunia, Haleluya\nC'ritakan \"Ajaib Allah\", Haleluya\nDari zaman ke zaman, Haleluya\nS'lamanya puji Tuhan, Haleluya"
+    },
+    {
+      "label": "3/3",
+      "type": "verse",
+      "lines": [
+        "Pujilah rahmat Tuhan, Haleluya",
+        "Yang s'lalu p'lihara, Haleluya",
+        "Yang mengutus Putra-Nya, Haleluya",
+        "Untuk s'lamatkan kita, Haleluya"
+      ],
+      "text": "Pujilah rahmat Tuhan, Haleluya\nYang s'lalu p'lihara, Haleluya\nYang mengutus Putra-Nya, Haleluya\nUntuk s'lamatkan kita, Haleluya"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/02/25-puji-tuhan-yang-mulia.html"
+}

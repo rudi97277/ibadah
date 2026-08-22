@@ -1,0 +1,67 @@
+{
+  "number": 444,
+  "title": "KU ALASKAN PERCAYAKU",
+  "title_full": "444 KU ALASKAN PERCAYAKU",
+  "time_signature": "3/2",
+  "key": "1#=G",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "1/4",
+      "type": "verse",
+      "lines": [
+        "Kualaskan percayaku",
+        "Pada Yesus, Tuhan",
+        "Dialah pengharapanku",
+        "Tuhan kehidupan"
+      ],
+      "text": "Kualaskan percayaku\nPada Yesus, Tuhan\nDialah pengharapanku\nTuhan kehidupan"
+    },
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Imanku teguh pada-Nya,",
+        "Hanya pada Tuhan",
+        "Yesus t'lah mati dan bangkit",
+        "B'ri kes'lamatan"
+      ],
+      "text": "Imanku teguh pada-Nya,\nHanya pada Tuhan\nYesus t'lah mati dan bangkit\nB'ri kes'lamatan"
+    },
+    {
+      "label": "2/4",
+      "type": "verse",
+      "lines": [
+        "Yesus sudah s'lamatkanku",
+        "Takutku lenyap",
+        "Meski besarlah dosaku",
+        "Aku disambut-Nya"
+      ],
+      "text": "Yesus sudah s'lamatkanku\nTakutku lenyap\nMeski besarlah dosaku\nAku disambut-Nya"
+    },
+    {
+      "label": "3/4",
+      "type": "verse",
+      "lines": [
+        "Aku percaya firman-Nya",
+        "Firman kehidupan",
+        "Dalam Yesus dan darah-Nya",
+        "Aku dis'lamatkan"
+      ],
+      "text": "Aku percaya firman-Nya\nFirman kehidupan\nDalam Yesus dan darah-Nya\nAku dis'lamatkan"
+    },
+    {
+      "label": "4/4",
+      "type": "verse",
+      "lines": [
+        "Yesus Penyembuh yang Agung",
+        "Mencari yang sesat",
+        "Dis'rahkan s'luruh hidup-Nya",
+        "Agar aku s'lamat"
+      ],
+      "text": "Yesus Penyembuh yang Agung\nMencari yang sesat\nDis'rahkan s'luruh hidup-Nya\nAgar aku s'lamat"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/06/444-ku-alaskan-percayaku.html"
+}

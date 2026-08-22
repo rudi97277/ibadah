@@ -1,0 +1,67 @@
+{
+  "number": 245,
+  "title": "PIMPIN KU KE SALIB",
+  "title_full": "245 PIMPIN KU KE SALIB",
+  "time_signature": "4/4",
+  "key": "5b=Db",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "1/4",
+      "type": "verse",
+      "lines": [
+        "Engkaulah Raja hidupku",
+        "Tuhan yang mulia",
+        "Mahkota duri dan paku",
+        "Pimpin ku ke salib"
+      ],
+      "text": "Engkaulah Raja hidupku\nTuhan yang mulia\nMahkota duri dan paku\nPimpin ku ke salib"
+    },
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Ku tak lupa Getsemani",
+        "Ku tak lupa sengsara-Nya",
+        "Ku takkan lupa kasih-Nya",
+        "Pimpinku ke salib"
+      ],
+      "text": "Ku tak lupa Getsemani\nKu tak lupa sengsara-Nya\nKu takkan lupa kasih-Nya\nPimpinku ke salib"
+    },
+    {
+      "label": "2/4",
+      "type": "verse",
+      "lines": [
+        "Di mana Kau dibaringkan",
+        "Pedih penuh duka",
+        "Malaikat t'rang berpasukan",
+        "Kubur-Mu dijaga"
+      ],
+      "text": "Di mana Kau dibaringkan\nPedih penuh duka\nMalaikat t'rang berpasukan\nKubur-Mu dijaga"
+    },
+    {
+      "label": "3/4",
+      "type": "verse",
+      "lines": [
+        "Kuingin s'perti Maria",
+        "Membawa kemenyan",
+        "Ke kubur yang t'lah terbuka",
+        "Pimpinku ke salib"
+      ],
+      "text": "Kuingin s'perti Maria\nMembawa kemenyan\nKe kubur yang t'lah terbuka\nPimpinku ke salib"
+    },
+    {
+      "label": "4/4",
+      "type": "verse",
+      "lines": [
+        "Dapatkah aku ya Tuhan",
+        "Menanggung salibku",
+        "Bahkan cawan pend'ritaan",
+        "Kau tanggung bagiku"
+      ],
+      "text": "Dapatkah aku ya Tuhan\nMenanggung salibku\nBahkan cawan pend'ritaan\nKau tanggung bagiku"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/04/245-pimpin-ku-ke-salib.html"
+}

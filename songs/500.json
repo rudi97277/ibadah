@@ -1,0 +1,62 @@
+{
+  "number": 500,
+  "title": "PEMUDA MAJULAH",
+  "title_full": "500 PEMUDA MAJULAH",
+  "time_signature": "4/4",
+  "key": "C",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "1/3",
+      "type": "verse",
+      "lines": [
+        "Bagimu ada kerja",
+        "Dalam ladangnya Tuhan",
+        "Ia panggil marilah, Pemuda, Pemudi",
+        "Dengarlah Dia mengundang",
+        "Jawablah: Kami datang",
+        "Pemuda, Pemudi, majulah"
+      ],
+      "text": "Bagimu ada kerja\nDalam ladangnya Tuhan\nIa panggil marilah, Pemuda, Pemudi\nDengarlah Dia mengundang\nJawablah: Kami datang\nPemuda, Pemudi, majulah"
+    },
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Kristus beserta kita",
+        "Di mana saja",
+        "S'lamatkan jiwa-jiwa, tujuan kita",
+        "Pemuda, Pemudi, majulah"
+      ],
+      "text": "Kristus beserta kita\nDi mana saja\nS'lamatkan jiwa-jiwa, tujuan kita\nPemuda, Pemudi, majulah"
+    },
+    {
+      "label": "2/3",
+      "type": "verse",
+      "lines": [
+        "Siapa masih bertangguh",
+        "Siapa masih menunggu",
+        "Laskar Kristen, hai maju, Pemuda, Pemudi",
+        "Angkat senjata iman",
+        "Kalahkanlah godaan",
+        "Pemuda, Pemudi, majulah"
+      ],
+      "text": "Siapa masih bertangguh\nSiapa masih menunggu\nLaskar Kristen, hai maju, Pemuda, Pemudi\nAngkat senjata iman\nKalahkanlah godaan\nPemuda, Pemudi, majulah"
+    },
+    {
+      "label": "3/3",
+      "type": "verse",
+      "lines": [
+        "Musuh iman lemahlah",
+        "Pasukannya larilah",
+        "Kemenangan pastilah, Pemuda, Pemudi",
+        "Musuhmu tentu kalah",
+        "Hai bersorak-soraklah",
+        "Pemuda, Pemudi, majulah"
+      ],
+      "text": "Musuh iman lemahlah\nPasukannya larilah\nKemenangan pastilah, Pemuda, Pemudi\nMusuhmu tentu kalah\nHai bersorak-soraklah\nPemuda, Pemudi, majulah"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/06/500-pemuda-majulah.html"
+}

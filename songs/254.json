@@ -1,0 +1,56 @@
+{
+  "number": 254,
+  "title": "DALAM HATIKU ADA LAGU",
+  "title_full": "254 DALAM HATIKU ADA LAGU",
+  "time_signature": "4/4",
+  "key": "4b=Ab",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "1/3",
+      "type": "verse",
+      "lines": [
+        "Dalam hatiku ada lagu",
+        "Dari surga yang suci",
+        "Tak ada lagu yang lebih merdu",
+        "Itulah lagu kasih"
+      ],
+      "text": "Dalam hatiku ada lagu\nDari surga yang suci\nTak ada lagu yang lebih merdu\nItulah lagu kasih"
+    },
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Dalam hatiku terdengrlah",
+        "Lagu merdu senang dari surga yang t'rang",
+        "Dalam hatiku terdengarlah",
+        "Lagu kasih Tuhan Yesus"
+      ],
+      "text": "Dalam hatiku terdengrlah\nLagu merdu senang dari surga yang t'rang\nDalam hatiku terdengarlah\nLagu kasih Tuhan Yesus"
+    },
+    {
+      "label": "2/3",
+      "type": "verse",
+      "lines": [
+        "Ku kasih Yesus yang t'lah mati",
+        "Dan membasuh dosaku",
+        "Diberi-Nya lagu dalam hati",
+        "Yang ku nyanyikan s'lalu"
+      ],
+      "text": "Ku kasih Yesus yang t'lah mati\nDan membasuh dosaku\nDiberi-Nya lagu dalam hati\nYang ku nyanyikan s'lalu"
+    },
+    {
+      "label": "3/3",
+      "type": "verse",
+      "lines": [
+        "Ku akan nyanyi lagu itu",
+        "Dengan malaikat semua",
+        "Betapa indah, betapa merdu",
+        "Lagu biduan surga"
+      ],
+      "text": "Ku akan nyanyi lagu itu\nDengan malaikat semua\nBetapa indah, betapa merdu\nLagu biduan surga"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/04/254-dalam-hatiku-ada-lagu.html"
+}

@@ -1,0 +1,56 @@
+{
+  "number": 107,
+  "title": "PERGILAH DAN KABARKAN",
+  "title_full": "107 PERGILAH DAN KABARKAN",
+  "time_signature": "4/4",
+  "key": "1b=F",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Pergilah dan kabarkan",
+        "Ke gunung, di mana saja",
+        "Pergi dan kabarkan",
+        "Yesus lahir sudah"
+      ],
+      "text": "Pergilah dan kabarkan\nKe gunung, di mana saja\nPergi dan kabarkan\nYesus lahir sudah"
+    },
+    {
+      "label": "1/3",
+      "type": "verse",
+      "lines": [
+        "Gembala yang menjaga",
+        "Dombanya di padang",
+        "Melihat di angkasa",
+        "Cahaya benderang"
+      ],
+      "text": "Gembala yang menjaga\nDombanya di padang\nMelihat di angkasa\nCahaya benderang"
+    },
+    {
+      "label": "2/3",
+      "type": "verse",
+      "lines": [
+        "Terkejutlah gembala",
+        "Ketika mendengar",
+        "Nyanyian bala surga",
+        "Gempita mengg'legar"
+      ],
+      "text": "Terkejutlah gembala\nKetika mendengar\nNyanyian bala surga\nGempita mengg'legar"
+    },
+    {
+      "label": "3/3",
+      "type": "verse",
+      "lines": [
+        "Terbaring di palungan",
+        "Kristus sang Penebus",
+        "Membawa kes'lamatan",
+        "Di malam yang kudus"
+      ],
+      "text": "Terbaring di palungan\nKristus sang Penebus\nMembawa kes'lamatan\nDi malam yang kudus"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/03/107-pergilah-dan-kabarkan.html"
+}

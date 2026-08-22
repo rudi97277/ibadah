@@ -1,0 +1,52 @@
+{
+  "number": 111,
+  "title": "MARI UMAT TUHAN",
+  "title_full": "111 MARI UMAT TUHAN",
+  "time_signature": "4/4",
+  "key": "1#=G",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "1/3",
+      "type": "verse",
+      "lines": [
+        "Mari umat Tuhan, bergembira ria",
+        "Marilah semua ke Betlehem",
+        "Marilah pandang lahirnya Sang Raja"
+      ],
+      "text": "Mari umat Tuhan, bergembira ria\nMarilah semua ke Betlehem\nMarilah pandang lahirnya Sang Raja"
+    },
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Sembah dan puji Dia",
+        "Sembah dan puji Dia",
+        "Sembah dan puji Dia, Tuhanku"
+      ],
+      "text": "Sembah dan puji Dia\nSembah dan puji Dia\nSembah dan puji Dia, Tuhanku"
+    },
+    {
+      "label": "2/3",
+      "type": "verse",
+      "lines": [
+        "Hai para malaikat, angkatlah suaramu",
+        "Bernyanyilah biduan surgawi",
+        "Muliakan Dia Allah maha tinggi"
+      ],
+      "text": "Hai para malaikat, angkatlah suaramu\nBernyanyilah biduan surgawi\nMuliakan Dia Allah maha tinggi"
+    },
+    {
+      "label": "3/3",
+      "type": "verse",
+      "lines": [
+        "Penebus t'lah lahir, pada hari ini",
+        "Ya, Yesus terpujilah nama-Mu!",
+        "Firman Ilahi menjadi manusia"
+      ],
+      "text": "Penebus t'lah lahir, pada hari ini\nYa, Yesus terpujilah nama-Mu!\nFirman Ilahi menjadi manusia"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/03/111-mari-umat-tuhan.html"
+}

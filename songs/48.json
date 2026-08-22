@@ -1,0 +1,45 @@
+{
+  "number": 48,
+  "title": "SIANG SUDAH LALU",
+  "title_full": "048 SIANG SUDAH LALU",
+  "time_signature": "4/4",
+  "key": "3#=A",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "1/3",
+      "type": "verse",
+      "lines": [
+        "Siang sudah lalu",
+        "Malam datanglah",
+        "Bayang-bayang senja",
+        "P'nuhi angkasa"
+      ],
+      "text": "Siang sudah lalu\nMalam datanglah\nBayang-bayang senja\nP'nuhi angkasa"
+    },
+    {
+      "label": "2/3",
+      "type": "verse",
+      "lines": [
+        "Bapa b'ri perhentian",
+        "Pada yang penat",
+        "B'ri tidur yang nyaman",
+        "B'rikanlah berkat"
+      ],
+      "text": "Bapa b'ri perhentian\nPada yang penat\nB'ri tidur yang nyaman\nB'rikanlah berkat"
+    },
+    {
+      "label": "3/3",
+      "type": "verse",
+      "lines": [
+        "Di waktu tidurku",
+        "Malaikat setia",
+        "Menaungi aku",
+        "Dengan sayapnya"
+      ],
+      "text": "Di waktu tidurku\nMalaikat setia\nMenaungi aku\nDengan sayapnya"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/02/48-siang-sudah-lalu.html"
+}

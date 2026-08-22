@@ -1,0 +1,43 @@
+{
+  "number": 58,
+  "title": "MAJULAH BERJALAN",
+  "title_full": "058 MAJULAH BERJALAN",
+  "time_signature": "4/4",
+  "key": "1#=G",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "1/2",
+      "type": "verse",
+      "lines": [
+        "Majulah berjalan dengan gembira",
+        "Tuhan sudah menang atas musuh-Nya",
+        "Kristus kes'lamatan dan kesukaan",
+        "Siapakah yang dapat melawan Dia"
+      ],
+      "text": "Majulah berjalan dengan gembira\nTuhan sudah menang atas musuh-Nya\nKristus kes'lamatan dan kesukaan\nSiapakah yang dapat melawan Dia"
+    },
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Maju dan berjalan dengan gembira",
+        "Mari puji Tuhan, besar kasih-Nya"
+      ],
+      "text": "Maju dan berjalan dengan gembira\nMari puji Tuhan, besar kasih-Nya"
+    },
+    {
+      "label": "2/2",
+      "type": "verse",
+      "lines": [
+        "Pada Allah Bapa, puji dan sembah",
+        "Pada Jurus'lamat, ucapkan syukur",
+        "Kepada Roh Kudus, sujud dan sembah",
+        "Bersukacitalah, s'lama-lamanya"
+      ],
+      "text": "Pada Allah Bapa, puji dan sembah\nPada Jurus'lamat, ucapkan syukur\nKepada Roh Kudus, sujud dan sembah\nBersukacitalah, s'lama-lamanya"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/02/58-majulah-berjalan.html"
+}

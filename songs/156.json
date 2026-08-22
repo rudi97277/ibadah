@@ -1,0 +1,54 @@
+{
+  "number": 156,
+  "title": "KASIH YESUS PADAKU",
+  "title_full": "156 KASIH YESUS PADAKU",
+  "time_signature": "4/4",
+  "key": "C",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "1/3",
+      "type": "verse",
+      "lines": [
+        "Yesus kasih padaku",
+        "Alkitab t'rangkan itu",
+        "Anak kecil yang lemah",
+        "Milik Tuhan yang kuasa"
+      ],
+      "text": "Yesus kasih padaku\nAlkitab t'rangkan itu\nAnak kecil yang lemah\nMilik Tuhan yang kuasa"
+    },
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Ya, Yesus kasih, Kasih padaku",
+        "Yesus p'nuh kasih, Alkitab katakan"
+      ],
+      "text": "Ya, Yesus kasih, Kasih padaku\nYesus p'nuh kasih, Alkitab katakan"
+    },
+    {
+      "label": "2/3",
+      "type": "verse",
+      "lines": [
+        "Yesus mati bagiku",
+        "Dihapus-Nya dosaku",
+        "Pintu surga terbuka",
+        "Anak kecil masuklah"
+      ],
+      "text": "Yesus mati bagiku\nDihapus-Nya dosaku\nPintu surga terbuka\nAnak kecil masuklah"
+    },
+    {
+      "label": "3/3",
+      "type": "verse",
+      "lines": [
+        "Yesus t'rimalah aku",
+        "Sucikanlah hatiku",
+        "Engkau mati bagiku",
+        "Kumau hidup bagi-Mu"
+      ],
+      "text": "Yesus t'rimalah aku\nSucikanlah hatiku\nEngkau mati bagiku\nKumau hidup bagi-Mu"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/03/156-kasih-yesus-padaku.html"
+}

@@ -1,0 +1,49 @@
+{
+  "number": 165,
+  "title": "TIGA KEBENARAN",
+  "title_full": "165 TIGA KEBENARAN",
+  "time_signature": "4/4",
+  "key": "C",
+  "author": null,
+  "youtube_url": null,
+  "verses": [
+    {
+      "label": "1/3",
+      "type": "verse",
+      "lines": [
+        "Tiga kebenaran, Dasar iman kita",
+        "Dengan penuh suka, Tuhan kita sembah"
+      ],
+      "text": "Tiga kebenaran, Dasar iman kita\nDengan penuh suka, Tuhan kita sembah"
+    },
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Ia mati",
+        "Ia t'lah bangkit",
+        "Ia 'kan kembali"
+      ],
+      "text": "Ia mati\nIa t'lah bangkit\nIa 'kan kembali"
+    },
+    {
+      "label": "2/3",
+      "type": "verse",
+      "lines": [
+        "Dalam duka lara, Kita diteguhkan",
+        "Kar'na anug'rah-Nya, Kita dikuatkan"
+      ],
+      "text": "Dalam duka lara, Kita diteguhkan\nKar'na anug'rah-Nya, Kita dikuatkan"
+    },
+    {
+      "label": "3/3",
+      "type": "verse",
+      "lines": [
+        "Tiga kebenaran, Yang dipegang teguh",
+        "Membawa manusia, Ke surga penuh"
+      ],
+      "text": "Tiga kebenaran, Yang dipegang teguh\nMembawa manusia, Ke surga penuh"
+    }
+  ],
+  "url": "https://lagusiononline.blogspot.co.id/2016/03/165-tiga-kebenaran.html"
+}

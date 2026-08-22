@@ -1,0 +1,13 @@
+{
+  "font_family": "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+  "font_size_rem": 5.7,
+  "show_metadata": false,
+  "autohide_nav": true,
+  "auto_split_long_verses": true,
+  "refrain_interleaving": true,
+  "worship_playlist": [
+    2,
+    "misi-kita",
+    "ssa"
+  ]
+}
