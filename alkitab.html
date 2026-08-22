@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alkitab Terjemahan Baru (TB)</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      background-color: #ffffff;
+      color: #111111;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      overflow: hidden;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    #app {
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      height: 100vh;
+      background-color: #ffffff;
+      position: relative;
+    }
+
+    /* Hover Trigger Zones for auto-showing toolbars */
+    .top-hover-zone {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 45px;
+      z-index: 49;
+      background: transparent;
+    }
+
+    .bottom-hover-zone {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 45px;
+      z-index: 49;
+      background: transparent;
+    }
+
+    .top-toolbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      z-index: 50;
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .bottom-toolbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      background: #ffffff;
+      border-top: 1px solid #e2e8f0;
+      z-index: 50;
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
+      box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Buttons */
+    .btn {
+      background: #f4f4f5;
+      color: #222222;
+      border: 1px solid #d4d4d8;
+      border-radius: 6px;
+      padding: 7px 12px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: #e4e4e7;
+      border-color: #a1a1aa;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-primary {
+      background: #18181b;
+      color: #ffffff;
+      border-color: #18181b;
+    }
+
+    .btn-primary:hover {
+      background: #27272a;
+    }
+
+    .btn-icon {
+      padding: 7px 10px;
+      font-size: 16px;
+    }
+
+    .badge-count {
+      background: #2563eb;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 10px;
+      margin-left: 2px;
+    }
+
+    /* Search Input */
+    .search-input {
+      padding: 7px 12px;
+      font-size: 14px;
+      font-weight: 600;
+      border: 1px solid #d4d4d8;
+      border-radius: 6px;
+      outline: none;
+      background: #ffffff;
+      color: #111111;
+      width: 250px;
+    }
+
+    .search-input:focus {
+      border-color: #18181b;
+      box-shadow: 0 0 0 2px rgba(24, 24, 27, 0.15);
+    }
+
+    /* Main Slide Viewport */
+    .slide-viewport {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 70px 40px 60px 40px;
+      background-color: #ffffff;
+      cursor: pointer;
+    }
+
+    .slide-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .passage-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 24px;
+      border-radius: 28px;
+      background: #18181b;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 1350px;
+      max-height: calc(100vh - 165px);
+      text-align: center;
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+
+    .slide-body::-webkit-scrollbar {
+      display: none;
+    }
+
+    .verse-container {
+      font-size: 3.6rem;
+      font-weight: 700;
+      line-height: 1.42;
+      color: #000000;
+      word-break: break-word;
+      max-width: 100%;
+      transition: font-size 0.1s ease;
+    }
+
+    .verse-num-prefix {
+      color: #2563eb;
+      font-weight: 800;
+      margin-right: 8px;
+    }
+
+    /* Full Passage Scroll View */
+    .full-passage-container {
+      display: none;
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      padding: 70px 40px 90px 40px;
+      background: #ffffff;
+    }
+
+    .full-passage-header {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(8px);
+      padding: 10px 0 16px 0;
+      text-align: center;
+      border-bottom: 1px solid #e2e8f0;
+      z-index: 10;
+      margin-bottom: 24px;
+    }
+
+    .full-verses-list {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .full-verse-row {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .full-verse-row:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    .full-verse-badge {
+      background: #18181b;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 2px 10px;
+      border-radius: 6px;
+      min-width: 38px;
+      text-align: center;
+    }
+
+    .full-verse-text {
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: #0f172a;
+      line-height: 1.45;
+      flex: 1;
+    }
+
+    /* Verse Quick Jump Buttons */
+    .verse-jump-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      max-width: 50vw;
+      padding: 4px 0;
+    }
+
+    .verse-btn {
+      background: #f4f4f5;
+      color: #222222;
+      border: 1px solid #d4d4d8;
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+
+    .verse-btn:hover {
+      background: #e4e4e7;
+      border-color: #a1a1aa;
+    }
+
+    .verse-btn.active {
+      background: #18181b;
+      color: #ffffff;
+      border-color: #18181b;
+    }
+
+    /* Drawers & Modals */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #e4e4e7;
+      padding: 24px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      color: #111111;
+      width: 560px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .drawer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 420px;
+      background: #ffffff;
+      border-right: 1px solid #e4e4e7;
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(-100%);
+      transition: transform 0.25s ease;
+      box-shadow: 10px 0 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #e4e4e7;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .drawer-tabs {
+      display: flex;
+      background: #f4f4f5;
+      padding: 4px;
+      border-bottom: 1px solid #e4e4e7;
+    }
+
+    .drawer-tab {
+      flex: 1;
+      text-align: center;
+      padding: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #71717a;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    .drawer-tab.active {
+      background: #ffffff;
+      color: #18181b;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .books-grid {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .book-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.15s;
+    }
+
+    .book-card:hover {
+      background: #f1f5f9;
+      border-color: #18181b;
+    }
+
+    .book-card-name {
+      font-weight: 700;
+      font-size: 14px;
+      color: #0f172a;
+    }
+
+    .book-card-sub {
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+
+    .chapter-picker {
+      display: none;
+      flex: 1;
+      flex-direction: column;
+      padding: 14px;
+    }
+
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      overflow-y: auto;
+      max-height: calc(100vh - 150px);
+    }
+
+    .chapter-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      color: #0f172a;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 12px 0;
+      text-align: center;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .chapter-btn:hover {
+      background: #18181b;
+      color: #ffffff;
+      border-color: #18181b;
+    }
+
+    /* Blank Whiteout Screen */
+    .blank-screen {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #ffffff;
+      z-index: 80;
+    }
+
+    .blank-screen.active {
+      display: block;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 75px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #18181b;
+      color: #ffffff;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 13px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transition: all 0.25s ease;
+      pointer-events: none;
+      z-index: 120;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- Hover Zones -->
+    <div class="top-hover-zone"></div>
+    <div class="bottom-hover-zone"></div>
+
+    <!-- Top Toolbar -->
+    <header class="top-toolbar" id="top-toolbar">
+      <div class="toolbar-group">
+        <button class="btn btn-primary" id="btn-open-drawer" title="Buka Daftar Kitab & Pasal (M / /)">📚 Kitab & Pasal</button>
+        <button class="btn" id="btn-open-playlist" title="Atur Urutan Ayat Ibadah (Playlist)">
+          📋 Urutan Ayat <span class="badge-count" id="playlist-count">0</span>
+        </button>
+        <a href="/" class="btn" title="Buka Lagu Sion">🎵 Lagu Sion</a>
+        <button class="btn btn-primary" id="btn-open-projector" title="Buka Layar Proyektor Khusus untuk Monitor 2">
+          📺 Proyektor <span id="projector-status-dot" style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #94a3b8; margin-left: 4px;" title="Status Proyektor"></span>
+        </button>
+      </div>
+
+      <div class="toolbar-group">
+        <input type="text" id="verse-search-input" class="search-input" placeholder="Ketik ayat, misal: Yoh 3:16, Mzm 23:1-6">
+        <button class="btn btn-primary" id="btn-search-go">Buka</button>
+      </div>
+
+      <div class="toolbar-group">
+        <button class="btn" id="btn-live-toggle" title="Tayangkan ke Layar Proyektor (F5 / Enter)" style="font-weight: 700; color: #16a34a; border-color: #86efac; background: #f0fdf4; min-width: 125px; justify-content: center;">
+          ▶ Tayangkan
+        </button>
+        <button class="btn" id="btn-toggle-full-mode" title="Ubah Tampilan Slide / Tampilkan Semua">📄 Tampilkan Semua</button>
+        <button class="btn btn-icon" id="btn-font-dec" title="Kecilkan Font (-)">A-</button>
+        <button class="btn btn-icon" id="btn-font-inc" title="Besarkan Font (+)">A+</button>
+        <button class="btn btn-primary" id="btn-fullscreen" title="Layar Penuh / Fullscreen (F / F11)">⛶ Fullscreen</button>
+        <button class="btn btn-icon" id="btn-settings" title="Pengaturan">⚙️</button>
+      </div>
+    </header>
+
+    <!-- Slide Mode (Default) -->
+    <main class="slide-viewport" id="slide-viewport">
+      <div class="slide-header">
+        <span class="passage-badge" id="disp-ref-badge">YOHANES 3:16</span>
+      </div>
+      <div class="slide-body">
+        <div class="verse-container" id="disp-verse-text">
+          <span class="verse-num-prefix" id="disp-verse-num">16.</span>
+          Karena begitu besar kasih Allah akan dunia ini, sehingga Ia telah mengaruniakan Anak-Nya yang tunggal, supaya setiap orang yang percaya kepada-Nya tidak binasa, melainkan beroleh hidup yang kekal.
+        </div>
+      </div>
+    </main>
+
+    <!-- Full Passage Mode (All Verses on One Page) -->
+    <div class="full-passage-container" id="full-passage-container">
+      <div class="full-passage-header">
+        <span class="passage-badge" id="full-disp-ref-badge">YOHANES 3:16</span>
+      </div>
+      <div class="full-verses-list" id="full-verses-list"></div>
+    </div>
+
+    <!-- Bottom Toolbar -->
+    <footer class="bottom-toolbar" id="bottom-toolbar">
+      <div class="toolbar-group">
+        <button class="btn" id="btn-prev-verse" title="Ayat Sebelumnya (Panah Kiri / Page Up)">◀ Sblm</button>
+        <button class="btn btn-primary" id="btn-next-verse" title="Ayat Berikutnya (Spasi / Panah Kanan / Page Down)">Brkt ▶</button>
+      </div>
+
+      <div class="toolbar-group verse-jump-group" id="verse-pills-container"></div>
+
+      <div class="toolbar-group">
+        <span class="btn" id="status-indicator" style="background: transparent; border: none; cursor: default; font-weight: 600; color: #475569;">
+          Yohanes 3:16
+        </span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Blank Screen Overlay -->
+  <div class="blank-screen" id="blank-screen"></div>
+
+  <!-- Settings Modal -->
+  <div class="modal-backdrop" id="settings-modal-backdrop">
+    <div class="modal" style="width: 480px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 style="font-size: 16px; font-weight: 700; color: #0f172a;">⚙️ Pengaturan Tampilan Alkitab</h3>
+        <button class="btn btn-icon" id="btn-close-settings">✕</button>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9;">
+        <label for="setting-font-family" style="font-size: 14px; font-weight: 600; color: #334155;">Jenis Huruf:</label>
+        <select id="setting-font-family" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 13px; outline: none; background: #fff; color: #111;">
+          <option value="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">Sans-Serif (Modern Standar)</option>
+          <option value="serif">Serif (Klasik / Buku)</option>
+          <option value="Arial, sans-serif">Arial</option>
+          <option value="Georgia, serif">Georgia</option>
+          <option value="'Segoe UI', sans-serif">Segoe UI</option>
+          <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+        </select>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9;">
+        <label for="setting-font-size" style="font-size: 14px; font-weight: 600; color: #334155;">Ukuran Huruf Slide:</label>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <input type="range" id="setting-font-size" min="1.8" max="7.0" step="0.1" value="3.6" style="cursor: pointer;">
+          <span id="font-size-val" style="font-size: 13px; font-weight: 700; width: 45px; color: #0f172a;">3.6rem</span>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9;">
+        <label for="setting-split-verses" style="font-size: 14px; font-weight: 600; color: #334155;">Bagi Ayat Panjang Jadi Sub-Slide:</label>
+        <input type="checkbox" id="setting-split-verses" checked style="width: 18px; height: 18px; cursor: pointer;">
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9;">
+        <label for="setting-show-verse-num" style="font-size: 14px; font-weight: 600; color: #334155;">Tampilkan Nomor Ayat di Slide:</label>
+        <input type="checkbox" id="setting-show-verse-num" checked style="width: 18px; height: 18px; cursor: pointer;">
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9;">
+        <label for="setting-autohide-nav" style="font-size: 14px; font-weight: 600; color: #334155;">Auto-Hide Toolbar (Hanya Saat Hover):</label>
+        <input type="checkbox" id="setting-autohide-nav" checked style="width: 18px; height: 18px; cursor: pointer;">
+      </div>
+
+      <div style="margin-top: 18px; text-align: right;">
+        <button class="btn btn-primary" id="btn-save-settings">Tutup & Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Books Drawer -->
+  <div class="drawer" id="books-drawer">
+    <div class="drawer-header">
+      <h3 style="font-size: 15px; font-weight: 700; color: #0f172a;">📖 Pilih Kitab & Pasal</h3>
+      <button class="btn btn-icon" id="btn-close-drawer">✕</button>
+    </div>
+
+    <div class="drawer-tabs" id="drawer-tabs">
+      <div class="drawer-tab active" data-testament="PL">Perjanjian Lama (39)</div>
+      <div class="drawer-tab" data-testament="PB">Perjanjian Baru (27)</div>
+    </div>
+
+    <div class="books-grid" id="books-grid"></div>
+
+    <div class="chapter-picker" id="chapter-picker">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <button class="btn" id="btn-back-to-books">◀ Kembali</button>
+        <span style="font-weight: 700; color: #0f172a; font-size: 14px;" id="chapter-picker-title">Kejadian</span>
+      </div>
+      <div class="chapter-grid" id="chapter-grid"></div>
+    </div>
+  </div>
+
+  <!-- Preselect Playlist Modal -->
+  <div class="modal-backdrop" id="playlist-modal-backdrop">
+    <div class="modal">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 style="font-size: 16px; font-weight: 700;">📋 Daftar Urutan Ayat Ibadah (Preselect)</h3>
+        <button class="btn btn-icon" id="btn-close-playlist">✕</button>
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <label style="font-size: 12px; font-weight: 600; color: #475569; display: block; margin-bottom: 4px;">
+          Tambah Ayat (Misal: <code>Yoh 3:16</code>, <code>Mzm 23:1-6</code>, <code>Kej 1:1-3</code>):
+        </label>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="playlist-new-ref" class="search-input" placeholder="Contoh: Yoh 3:16-18" style="flex: 1;">
+          <button class="btn btn-primary" id="btn-add-to-playlist">Tambah</button>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 12px;">
+        <label style="font-size: 12px; font-weight: 600; color: #475569; display: block; margin-bottom: 4px;">
+          Input Cepat Sekaligus (Pisahkan dengan koma):
+        </label>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="playlist-batch-input" class="search-input" placeholder="Contoh: Yoh 3:16, Mzm 23:1-6, Kej 1:1-3" style="flex: 1;">
+          <button class="btn" id="btn-apply-playlist-batch">Set Semua</button>
+        </div>
+      </div>
+
+      <div style="flex: 1; overflow-y: auto; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px; min-height: 180px; max-height: 260px;" id="playlist-items-container"></div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px;">
+        <button class="btn" id="btn-clear-playlist" style="color: #dc2626; border-color: #fca5a5;">🗑️ Kosongkan</button>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-primary" id="btn-start-playlist">▶ Buka Ayat Pertama</button>
+          <button class="btn" id="btn-done-playlist">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Notifikasi</div>
+
+  <script>
+    (function() {
+      let booksData = [];
+      let currentQueryResult = null;
+      let currentSlideSequence = [];
+      let currentSlideIndex = 0;
+      let isFullPassageMode = false;
+      let fontSizeRem = 3.6;
+      let playlist = [];
+      let currentPlaylistIndex = -1;
+
+      // DOM Elements
+      const app = document.getElementById('app');
+      const slideViewport = document.getElementById('slide-viewport');
+      const fullPassageContainer = document.getElementById('full-passage-container');
+      const dispRefBadge = document.getElementById('disp-ref-badge');
+      const dispVerseText = document.getElementById('disp-verse-text');
+      const fullDispRefBadge = document.getElementById('full-disp-ref-badge');
+      const fullVersesList = document.getElementById('full-verses-list');
+
+      const verseSearchInput = document.getElementById('verse-search-input');
+      const btnSearchGo = document.getElementById('btn-search-go');
+      const btnToggleFullMode = document.getElementById('btn-toggle-full-mode');
+      const btnFontDec = document.getElementById('btn-font-dec');
+      const btnFontInc = document.getElementById('btn-font-inc');
+      const btnBlank = document.getElementById('btn-blank');
+      const btnFullscreen = document.getElementById('btn-fullscreen');
+      const blankScreen = document.getElementById('blank-screen');
+      const toast = document.getElementById('toast');
+
+      const btnPrevVerse = document.getElementById('btn-prev-verse');
+      const btnNextVerse = document.getElementById('btn-next-verse');
+      const versePillsContainer = document.getElementById('verse-pills-container');
+      const statusIndicator = document.getElementById('status-indicator');
+
+      // Drawer Elements
+      const btnOpenDrawer = document.getElementById('btn-open-drawer');
+      const booksDrawer = document.getElementById('books-drawer');
+      const btnCloseDrawer = document.getElementById('btn-close-drawer');
+      const drawerTabs = document.getElementById('drawer-tabs');
+      const booksGrid = document.getElementById('books-grid');
+      const chapterPicker = document.getElementById('chapter-picker');
+      const chapterPickerTitle = document.getElementById('chapter-picker-title');
+      const chapterGrid = document.getElementById('chapter-grid');
+      const btnBackToBooks = document.getElementById('btn-back-to-books');
+
+      // Playlist Elements
+      const btnOpenPlaylist = document.getElementById('btn-open-playlist');
+      const playlistModalBackdrop = document.getElementById('playlist-modal-backdrop');
+      const btnClosePlaylist = document.getElementById('btn-close-playlist');
+      const btnDonePlaylist = document.getElementById('btn-done-playlist');
+      const playlistCount = document.getElementById('playlist-count');
+      const playlistNewRef = document.getElementById('playlist-new-ref');
+      const btnAddToPlaylist = document.getElementById('btn-add-to-playlist');
+      const playlistBatchInput = document.getElementById('playlist-batch-input');
+      const btnApplyPlaylistBatch = document.getElementById('btn-apply-playlist-batch');
+      const playlistItemsContainer = document.getElementById('playlist-items-container');
+      const btnClearPlaylist = document.getElementById('btn-clear-playlist');
+      const btnStartPlaylist = document.getElementById('btn-start-playlist');
+
+      // Projector DOM Elements & Sync
+      const btnOpenProjector = document.getElementById('btn-open-projector');
+      const projectorStatusDot = document.getElementById('projector-status-dot');
+      const btnLiveToggle = document.getElementById('btn-live-toggle');
+
+      const projectorChannel = new BroadcastChannel('lagusion_live_bus');
+      let isProjectorConnected = false;
+      let isLiveBroadcasting = false; // true = Sedang Tayang (Stop Tayang), false = Belum Tayang (Tayangkan)
+      let projectorWindow = null;
+
+      function updateProjectorStatusUI() {
+        if (projectorStatusDot) {
+          projectorStatusDot.style.background = isProjectorConnected ? '#22c55e' : '#94a3b8';
+          projectorStatusDot.title = isProjectorConnected ? 'Layar Proyektor Terhubung (Monitor 2)' : 'Layar Proyektor Belum Terbuka';
+        }
+      }
+
+      function updateLiveToggleUI() {
+        if (isLiveBroadcasting) {
+          btnLiveToggle.textContent = '⏹ Stop Tayang';
+          btnLiveToggle.style.color = '#ffffff';
+          btnLiveToggle.style.background = '#dc2626';
+          btnLiveToggle.style.borderColor = '#dc2626';
+          btnLiveToggle.title = 'Hentikan Siaran ke Layar Proyektor (F5 / Enter)';
+        } else {
+          btnLiveToggle.textContent = '▶ Tayangkan';
+          btnLiveToggle.style.color = '#16a34a';
+          btnLiveToggle.style.background = '#f0fdf4';
+          btnLiveToggle.style.borderColor = '#86efac';
+          btnLiveToggle.title = 'Tayangkan ke Layar Proyektor (F5 / Enter)';
+        }
+      }
+
+      function toggleLiveBroadcast() {
+        isLiveBroadcasting = !isLiveBroadcasting;
+        updateLiveToggleUI();
+        if (isLiveBroadcasting) {
+          syncCurrentToProjector(true);
+          showToast('▶ Sedang Tayang di Proyektor');
+        } else {
+          // Send standby to projector
+          const standbyState = { mode: 'standby' };
+          try {
+            localStorage.setItem('lagusion_live_state', JSON.stringify(standbyState));
+          } catch (e) {}
+          projectorChannel.postMessage({ type: 'DISPLAY_UPDATE', state: standbyState });
+          showToast('⏹ Siaran Proyektor Dihentikan');
+        }
+      }
+
+      function openProjectorWindow() {
+        if (!projectorWindow || projectorWindow.closed) {
+          projectorWindow = window.open('display.html', 'LaguSionProjector', 'width=1280,height=720,menubar=no,toolbar=no,location=no');
+        } else {
+          projectorWindow.focus();
+        }
+        if (isLiveBroadcasting) {
+          setTimeout(() => syncCurrentToProjector(true), 300);
+        }
+      }
+
+      function syncCurrentToProjector(force = false) {
+        if (!currentSlideSequence || currentSlideSequence.length === 0) return;
+        if (!isLiveBroadcasting && !force) return;
+
+        const slide = currentSlideSequence[currentSlideIndex];
+        if (!slide) return;
+
+        const showNum = (appSettings.show_verse_num !== false && slide.subIndex === 0);
+
+        const state = {
+          mode: 'bible',
+          isBlank: false,
+          reference: `${slide.book_name} ${slide.chapter}:${slide.verse}`,
+          showVerseNum: showNum,
+          verseNum: slide.verse,
+          text: slide.slideText,
+          fontSizeRem: fontSizeRem,
+          fontFamily: appSettings.font_family
+        };
+
+        try {
+          localStorage.setItem('lagusion_live_state', JSON.stringify(state));
+        } catch (e) {}
+        projectorChannel.postMessage({ type: 'DISPLAY_UPDATE', state: state });
+      }
+
+      projectorChannel.onmessage = (event) => {
+        const data = event.data;
+        if (!data) return;
+        if (data.type === 'DISPLAY_CONNECTED' || data.type === 'DISPLAY_READY') {
+          isProjectorConnected = true;
+          updateProjectorStatusUI();
+          if (isLiveBroadcasting) {
+            syncCurrentToProjector(true);
+          }
+        } else if (data.type === 'REQUEST_SYNC') {
+          if (isLiveBroadcasting) {
+            syncCurrentToProjector(true);
+          }
+        }
+      };
+
+      projectorChannel.postMessage({ type: 'REQUEST_PING' });
+
+      // Settings Elements
+      const btnSettings = document.getElementById('btn-settings');
+      const settingsModalBackdrop = document.getElementById('settings-modal-backdrop');
+      const btnCloseSettings = document.getElementById('btn-close-settings');
+      const btnSaveSettings = document.getElementById('btn-save-settings');
+      const settingFontFamily = document.getElementById('setting-font-family');
+      const settingFontSize = document.getElementById('setting-font-size');
+      const fontSizeVal = document.getElementById('font-size-val');
+      const settingSplitVerses = document.getElementById('setting-split-verses');
+      const settingShowVerseNum = document.getElementById('setting-show-verse-num');
+      const settingAutohideNav = document.getElementById('setting-autohide-nav');
+
+      let appSettings = {
+        font_family: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+        font_size_rem: 3.6,
+        auto_split_long_verses: true,
+        show_verse_num: true,
+        autohide_nav: true
+      };
+
+      async function loadAppSettings() {
+        try {
+          const res = await fetch('/api/settings', { cache: 'no-store' });
+          const ct = res.headers.get('content-type') || '';
+          if (res.ok && ct.includes('json')) {
+            const data = await res.json();
+            if (data && typeof data === 'object') {
+              appSettings = { ...appSettings, ...data };
+            }
+          }
+        } catch (e) {
+          const localStr = localStorage.getItem('lagu_sion_settings');
+          if (localStr) {
+            try { appSettings = { ...appSettings, ...JSON.parse(localStr) }; } catch (err) {}
+          }
+        }
+
+        applySettingsToUI();
+      }
+
+      function applySettingsToUI() {
+        if (appSettings.font_family) {
+          dispVerseText.style.fontFamily = appSettings.font_family;
+          document.body.style.fontFamily = appSettings.font_family;
+          if (settingFontFamily) settingFontFamily.value = appSettings.font_family;
+        }
+
+        if (appSettings.font_size_rem) {
+          fontSizeRem = parseFloat(appSettings.font_size_rem);
+          dispVerseText.style.fontSize = `${fontSizeRem}rem`;
+          if (settingFontSize) settingFontSize.value = fontSizeRem;
+          if (fontSizeVal) fontSizeVal.textContent = `${fontSizeRem.toFixed(1)}rem`;
+          document.querySelectorAll('.full-verse-text').forEach(el => el.style.fontSize = `${fontSizeRem * 0.65}rem`);
+        }
+
+        if (settingSplitVerses) {
+          settingSplitVerses.checked = (appSettings.auto_split_long_verses !== false);
+        }
+
+        if (settingShowVerseNum) {
+          settingShowVerseNum.checked = (appSettings.show_verse_num !== false);
+        }
+
+        if (settingAutohideNav) {
+          settingAutohideNav.checked = (appSettings.autohide_nav !== false);
+        }
+      }
+
+      async function saveAppSettings() {
+        if (settingFontFamily) appSettings.font_family = settingFontFamily.value;
+        if (settingFontSize) appSettings.font_size_rem = parseFloat(settingFontSize.value);
+        if (settingSplitVerses) appSettings.auto_split_long_verses = settingSplitVerses.checked;
+        if (settingShowVerseNum) appSettings.show_verse_num = settingShowVerseNum.checked;
+        if (settingAutohideNav) appSettings.autohide_nav = settingAutohideNav.checked;
+
+        applySettingsToUI();
+        rebuildSlideSequenceAndKeepPosition();
+
+        try {
+          localStorage.setItem('lagu_sion_settings', JSON.stringify(appSettings));
+          await fetch('/api/settings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(appSettings)
+          });
+        } catch (e) {}
+      }
+
+      function getMaxCharsForFontSize(sizeRem) {
+        let size = parseFloat(sizeRem) || fontSizeRem || 3.6;
+        if (size > 15) {
+          return Math.max(100, Math.round(size));
+        }
+        size = Math.max(1.5, Math.min(8.0, size));
+        const baseSize = 3.6;
+        const baseChars = 320;
+        const ratio = baseSize / size;
+        return Math.max(100, Math.round(baseChars * Math.pow(ratio, 1.5)));
+      }
+
+      function rebuildSlideSequenceAndKeepPosition() {
+        if (!currentQueryResult || !currentQueryResult.verses || currentQueryResult.verses.length === 0) return;
+
+        let currentVerseNum = null;
+        if (currentSlideSequence && currentSlideSequence[currentSlideIndex]) {
+          currentVerseNum = currentSlideSequence[currentSlideIndex].verse;
+        }
+
+        currentSlideSequence = buildBibleSlideSequence(currentQueryResult.verses, fontSizeRem);
+
+        if (currentVerseNum !== null) {
+          const newIdx = currentSlideSequence.findIndex(s => s.verse === currentVerseNum);
+          if (newIdx !== -1) {
+            currentSlideIndex = newIdx;
+          } else {
+            currentSlideIndex = Math.min(currentSlideIndex, Math.max(0, currentSlideSequence.length - 1));
+          }
+        } else {
+          currentSlideIndex = 0;
+        }
+
+        renderSlide();
+        renderVersePills();
+        updateStatusIndicator();
+      }
+
+      // Split long verse text into natural, balanced multi-slides by clauses and punctuation
+      function buildBibleSlideSequence(verses, sizeRem = fontSizeRem) {
+        const sequence = [];
+        const shouldSplit = (appSettings.auto_split_long_verses !== false);
+        const maxCharsPerSlide = Math.max(60, getMaxCharsForFontSize(sizeRem));
+
+        verses.forEach((v) => {
+          const rawText = (v.text || '').trim();
+          if (!rawText) return;
+
+          if (!shouldSplit || rawText.length <= maxCharsPerSlide) {
+            sequence.push({
+              ...v,
+              slideText: rawText,
+              subIndex: 0,
+              subTotal: 1,
+              isSubPage: false
+            });
+            return;
+          }
+
+          const len = rawText.length;
+          let numSlides = Math.ceil(len / maxCharsPerSlide);
+          if (!isFinite(numSlides) || isNaN(numSlides) || numSlides < 2) numSlides = 2;
+          if (numSlides > 10) numSlides = 10; // Hard safety cap
+
+          const idealChunkLen = len / numSlides;
+          const splitPoints = [];
+
+          function findBestSplitNear(targetPos, minPos, maxPos) {
+            let bestPos = -1;
+            let bestScore = -Infinity;
+
+            for (let i = minPos; i <= maxPos; i++) {
+              if (i >= rawText.length - 1) break;
+
+              let score = 0;
+              const char = rawText[i];
+              const nextChar = rawText[i + 1] || '';
+
+              if (char === '.' || char === ';' || char === ':') {
+                score = 100;
+              } else if (char === '-' && nextChar === '-') {
+                score = 80;
+              } else if (char === ',') {
+                score = 60;
+              } else if (char === ' ') {
+                score = 20;
+              }
+
+              if (score > 0) {
+                const dist = Math.abs(i - targetPos);
+                const totalScore = score - (dist * 0.8);
+                if (totalScore > bestScore) {
+                  bestScore = totalScore;
+                  bestPos = (char === '-' && nextChar === '-') ? i + 2 : (char === ' ' ? i : i + 1);
+                }
+              }
+            }
+
+            return bestPos;
+          }
+
+          let lastSplit = 0;
+          for (let s = 1; s < numSlides; s++) {
+            const idealTarget = s * idealChunkLen;
+            const searchMin = Math.max(lastSplit + 10, Math.floor(idealTarget - (idealChunkLen * 0.4)));
+            const searchMax = Math.min(len - 15, Math.floor(idealTarget + (idealChunkLen * 0.4)));
+
+            let splitPos = -1;
+            if (searchMin <= searchMax) {
+              splitPos = findBestSplitNear(idealTarget, searchMin, searchMax);
+            }
+            if (splitPos === -1 || splitPos <= lastSplit || splitPos >= len) {
+              splitPos = rawText.lastIndexOf(' ', Math.floor(idealTarget));
+              if (splitPos <= lastSplit) splitPos = rawText.indexOf(' ', Math.floor(idealTarget));
+            }
+
+            if (splitPos > lastSplit && splitPos < len) {
+              splitPoints.push(splitPos);
+              lastSplit = splitPos;
+            }
+          }
+
+          const chunks = [];
+          let prev = 0;
+          for (let pos of splitPoints) {
+            const part = rawText.slice(prev, pos).trim();
+            if (part) chunks.push(part);
+            prev = pos;
+          }
+          const lastPart = rawText.slice(prev).trim();
+          if (lastPart) chunks.push(lastPart);
+
+          if (chunks.length === 0) chunks.push(rawText);
+
+          chunks.forEach((chunk, cIdx) => {
+            sequence.push({
+              ...v,
+              slideText: chunk,
+              subIndex: cIdx,
+              subTotal: chunks.length,
+              isSubPage: chunks.length > 1
+            });
+          });
+        });
+
+        return sequence;
+      }
+
+      async function init() {
+        await loadAppSettings();
+        await loadBooks();
+        await loadPlaylist();
+
+        const lastRef = localStorage.getItem('alkitab_last_ref') || (playlist.length > 0 ? playlist[0] : 'Yohanes 3:16');
+        const lastSlideIdx = parseInt(localStorage.getItem('alkitab_last_slide_idx') || '0') || 0;
+        await openPassage(lastRef, lastSlideIdx);
+        setupEventListeners();
+      }
+
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+      }
+
+      async function loadBooks() {
+        try {
+          const res = await fetch('/api/alkitab/books', { cache: 'no-store' });
+          const ct = res.headers.get('content-type') || '';
+          if (res.ok && ct.includes('json')) {
+            booksData = await res.json();
+            renderBooksGrid('PL');
+          }
+        } catch (e) {
+          console.error('Failed to load books list:', e);
+        }
+      }
+
+      async function loadPlaylist() {
+        try {
+          const res = await fetch('/api/alkitab/playlist', { cache: 'no-store' });
+          const ct = res.headers.get('content-type') || '';
+          if (res.ok && ct.includes('json')) {
+            playlist = await res.json();
+          }
+        } catch (e) {
+          const localStr = localStorage.getItem('alkitab_playlist');
+          if (localStr) {
+            try { playlist = JSON.parse(localStr); } catch (err) {}
+          }
+        }
+        if (!Array.isArray(playlist)) playlist = [];
+        updatePlaylistCount();
+      }
+
+      async function savePlaylist() {
+        try {
+          localStorage.setItem('alkitab_playlist', JSON.stringify(playlist));
+          await fetch('/api/alkitab/playlist', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(playlist)
+          });
+        } catch (e) {}
+        updatePlaylistCount();
+      }
+
+      function updatePlaylistCount() {
+        playlistCount.textContent = playlist.length;
+      }
+
+      function matchPlaylistItem(item, currentRef, result) {
+        if (!item) return false;
+        const normItem = item.toLowerCase().replace(/[\s\.\:\-]+/g, '');
+        if (currentRef) {
+          const normRef = currentRef.toLowerCase().replace(/[\s\.\:\-]+/g, '');
+          if (normItem === normRef) return true;
+        }
+        if (result) {
+          if (result.reference) {
+            const normRes = result.reference.toLowerCase().replace(/[\s\.\:\-]+/g, '');
+            if (normItem === normRes) return true;
+          }
+          if (result.book_name && result.chapter) {
+            const longRef = (result.book_name + result.chapter + (result.verse_start ? ':' + result.verse_start : '')).toLowerCase().replace(/[\s\.\:\-]+/g, '');
+            if (normItem === longRef) return true;
+          }
+          if (result.book_abbr && result.chapter) {
+            const shortRef = (result.book_abbr + result.chapter + (result.verse_start ? ':' + result.verse_start : '')).toLowerCase().replace(/[\s\.\:\-]+/g, '');
+            if (normItem === shortRef) return true;
+          }
+        }
+        return false;
+      }
+
+      async function openPassage(refString, slideIndexInSequence = 0) {
+        if (!refString) return;
+        if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
+          document.activeElement.blur();
+        }
+        try {
+          const res = await fetch(`/api/alkitab/query?q=${encodeURIComponent(refString)}`, { cache: 'no-store' });
+          const ct = res.headers.get('content-type') || '';
+          if (!ct.includes('json')) {
+            alert('Server belum merespon dalam format JSON. Pastikan server Golang terbaru sudah berjalan.');
+            return;
+          }
+
+          const result = await res.json();
+          if (!res.ok) {
+            alert(result.message || 'Ayat tidak ditemukan.');
+            return;
+          }
+
+          currentQueryResult = result;
+          currentSlideSequence = buildBibleSlideSequence(result.verses, fontSizeRem);
+
+          if (slideIndexInSequence >= currentSlideSequence.length) slideIndexInSequence = Math.max(0, currentSlideSequence.length - 1);
+          if (slideIndexInSequence < 0) slideIndexInSequence = 0;
+          currentSlideIndex = slideIndexInSequence;
+
+          currentPlaylistIndex = playlist.findIndex(item => matchPlaylistItem(item, refString, result));
+
+          try {
+            localStorage.setItem('alkitab_last_ref', result.reference);
+            localStorage.setItem('alkitab_last_slide_idx', String(currentSlideIndex));
+          } catch (e) {}
+
+          renderSlide();
+          renderFullPassage();
+          renderVersePills();
+          updateStatusIndicator();
+        } catch (e) {
+          console.error('Failed to query verse:', e);
+        }
+      }
+
+      function renderSlide() {
+        if (!currentSlideSequence || currentSlideSequence.length === 0) return;
+
+        const slide = currentSlideSequence[currentSlideIndex];
+        dispRefBadge.textContent = `${slide.book_name.toUpperCase()} ${slide.chapter}:${slide.verse}`;
+        
+        let text = slide.slideText;
+        const showNum = (appSettings.show_verse_num !== false && slide.subIndex === 0);
+        const prefix = showNum ? `<span class="verse-num-prefix">${slide.verse}.</span> ` : '';
+        
+        dispVerseText.innerHTML = `${prefix}${text}`;
+        dispVerseText.style.fontSize = `${fontSizeRem}rem`;
+        if (appSettings.font_family) dispVerseText.style.fontFamily = appSettings.font_family;
+
+        syncCurrentToProjector(false);
+      }
+
+      function renderFullPassage() {
+        if (!currentQueryResult) return;
+        fullDispRefBadge.textContent = currentQueryResult.reference.toUpperCase();
+        fullVersesList.innerHTML = '';
+
+        currentQueryResult.verses.forEach((v) => {
+          const row = document.createElement('div');
+          row.className = 'full-verse-row';
+          row.innerHTML = `
+            <div class="full-verse-badge">${v.verse}</div>
+            <div class="full-verse-text" style="font-size: ${fontSizeRem * 0.65}rem; ${appSettings.font_family ? `font-family: ${appSettings.font_family};` : ''}">${v.text}</div>
+          `;
+          row.addEventListener('click', () => {
+            const foundIdx = currentSlideSequence.findIndex(s => s.verse === v.verse);
+            if (foundIdx !== -1) currentSlideIndex = foundIdx;
+            renderSlide();
+            renderVersePills();
+            updateStatusIndicator();
+            toggleFullMode(false);
+          });
+          fullVersesList.appendChild(row);
+        });
+      }
+
+      function renderVersePills() {
+        versePillsContainer.innerHTML = '';
+        if (!currentSlideSequence || currentSlideSequence.length <= 1) return;
+
+        currentSlideSequence.forEach((s, idx) => {
+          const btn = document.createElement('button');
+          btn.className = 'verse-btn';
+          btn.textContent = `${s.verse}`;
+          if (idx === currentSlideIndex) {
+            btn.classList.add('active');
+          }
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            currentSlideIndex = idx;
+            renderSlide();
+            renderVersePills();
+            updateStatusIndicator();
+          });
+          versePillsContainer.appendChild(btn);
+        });
+      }
+
+      function updateStatusIndicator() {
+        if (!currentQueryResult || !currentSlideSequence) return;
+        const totalSlides = currentSlideSequence.length;
+        const currSlide = currentSlideIndex + 1;
+
+        if (currentPlaylistIndex !== -1) {
+          const nextItem = (currentPlaylistIndex < playlist.length - 1) ? playlist[currentPlaylistIndex + 1] : null;
+          const nextLabel = nextItem ? ` ➔ Brkt: ${nextItem}` : ' (Bacaan Terakhir)';
+          statusIndicator.textContent = `[Urutan ${currentPlaylistIndex + 1}/${playlist.length}] ${currentQueryResult.reference} (Slide ${currSlide}/${totalSlides})${nextLabel}`;
+        } else {
+          statusIndicator.textContent = `${currentQueryResult.reference} (Slide ${currSlide}/${totalSlides})`;
+        }
+      }
+
+      function nextVerse() {
+        if (!currentSlideSequence || currentSlideSequence.length === 0) return;
+        if (currentSlideIndex < currentSlideSequence.length - 1) {
+          currentSlideIndex++;
+          renderSlide();
+          renderVersePills();
+          updateStatusIndicator();
+        } else {
+          if (currentPlaylistIndex !== -1 && currentPlaylistIndex < playlist.length - 1) {
+            openPassage(playlist[currentPlaylistIndex + 1], 0);
+          } else {
+            showToast('Akhir pembacaan ayat');
+          }
+        }
+      }
+
+      function prevVerse() {
+        if (!currentSlideSequence || currentSlideSequence.length === 0) return;
+        if (currentSlideIndex > 0) {
+          currentSlideIndex--;
+          renderSlide();
+          renderVersePills();
+          updateStatusIndicator();
+        } else {
+          if (currentPlaylistIndex > 0) {
+            openPassage(playlist[currentPlaylistIndex - 1], 999);
+          }
+        }
+      }
+
+      function toggleFullMode(forceState) {
+        if (forceState !== undefined) {
+          isFullPassageMode = forceState;
+        } else {
+          isFullPassageMode = !isFullPassageMode;
+        }
+
+        if (isFullPassageMode) {
+          slideViewport.style.display = 'none';
+          fullPassageContainer.style.display = 'block';
+          btnToggleFullMode.textContent = '📽️ Mode Slide';
+        } else {
+          slideViewport.style.display = 'flex';
+          fullPassageContainer.style.display = 'none';
+          btnToggleFullMode.textContent = '📄 Tampilkan Semua';
+        }
+      }
+
+      function renderBooksGrid(testament) {
+        booksGrid.innerHTML = '';
+        const filtered = booksData.filter(b => b.testament === testament);
+        filtered.forEach(b => {
+          const card = document.createElement('div');
+          card.className = 'book-card';
+          card.innerHTML = `
+            <div class="book-card-name">${b.name}</div>
+            <div class="book-card-sub">${b.chapters} pasal • ${b.abbr}</div>
+          `;
+          card.addEventListener('click', () => {
+            openChapterPicker(b);
+          });
+          booksGrid.appendChild(card);
+        });
+      }
+
+      function openChapterPicker(book) {
+        booksGrid.style.display = 'none';
+        drawerTabs.style.display = 'none';
+        chapterPicker.style.display = 'flex';
+        chapterPickerTitle.textContent = `${book.name} (${book.chapters} Pasal)`;
+
+        chapterGrid.innerHTML = '';
+        for (let c = 1; c <= book.chapters; c++) {
+          const btn = document.createElement('button');
+          btn.className = 'chapter-btn';
+          btn.textContent = `${c}`;
+          btn.addEventListener('click', () => {
+            closeDrawer();
+            openPassage(`${book.name} ${c}`);
+          });
+          chapterGrid.appendChild(btn);
+        }
+      }
+
+      function closeDrawer() {
+        booksDrawer.classList.remove('open');
+        booksGrid.style.display = 'grid';
+        drawerTabs.style.display = 'flex';
+        chapterPicker.style.display = 'none';
+      }
+
+      function renderPlaylistModal() {
+        playlistItemsContainer.innerHTML = '';
+        if (playlist.length === 0) {
+          playlistItemsContainer.innerHTML = `
+            <div style="text-align: center; color: #64748b; padding: 30px 16px; font-size: 13px;">
+              Belum ada ayat terdaftar.<br>Ketik referensi ayat di atas lalu klik Tambah.
+            </div>
+          `;
+          return;
+        }
+
+        playlist.forEach((ref, idx) => {
+          const itemDiv = document.createElement('div');
+          itemDiv.style.display = 'flex';
+          itemDiv.style.alignItems = 'center';
+          itemDiv.style.justifyContent = 'space-between';
+          itemDiv.style.padding = '8px 12px';
+          itemDiv.style.background = '#ffffff';
+          itemDiv.style.border = '1px solid #e2e8f0';
+          itemDiv.style.borderRadius = '6px';
+          itemDiv.style.marginBottom = '6px';
+
+          const isPlaying = (currentQueryResult && matchPlaylistItem(ref, currentQueryResult.reference, currentQueryResult));
+          if (isPlaying) {
+            itemDiv.style.borderColor = '#18181b';
+            itemDiv.style.background = '#f1f5f9';
+          }
+
+          itemDiv.innerHTML = `
+            <div style="cursor: pointer; flex: 1; font-weight: 600; font-size: 14px; color: #0f172a;">
+              ${idx + 1}. ${ref} ${isPlaying ? '<span style="font-size: 11px; background: #18181b; color: #fff; padding: 2px 6px; border-radius: 4px; margin-left: 6px;">▶ Tayang</span>' : ''}
+            </div>
+            <div style="display: flex; gap: 4px;">
+              <button class="btn" data-action="up" ${idx === 0 ? 'disabled' : ''} style="padding: 2px 8px; font-size: 11px;">▲</button>
+              <button class="btn" data-action="down" ${idx === playlist.length - 1 ? 'disabled' : ''} style="padding: 2px 8px; font-size: 11px;">▼</button>
+              <button class="btn" data-action="del" style="color: #dc2626; padding: 2px 8px; font-size: 11px;">✕</button>
+            </div>
+          `;
+
+          itemDiv.querySelector('div').addEventListener('click', () => {
+            playlistModalBackdrop.classList.remove('open');
+            openPassage(ref, 0);
+          });
+
+          itemDiv.querySelector('[data-action="up"]').addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (idx > 0) {
+              const tmp = playlist[idx];
+              playlist[idx] = playlist[idx - 1];
+              playlist[idx - 1] = tmp;
+              savePlaylist();
+              renderPlaylistModal();
+            }
+          });
+
+          itemDiv.querySelector('[data-action="down"]').addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (idx < playlist.length - 1) {
+              const tmp = playlist[idx];
+              playlist[idx] = playlist[idx + 1];
+              playlist[idx + 1] = tmp;
+              savePlaylist();
+              renderPlaylistModal();
+            }
+          });
+
+          itemDiv.querySelector('[data-action="del"]').addEventListener('click', (e) => {
+            e.stopPropagation();
+            playlist.splice(idx, 1);
+            savePlaylist();
+            renderPlaylistModal();
+          });
+
+          playlistItemsContainer.appendChild(itemDiv);
+        });
+      }
+
+      function setupEventListeners() {
+        btnSearchGo.addEventListener('click', () => {
+          const val = verseSearchInput.value.trim();
+          if (val) {
+            verseSearchInput.blur();
+            openPassage(val, 0);
+          }
+        });
+
+        verseSearchInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            const val = verseSearchInput.value.trim();
+            if (val) {
+              verseSearchInput.blur();
+              openPassage(val, 0);
+            }
+          }
+        });
+
+        btnPrevVerse.addEventListener('click', prevVerse);
+        btnNextVerse.addEventListener('click', nextVerse);
+
+        btnToggleFullMode.addEventListener('click', () => toggleFullMode());
+
+        btnFontDec.addEventListener('click', () => {
+          fontSizeRem = Math.max(1.8, fontSizeRem - 0.3);
+          if (settingFontSize) settingFontSize.value = fontSizeRem;
+          if (fontSizeVal) fontSizeVal.textContent = `${fontSizeRem.toFixed(1)}rem`;
+          rebuildSlideSequenceAndKeepPosition();
+          saveAppSettings();
+        });
+
+        btnFontInc.addEventListener('click', () => {
+          fontSizeRem = Math.min(7.0, fontSizeRem + 0.3);
+          if (settingFontSize) settingFontSize.value = fontSizeRem;
+          if (fontSizeVal) fontSizeVal.textContent = `${fontSizeRem.toFixed(1)}rem`;
+          rebuildSlideSequenceAndKeepPosition();
+          saveAppSettings();
+        });
+
+        // Projector Window & Single Live Toggle Control
+        if (btnOpenProjector) btnOpenProjector.addEventListener('click', openProjectorWindow);
+        if (btnLiveToggle) btnLiveToggle.addEventListener('click', toggleLiveBroadcast);
+
+        if (btnBlank) {
+          btnBlank.addEventListener('click', () => {
+            blankScreen.classList.toggle('active');
+            setTimeout(() => syncCurrentToProjector(true), 50);
+          });
+        }
+
+        btnFullscreen.addEventListener('click', () => {
+          if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(() => {});
+          } else {
+            document.exitFullscreen().catch(() => {});
+          }
+        });
+
+        slideViewport.addEventListener('click', (e) => {
+          if (e.clientX > window.innerWidth / 2) {
+            nextVerse();
+          } else {
+            prevVerse();
+          }
+        });
+
+        // Settings Modal
+        btnSettings.addEventListener('click', () => {
+          settingsModalBackdrop.classList.add('open');
+        });
+        btnCloseSettings.addEventListener('click', () => {
+          settingsModalBackdrop.classList.remove('open');
+        });
+        btnSaveSettings.addEventListener('click', () => {
+          saveAppSettings();
+          settingsModalBackdrop.classList.remove('open');
+          showToast('Pengaturan tersimpan');
+        });
+
+        settingFontFamily.addEventListener('change', () => {
+          appSettings.font_family = settingFontFamily.value;
+          applySettingsToUI();
+          saveAppSettings();
+        });
+
+        settingFontSize.addEventListener('input', () => {
+          fontSizeRem = parseFloat(settingFontSize.value);
+          fontSizeVal.textContent = `${fontSizeRem.toFixed(1)}rem`;
+          rebuildSlideSequenceAndKeepPosition();
+          document.querySelectorAll('.full-verse-text').forEach(el => el.style.fontSize = `${fontSizeRem * 0.65}rem`);
+        });
+        settingFontSize.addEventListener('change', saveAppSettings);
+
+        settingSplitVerses.addEventListener('change', saveAppSettings);
+        settingShowVerseNum.addEventListener('change', saveAppSettings);
+        settingAutohideNav.addEventListener('change', saveAppSettings);
+
+        // Drawer
+        btnOpenDrawer.addEventListener('click', () => booksDrawer.classList.add('open'));
+        btnCloseDrawer.addEventListener('click', closeDrawer);
+        btnBackToBooks.addEventListener('click', () => {
+          booksGrid.style.display = 'grid';
+          drawerTabs.style.display = 'flex';
+          chapterPicker.style.display = 'none';
+        });
+
+        drawerTabs.querySelectorAll('.drawer-tab').forEach(tab => {
+          tab.addEventListener('click', () => {
+            drawerTabs.querySelectorAll('.drawer-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            renderBooksGrid(tab.dataset.testament);
+          });
+        });
+
+        // Playlist
+        btnOpenPlaylist.addEventListener('click', () => {
+          renderPlaylistModal();
+          playlistModalBackdrop.classList.add('open');
+        });
+        btnClosePlaylist.addEventListener('click', () => playlistModalBackdrop.classList.remove('open'));
+        btnDonePlaylist.addEventListener('click', () => playlistModalBackdrop.classList.remove('open'));
+
+        btnAddToPlaylist.addEventListener('click', () => {
+          const val = playlistNewRef.value.trim();
+          if (val) {
+            playlist.push(val);
+            playlistNewRef.value = '';
+            savePlaylist();
+            renderPlaylistModal();
+            showToast(`"${val}" ditambahkan`);
+            playlistNewRef.focus();
+          }
+        });
+
+        playlistNewRef.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            btnAddToPlaylist.click();
+          }
+        });
+
+        btnApplyPlaylistBatch.addEventListener('click', () => {
+          const val = playlistBatchInput.value.trim();
+          if (val) {
+            const tokens = val.split(/[,\n]+/).map(t => t.trim()).filter(t => t.length > 0);
+            playlist = tokens;
+            playlistBatchInput.value = '';
+            savePlaylist();
+            renderPlaylistModal();
+            showToast(`${tokens.length} ayat diset`);
+          }
+        });
+
+        playlistBatchInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            btnApplyPlaylistBatch.click();
+          }
+        });
+
+        btnClearPlaylist.addEventListener('click', () => {
+          if (confirm('Kosongkan semua daftar ayat ibadah?')) {
+            playlist = [];
+            savePlaylist();
+            renderPlaylistModal();
+          }
+        });
+
+        btnStartPlaylist.addEventListener('click', () => {
+          if (playlist.length > 0) {
+            playlistModalBackdrop.classList.remove('open');
+            openPassage(playlist[0], 0);
+          }
+        });
+
+        // Keyboard Shortcuts
+        window.addEventListener('keydown', (e) => {
+          const isInput = (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT');
+          if (isInput && e.key !== 'Escape') return;
+
+          switch (e.key) {
+            case ' ':
+            case 'ArrowRight':
+            case 'PageDown':
+              e.preventDefault();
+              nextVerse();
+              break;
+            case 'ArrowLeft':
+            case 'PageUp':
+              e.preventDefault();
+              prevVerse();
+              break;
+            case 'F5':
+            case 'Enter':
+              e.preventDefault();
+              toggleLiveBroadcast();
+              break;
+            case 'b':
+            case 'B':
+            case '.':
+              e.preventDefault();
+              blankScreen.classList.toggle('active');
+              setTimeout(() => syncCurrentToProjector(true), 50);
+              break;
+            case 'f':
+            case 'F':
+            case 'F11':
+              if (e.key !== 'F11') e.preventDefault();
+              if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+              } else {
+                document.exitFullscreen().catch(() => {});
+              }
+              break;
+            case 'Escape':
+              blankScreen.classList.remove('active');
+              booksDrawer.classList.remove('open');
+              playlistModalBackdrop.classList.remove('open');
+              settingsModalBackdrop.classList.remove('open');
+              break;
+            case '/':
+              e.preventDefault();
+              verseSearchInput.focus();
+              verseSearchInput.select();
+              break;
+          }
+        });
+
+        window.addEventListener('resize', () => {
+          renderSlide();
+        });
+      }
+
+      init();
+    })();
+  </script>
+</body>
+</html>

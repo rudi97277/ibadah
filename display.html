@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layar Proyektor - Lagu Sion & Alkitab</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body, html {
+      width: 100vw;
+      height: 100vh;
+      background-color: #ffffff;
+      color: #000000;
+      overflow: hidden;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .projector-viewport {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+      padding: 40px 48px;
+      position: relative;
+      cursor: pointer;
+      background: #ffffff;
+    }
+
+    /* Blank Screen Overlay */
+    .blank-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #ffffff;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .blank-screen.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Content Containers */
+    .content-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.15s ease-in-out;
+    }
+
+    /* Song Mode Styles */
+    .song-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .song-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #000000;
+      margin-bottom: 6px;
+    }
+
+    .song-meta {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 6px;
+    }
+
+    .meta-badge {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #4b5563;
+      background: #f3f4f6;
+      padding: 4px 14px;
+      border-radius: 20px;
+    }
+
+    .verse-badge {
+      display: inline-block;
+      font-size: 1.25rem;
+      font-weight: 800;
+      background: #000000;
+      color: #ffffff;
+      padding: 4px 18px;
+      border-radius: 20px;
+    }
+
+    .verse-badge.is-chorus {
+      background: #b91c1c;
+    }
+
+    .song-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 1350px;
+      max-height: calc(100vh - 150px);
+      text-align: center;
+    }
+
+    .lyrics-container {
+      font-size: 3.6rem;
+      font-weight: 700;
+      line-height: 1.42;
+      color: #000000;
+      white-space: pre-line;
+      word-break: break-word;
+      max-width: 100%;
+    }
+
+    /* Bible Mode Styles */
+    .bible-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .passage-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 28px;
+      border-radius: 28px;
+      background: #18181b;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    }
+
+    .bible-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 1350px;
+      max-height: calc(100vh - 150px);
+      text-align: center;
+    }
+
+    .verse-container {
+      font-size: 3.6rem;
+      font-weight: 700;
+      line-height: 1.42;
+      color: #000000;
+      word-break: break-word;
+      max-width: 100%;
+    }
+
+    .verse-num-prefix {
+      color: #2563eb;
+      font-weight: 800;
+      margin-right: 8px;
+    }
+
+    /* Standby / Initial Hint */
+    .standby-hint {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.75);
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      pointer-events: none;
+      opacity: 0.8;
+      transition: opacity 1s ease;
+      z-index: 100;
+    }
+
+    .standby-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #64748b;
+    }
+
+    .standby-screen h2 {
+      font-size: 2.2rem;
+      color: #1e293b;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Blank Whiteout Screen -->
+  <div class="blank-screen" id="blank-screen"></div>
+
+  <!-- Projection Viewport -->
+  <main class="projector-viewport" id="projector-viewport" title="Klik untuk Fullscreen">
+    <!-- Standby Screen (Shown when nothing is broadcast yet) -->
+    <div id="standby-view" class="standby-screen">
+      <h2>📽️ Layar Proyektor Ibadah</h2>
+      <p style="font-size: 1.2rem; max-width: 600px; line-height: 1.6;">
+        Tarik jendela ini ke <b>Layar Monitor 2 (Proyektor)</b> lalu klik layar atau tekan <b>F / F11</b> untuk Fullscreen.<br>
+        Tampilan akan otomatis sinkron dari layar Operator.
+      </p>
+    </div>
+
+    <!-- Song Presentation View -->
+    <div id="song-view" class="content-container" style="display: none;">
+      <div class="song-header">
+        <h1 class="song-title" id="disp-song-title">001 DI HADAPAN HADIRAT-MU</h1>
+        <div class="song-meta" id="disp-song-meta">
+          <span class="meta-badge" id="disp-song-key">Nada: 2#=D</span>
+          <span class="meta-badge" id="disp-song-time">Ketukan: 4/4</span>
+        </div>
+        <div>
+          <span class="verse-badge" id="disp-song-verse-badge">1/4</span>
+        </div>
+      </div>
+      <div class="song-body">
+        <div class="lyrics-container" id="disp-song-lyrics"></div>
+      </div>
+    </div>
+
+    <!-- Bible Presentation View -->
+    <div id="bible-view" class="content-container" style="display: none;">
+      <div class="bible-header">
+        <div class="passage-badge" id="disp-bible-ref-badge">YOHANES 3:16</div>
+      </div>
+      <div class="bible-body">
+        <div class="verse-container" id="disp-bible-text"></div>
+      </div>
+    </div>
+
+    <!-- Standby / Fullscreen Hint -->
+    <div class="standby-hint" id="standby-hint">
+      ⛶ Klik layar untuk Fullscreen (F11)
+    </div>
+  </main>
+
+  <script>
+    (function() {
+      const blankScreen = document.getElementById('blank-screen');
+      const standbyView = document.getElementById('standby-view');
+      const songView = document.getElementById('song-view');
+      const bibleView = document.getElementById('bible-view');
+
+      // Song elements
+      const dispSongTitle = document.getElementById('disp-song-title');
+      const dispSongMeta = document.getElementById('disp-song-meta');
+      const dispSongKey = document.getElementById('disp-song-key');
+      const dispSongTime = document.getElementById('disp-song-time');
+      const dispSongVerseBadge = document.getElementById('disp-song-verse-badge');
+      const dispSongLyrics = document.getElementById('disp-song-lyrics');
+
+      // Bible elements
+      const dispBibleRefBadge = document.getElementById('disp-bible-ref-badge');
+      const dispBibleText = document.getElementById('disp-bible-text');
+
+      const standbyHint = document.getElementById('standby-hint');
+
+      // Hide hint after 4 seconds
+      setTimeout(() => {
+        if (standbyHint) standbyHint.style.opacity = '0';
+      }, 4000);
+
+      // BroadcastChannel for instant local cross-window messaging
+      const channel = new BroadcastChannel('lagusion_live_bus');
+
+      function sendHandshake() {
+        channel.postMessage({ type: 'DISPLAY_CONNECTED', timestamp: Date.now() });
+      }
+
+      function applyState(state) {
+        if (!state) return;
+
+        // Apply Blank
+        if (state.isBlank) {
+          blankScreen.classList.add('active');
+        } else {
+          blankScreen.classList.remove('active');
+        }
+
+        // Apply Mode
+        if (state.mode === 'standby' || !state.mode) {
+          standbyView.style.display = 'flex';
+          songView.style.display = 'none';
+          bibleView.style.display = 'none';
+        } else if (state.mode === 'song') {
+          standbyView.style.display = 'none';
+          bibleView.style.display = 'none';
+          songView.style.display = 'flex';
+
+          dispSongTitle.textContent = state.title || '';
+          
+          if (state.showMetadata && (state.key || state.time)) {
+            dispSongMeta.style.display = 'flex';
+            if (state.key) {
+              dispSongKey.textContent = `Nada: ${state.key}`;
+              dispSongKey.style.display = 'inline-block';
+            } else {
+              dispSongKey.style.display = 'none';
+            }
+            if (state.time) {
+              dispSongTime.textContent = `Ketukan: ${state.time}`;
+              dispSongTime.style.display = 'inline-block';
+            } else {
+              dispSongTime.style.display = 'none';
+            }
+          } else {
+            dispSongMeta.style.display = 'none';
+          }
+
+          dispSongVerseBadge.textContent = state.verseBadge || '';
+          if (state.isChorus) {
+            dispSongVerseBadge.classList.add('is-chorus');
+          } else {
+            dispSongVerseBadge.classList.remove('is-chorus');
+          }
+
+          dispSongLyrics.textContent = state.lyrics || '';
+          dispSongLyrics.style.fontSize = `${state.fontSizeRem || 3.6}rem`;
+          if (state.fontFamily) {
+            dispSongLyrics.style.fontFamily = state.fontFamily;
+          }
+
+        } else if (state.mode === 'bible') {
+          standbyView.style.display = 'none';
+          songView.style.display = 'none';
+          bibleView.style.display = 'flex';
+
+          dispBibleRefBadge.textContent = (state.reference || '').toUpperCase();
+          
+          let html = '';
+          if (state.showVerseNum && state.verseNum) {
+            html += `<span class="verse-num-prefix">${state.verseNum}.</span> `;
+          }
+          html += (state.text || '');
+
+          dispBibleText.innerHTML = html;
+          dispBibleText.style.fontSize = `${state.fontSizeRem || 3.6}rem`;
+          if (state.fontFamily) {
+            dispBibleText.style.fontFamily = state.fontFamily;
+          }
+        } else if (state.mode === 'blank') {
+          blankScreen.classList.add('active');
+        }
+      }
+
+      channel.onmessage = (event) => {
+        const data = event.data;
+        if (!data) return;
+
+        if (data.type === 'DISPLAY_UPDATE') {
+          applyState(data.state);
+          try {
+            localStorage.setItem('lagusion_live_state', JSON.stringify(data.state));
+          } catch (e) {}
+        } else if (data.type === 'REQUEST_PING') {
+          sendHandshake();
+        }
+      };
+
+      // Storage event listener fallback
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'lagusion_live_state' && e.newValue) {
+          try {
+            const parsed = JSON.parse(e.newValue);
+            applyState(parsed);
+          } catch (err) {}
+        }
+      });
+
+      // On initial load, request current state & read cached state
+      try {
+        const saved = localStorage.getItem('lagusion_live_state');
+        if (saved) {
+          applyState(JSON.parse(saved));
+        }
+      } catch (e) {}
+
+      // Tell operator window we are ready
+      sendHandshake();
+      channel.postMessage({ type: 'REQUEST_SYNC' });
+
+      // Click to toggle fullscreen
+      document.body.addEventListener('click', (e) => {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        }
+      });
+
+      // Keyboard shortcuts
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'f' || e.key === 'F' || e.key === 'F11') {
+          e.preventDefault();
+          if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(() => {});
+          } else {
+            document.exitFullscreen().catch(() => {});
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

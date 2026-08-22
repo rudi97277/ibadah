@@ -61,7 +61,7 @@
     }
 
     .top-toolbar {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       right: 0;
@@ -70,34 +70,13 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 20px;
-      background: rgba(255, 255, 255, 0.97);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid #e0e0e0;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
       z-index: 50;
-      opacity: 0;
-      transform: translateY(-100%);
-      pointer-events: none;
-      transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .top-hover-zone:hover ~ .top-toolbar,
-    .top-toolbar:hover,
-    .top-toolbar.show {
       opacity: 1;
-      transform: translateY(0);
+      transform: none;
       pointer-events: auto;
-    }
-
-    .top-toolbar.force-hide {
-      opacity: 0 !important;
-      transform: translateY(-100%) !important;
-      pointer-events: none !important;
-    }
-
-    .bottom-toolbar.force-hide {
-      opacity: 0 !important;
-      transform: translateY(100%) !important;
-      pointer-events: none !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
 
     .toolbar-group {
@@ -336,7 +315,7 @@
        BOTTOM PROGRESS & VERSE QUICK-JUMP
        ========================================================================== */
     .bottom-toolbar {
-      position: absolute;
+      position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
@@ -345,22 +324,13 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 20px;
-      background: rgba(255, 255, 255, 0.97);
-      backdrop-filter: blur(8px);
-      border-top: 1px solid #e0e0e0;
+      background: #ffffff;
+      border-top: 1px solid #e2e8f0;
       z-index: 50;
-      opacity: 0;
-      transform: translateY(100%);
-      pointer-events: none;
-      transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .bottom-hover-zone:hover ~ .bottom-toolbar,
-    .bottom-toolbar:hover,
-    .bottom-toolbar.show {
       opacity: 1;
-      transform: translateY(0);
+      transform: none;
       pointer-events: auto;
+      box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.05);
     }
 
     .verse-jump-group {
@@ -761,26 +731,28 @@
         <button class="btn btn-primary" id="btn-toggle-drawer" title="Buka Daftar Lagu (M / /)">
           📚 Daftar Lagu
         </button>
-        <div style="display: flex; align-items: center; gap: 4px;">
-          <label for="jump-num-input" style="font-size: 13px; font-weight: 600; color: #555;">No:</label>
-          <input type="number" id="jump-num-input" class="number-jump-input" min="1" max="525" placeholder="1-525" title="Masukkan nomor lagu dan tekan Enter">
-          <button class="btn" id="btn-jump-go">Buka</button>
-        </div>
-      </div>
-
-      <div class="toolbar-group">
         <button class="btn" id="btn-toggle-playlist" title="Atur Urutan Lagu Ibadah (Playlist)">
           📋 Urutan Lagu <span id="playlist-count-badge" style="background: #2563eb; color: #fff; padding: 1px 6px; border-radius: 10px; font-size: 11px; margin-left: 3px; display: none;">0</span>
         </button>
-        <button class="btn" id="btn-prev-song" title="Lagu Sebelumnya (P)">⏮ Sblm</button>
-        <button class="btn" id="btn-next-song" title="Lagu Berikutnya (N)">Brkt ⏭</button>
+        <a href="alkitab.html" class="btn" title="Buka Presentasi Alkitab">📖 Alkitab</a>
+        <button class="btn btn-primary" id="btn-open-projector" title="Buka Layar Proyektor Khusus untuk Monitor 2">
+          📺 Proyektor <span id="projector-status-dot" style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #94a3b8; margin-left: 4px;" title="Status Proyektor"></span>
+        </button>
       </div>
 
       <div class="toolbar-group">
+        <label for="jump-num-input" style="font-size: 13px; font-weight: 600; color: #555;">No:</label>
+        <input type="number" id="jump-num-input" class="number-jump-input" min="1" max="525" placeholder="1-525" title="Masukkan nomor lagu dan tekan Enter">
+        <button class="btn btn-primary" id="btn-jump-go">Buka</button>
+      </div>
+
+      <div class="toolbar-group">
+        <button class="btn" id="btn-live-toggle" title="Tayangkan ke Layar Proyektor (F5 / Enter)" style="font-weight: 700; color: #16a34a; border-color: #86efac; background: #f0fdf4; min-width: 125px; justify-content: center;">
+          ▶ Tayangkan
+        </button>
         <button class="btn" id="btn-view-mode" title="Ubah Tampilan Slide / Tampilkan Semua">📄 Tampilkan Semua</button>
         <button class="btn btn-icon" id="btn-font-dec" title="Kecilkan Huruf (-)">A-</button>
         <button class="btn btn-icon" id="btn-font-inc" title="Besarkan Huruf (+)">A+</button>
-        <button class="btn" id="btn-blank" title="Whiteout / Layar Putih Bersih (B / .)">⚪ Blank (B)</button>
         <button class="btn btn-primary" id="btn-fullscreen" title="Layar Penuh / Fullscreen (F / F11)">⛶ Fullscreen</button>
         <button class="btn btn-icon" id="btn-settings" title="Pengaturan">⚙️</button>
       </div>
@@ -1130,6 +1102,113 @@
       const playlistStatusHint = document.getElementById('playlist-status-hint');
       const btnClearPlaylist = document.getElementById('btn-clear-playlist');
       const btnStartPlaylist = document.getElementById('btn-start-playlist');
+
+      // Projector DOM Elements & Sync
+      const btnOpenProjector = document.getElementById('btn-open-projector');
+      const projectorStatusDot = document.getElementById('projector-status-dot');
+      const btnLiveToggle = document.getElementById('btn-live-toggle');
+
+      const projectorChannel = new BroadcastChannel('lagusion_live_bus');
+      let isProjectorConnected = false;
+      let isLiveBroadcasting = false; // true = Sedang Tayang (Stop Tayang), false = Belum Tayang (Tayangkan)
+      let projectorWindow = null;
+
+      function updateProjectorStatusUI() {
+        if (projectorStatusDot) {
+          projectorStatusDot.style.background = isProjectorConnected ? '#22c55e' : '#94a3b8';
+          projectorStatusDot.title = isProjectorConnected ? 'Layar Proyektor Terhubung (Monitor 2)' : 'Layar Proyektor Belum Terbuka';
+        }
+      }
+
+      function updateLiveToggleUI() {
+        if (isLiveBroadcasting) {
+          btnLiveToggle.textContent = '⏹ Stop Tayang';
+          btnLiveToggle.style.color = '#ffffff';
+          btnLiveToggle.style.background = '#dc2626';
+          btnLiveToggle.style.borderColor = '#dc2626';
+          btnLiveToggle.title = 'Hentikan Siaran ke Layar Proyektor (F5 / Enter)';
+        } else {
+          btnLiveToggle.textContent = '▶ Tayangkan';
+          btnLiveToggle.style.color = '#16a34a';
+          btnLiveToggle.style.background = '#f0fdf4';
+          btnLiveToggle.style.borderColor = '#86efac';
+          btnLiveToggle.title = 'Tayangkan ke Layar Proyektor (F5 / Enter)';
+        }
+      }
+
+      function toggleLiveBroadcast() {
+        isLiveBroadcasting = !isLiveBroadcasting;
+        updateLiveToggleUI();
+        if (isLiveBroadcasting) {
+          syncCurrentToProjector(true);
+          showToast('▶ Sedang Tayang di Proyektor');
+        } else {
+          // Send standby to projector
+          const standbyState = { mode: 'standby' };
+          try {
+            localStorage.setItem('lagusion_live_state', JSON.stringify(standbyState));
+          } catch (e) {}
+          projectorChannel.postMessage({ type: 'DISPLAY_UPDATE', state: standbyState });
+          showToast('⏹ Siaran Proyektor Dihentikan');
+        }
+      }
+
+      function openProjectorWindow() {
+        if (!projectorWindow || projectorWindow.closed) {
+          projectorWindow = window.open('display.html', 'LaguSionProjector', 'width=1280,height=720,menubar=no,toolbar=no,location=no');
+        } else {
+          projectorWindow.focus();
+        }
+        if (isLiveBroadcasting) {
+          setTimeout(() => syncCurrentToProjector(true), 300);
+        }
+      }
+
+      function syncCurrentToProjector(force = false) {
+        if (!currentSongId) return;
+        if (!isLiveBroadcasting && !force) return;
+
+        const song = findSong(currentSongId);
+        const slide = (currentSlideSequence && currentSlideSequence[currentVerseIndex]) ? currentSlideSequence[currentVerseIndex] : null;
+        if (!song || !slide) return;
+
+        const state = {
+          mode: 'song',
+          isBlank: false,
+          title: song.number ? `${String(song.number).padStart(3, '0')} ${song.title.toUpperCase()}` : song.title.toUpperCase(),
+          key: song.key || '',
+          time: song.time || '',
+          showMetadata: appSettings.show_metadata,
+          verseBadge: slide.displayLabel || (song.verses ? `1/${song.verses.length}` : '1/1'),
+          isChorus: !!slide.isChorus,
+          lyrics: slide.text || '',
+          fontSizeRem: fontSizeRem,
+          fontFamily: appSettings.font_family
+        };
+
+        try {
+          localStorage.setItem('lagusion_live_state', JSON.stringify(state));
+        } catch (e) {}
+        projectorChannel.postMessage({ type: 'DISPLAY_UPDATE', state: state });
+      }
+
+      projectorChannel.onmessage = (event) => {
+        const data = event.data;
+        if (!data) return;
+        if (data.type === 'DISPLAY_CONNECTED' || data.type === 'DISPLAY_READY') {
+          isProjectorConnected = true;
+          updateProjectorStatusUI();
+          if (isLiveBroadcasting) {
+            syncCurrentToProjector(true);
+          }
+        } else if (data.type === 'REQUEST_SYNC') {
+          if (isLiveBroadcasting) {
+            syncCurrentToProjector(true);
+          }
+        }
+      };
+
+      projectorChannel.postMessage({ type: 'REQUEST_PING' });
 
       // Custom / Unnumbered Songs DOM Elements
       let customSongs = [];
@@ -1733,10 +1812,25 @@
 
       let currentSlideSequence = [];
 
-      // Split a verse into sub-pages (1a, 1b...) based on line count (>=5 lines) OR line length (long 4-line verses like Lagu 7)
-      // NOTE: Refrein / Chorus is NEVER divided into sub-slides (always stays complete in 1 slide)
-      // Split a verse or refrain into sub-pages (1a, 1b... or Refrein a, Refrein b...) based on line count or line length
-      function splitVerseIntoPages(v, totalVersesCount) {
+      function getMaxLinesForFontSize(sizeRem) {
+        let size = parseFloat(sizeRem) || fontSizeRem || 3.6;
+        if (size <= 2.4) return 8;
+        if (size <= 3.2) return 6;
+        if (size <= 4.0) return 4;
+        return 2;
+      }
+
+      function getMaxCharsForFontSize(sizeRem) {
+        let size = parseFloat(sizeRem) || fontSizeRem || 3.6;
+        size = Math.max(1.5, Math.min(8.0, size));
+        const baseSize = 3.6;
+        const baseChars = 320;
+        const ratio = baseSize / size;
+        return Math.max(100, Math.round(baseChars * Math.pow(ratio, 1.5)));
+      }
+
+      // Split a verse or refrain into sub-pages based on dynamic font capacity
+      function splitVerseIntoPages(v, totalVersesCount, sizeRem = fontSizeRem) {
         const rawLines = v.lines || (v.text ? v.text.split('\n') : []);
         const lines = rawLines.map(l => l.trim()).filter(l => l.length > 0);
         if (lines.length === 0) return [];
@@ -1756,34 +1850,28 @@
         }
 
         const totalChars = lines.reduce((sum, l) => sum + l.length, 0);
-        const maxLineLen = Math.max(...lines.map(l => l.length));
+        const maxLines = getMaxLinesForFontSize(sizeRem);
+        const maxChars = getMaxCharsForFontSize(sizeRem);
+        const n = lines.length;
 
         let shouldSplit = false;
         let chunks = [];
-        const n = lines.length;
 
-        if (n >= 5) {
+        if (n > maxLines || totalChars > maxChars) {
           shouldSplit = true;
-          if (n === 5 || n === 6) {
-            chunks = [lines.slice(0, 3), lines.slice(3)];
+          if (n === 4) {
+            chunks = [lines.slice(0, 2), lines.slice(2)];
+          } else if (n === 3) {
+            chunks = [lines.slice(0, 2), lines.slice(2)];
+          } else if (n === 5 || n === 6) {
+            const mid = Math.ceil(n / 2);
+            chunks = [lines.slice(0, mid), lines.slice(mid)];
           } else if (n === 7 || n === 8) {
             chunks = [lines.slice(0, 4), lines.slice(4)];
           } else {
             for (let i = 0; i < n; i += 4) {
               chunks.push(lines.slice(i, i + 4));
             }
-          }
-        } else if (n === 4) {
-          // If 4 lines are long (maxLineLen >= 28 or totalChars >= 100), split into 2 slides of 2 lines
-          if (maxLineLen >= 28 || totalChars >= 100) {
-            shouldSplit = true;
-            chunks = [lines.slice(0, 2), lines.slice(2)];
-          }
-        } else if (n === 3) {
-          // If 3 lines are long (e.g. Misi Kita with ~60 chars per line, totalChars >= 105 or maxLineLen >= 35), split into 2 lines & 1 line
-          if (maxLineLen >= 35 || totalChars >= 105) {
-            shouldSplit = true;
-            chunks = [lines.slice(0, 2), lines.slice(2)];
           }
         }
 
@@ -1798,18 +1886,16 @@
           }];
         }
 
-        return chunks.map((chunkLines, cIdx) => {
-          return {
-            ...v,
-            displayLabel: baseLabel,
-            label: baseLabel,
-            lines: chunkLines,
-            text: chunkLines.join('\n'),
-            subPageIndex: cIdx,
-            subPageTotal: chunks.length,
-            isChorus: isChorus
-          };
-        });
+        return chunks.map((chunkLines, cIdx) => ({
+          ...v,
+          displayLabel: baseLabel,
+          label: baseLabel,
+          lines: chunkLines,
+          text: chunkLines.join('\n'),
+          subPageIndex: cIdx,
+          subPageTotal: chunks.length,
+          isChorus: isChorus
+        }));
       }
 
       // Build slide sequence with automatic Refrein interleaving and long-verse paging (1a, 1b...)
@@ -1911,7 +1997,15 @@
         updateActiveDrawerItem(currentSongId);
 
         const list = Array.isArray(appSettings.worship_playlist) ? appSettings.worship_playlist : [];
-        const playlistIdx = list.findIndex(item => String(item) === String(currentSongId) || String(item) === String(song.number));
+        const playlistIdx = list.findIndex(item => {
+          const sItem = String(item).trim().toLowerCase();
+          const sId = String(currentSongId).trim().toLowerCase();
+          const sNum = String(song.number || '').trim().toLowerCase();
+          const sNumNoZero = String(parseInt(sNum) || '').toLowerCase();
+          const sItemNoZero = String(parseInt(sItem) || '').toLowerCase();
+          return sItem === sId || sItem === sNum || (sItemNoZero && sItemNoZero === sNumNoZero);
+        });
+
         if (playlistIdx !== -1) {
           const nextItem = (playlistIdx < list.length - 1) ? list[playlistIdx + 1] : null;
           let nextLabel = ' (Lagu Terakhir)';
@@ -1968,6 +2062,8 @@
           dispVerseBadge.classList.remove('chorus');
           dispLyrics.textContent = '-';
         }
+
+        syncCurrentToProjector(false);
       }
 
       // Build whole verses sequence for Full Song Mode (without 1a/1b sub-page splitting)
@@ -2094,7 +2190,15 @@
       function nextSong() {
         const list = Array.isArray(appSettings.worship_playlist) ? appSettings.worship_playlist : [];
         if (list.length > 0) {
-          const currIdx = list.findIndex(item => String(item) === String(currentSongId) || String(item) === String(currentSongNumber));
+          const currIdx = list.findIndex(item => {
+            const sItem = String(item).trim().toLowerCase();
+            const sId = String(currentSongId).trim().toLowerCase();
+            const sNum = String(currentSongNumber || '').trim().toLowerCase();
+            const sNumNoZero = String(parseInt(sNum) || '').toLowerCase();
+            const sItemNoZero = String(parseInt(sItem) || '').toLowerCase();
+            return sItem === sId || sItem === sNum || (sItemNoZero && sItemNoZero === sNumNoZero);
+          });
+
           if (currIdx !== -1 && currIdx < list.length - 1) {
             loadSong(list[currIdx + 1], 0);
             return;
@@ -2114,7 +2218,15 @@
       async function prevSong(toLastSlide = false) {
         const list = Array.isArray(appSettings.worship_playlist) ? appSettings.worship_playlist : [];
         if (list.length > 0) {
-          const currIdx = list.findIndex(item => String(item) === String(currentSongId) || String(item) === String(currentSongNumber));
+          const currIdx = list.findIndex(item => {
+            const sItem = String(item).trim().toLowerCase();
+            const sId = String(currentSongId).trim().toLowerCase();
+            const sNum = String(currentSongNumber || '').trim().toLowerCase();
+            const sNumNoZero = String(parseInt(sNum) || '').toLowerCase();
+            const sItemNoZero = String(parseInt(sItem) || '').toLowerCase();
+            return sItem === sId || sItem === sNum || (sItemNoZero && sItemNoZero === sNumNoZero);
+          });
+
           if (currIdx > 0) {
             const targetId = list[currIdx - 1];
             if (toLastSlide) {
@@ -2411,8 +2523,8 @@
         // Toolbar Buttons
         btnPrevSlide.addEventListener('click', prevSlide);
         btnNextSlide.addEventListener('click', nextSlide);
-        btnPrevSong.addEventListener('click', prevSong);
-        btnNextSong.addEventListener('click', nextSong);
+        if (btnPrevSong) btnPrevSong.addEventListener('click', prevSong);
+        if (btnNextSong) btnNextSong.addEventListener('click', nextSong);
 
         // Drawer & Category Tabs
         btnToggleDrawer.addEventListener('click', openDrawer);
@@ -2494,9 +2606,21 @@
           }
         });
 
+        // Projector Window & Single Live Toggle Control
+        if (btnOpenProjector) btnOpenProjector.addEventListener('click', openProjectorWindow);
+        if (btnLiveToggle) btnLiveToggle.addEventListener('click', toggleLiveBroadcast);
+
         // Blank Whiteout Screen (for sermon / prayer)
-        btnBlank.addEventListener('click', () => blankScreen.classList.toggle('active'));
-        blankScreen.addEventListener('click', () => blankScreen.classList.remove('active'));
+        if (btnBlank) {
+          btnBlank.addEventListener('click', () => {
+            blankScreen.classList.toggle('active');
+            setTimeout(() => syncCurrentToProjector(true), 50);
+          });
+        }
+        blankScreen.addEventListener('click', () => {
+          blankScreen.classList.remove('active');
+          setTimeout(() => syncCurrentToProjector(true), 50);
+        });
 
         // Settings Modal
         btnSettings.addEventListener('click', () => settingsModalBackdrop.classList.add('open'));
@@ -2619,10 +2743,17 @@
               }
               break;
 
+            case 'F5':
+            case 'Enter':
+              e.preventDefault();
+              toggleLiveBroadcast();
+              break;
+
             case 'b':
             case 'B':
             case '.':
               blankScreen.classList.toggle('active');
+              setTimeout(() => syncCurrentToProjector(true), 50);
               break;
 
             case 'm':
