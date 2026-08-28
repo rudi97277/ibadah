@@ -8,16 +8,29 @@
   "youtube_url": null,
   "verses": [
     {
-      "label": "1/1",
+      "label": "1/2",
       "type": "verse",
       "lines": [
         "Hatiku rindu kepada Yesus",
         "Hatiku rindu melihat wajah-Nya",
-        "Oh betapalah penat aku hidup di dunia",
-        "Hatiku rindu pada Yesus"
+        "Oh betapalah penat",
+        "Aku hidup di dunia",
+        "Hatiku rindu pada Yeus"
       ],
-      "text": "Hatiku rindu kepada Yesus\nHatiku rindu melihat wajah-Nya\nOh betapalah penat aku hidup di dunia\nHatiku rindu pada Yesus"
+      "text": "Hatiku rindu kepada Yesus\nHatiku rindu melihat wajah-Nya\nOh betapalah penat\nAku hidup di dunia\nHatiku rindu pada Yeus"
+    },
+    {
+      "label": "2/2",
+      "type": "verse",
+      "lines": [
+        "I've a longing in my heart for Jesus",
+        "I've a longing in my heart to see His face",
+        "I am weary, oh so weary",
+        "Of trav'ling here below",
+        "I've a longing in my heart for Him"
+      ],
+      "text": "I've a longing in my heart for Jesus\nI've a longing in my heart to see His face\nI am weary, oh so weary\nOf trav'ling here below\nI've a longing in my heart for Him"
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/06/454-hatiku-rindu.html"
+  "url": "https://alkitab.app/LS/454"
 }

@@ -14,15 +14,21 @@
         "Ada kisah kami mau c'ritakan",
         "Pada bangsa-bangsa semua",
         "Kisah tentang kebenaran",
-        "Hal damai dan anug'rah",
-        "Hal damai dan anug'rah",
-        "Ref.",
+        "Hal damai dan anug'rah,",
+        "Hal damai dan anug'rah"
+      ],
+      "text": "Ada kisah kami mau c'ritakan\nPada bangsa-bangsa semua\nKisah tentang kebenaran\nHal damai dan anug'rah,\nHal damai dan anug'rah"
+    },
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
         "Yang gelap k'lak akan jadi t'rang",
         "Dan bertambah-tambah mulia",
         "K'rajaan Yesus akan datang",
         "Dan berkuasa di dunia"
       ],
-      "text": "Ada kisah kami mau c'ritakan\nPada bangsa-bangsa semua\nKisah tentang kebenaran\nHal damai dan anug'rah\nHal damai dan anug'rah\nRef.\nYang gelap k'lak akan jadi t'rang\nDan bertambah-tambah mulia\nK'rajaan Yesus akan datang\nDan berkuasa di dunia"
+      "text": "Yang gelap k'lak akan jadi t'rang\nDan bertambah-tambah mulia\nK'rajaan Yesus akan datang\nDan berkuasa di dunia"
     },
     {
       "label": "2/4",
@@ -32,9 +38,9 @@
         "Pada bangsa-bangsa semua",
         "Lagu yang muliakan Tuhan",
         "Dan melenyapkan susah",
-        "Dan melenyapkan susah"
+        "Dan melenyapkan susah."
       ],
-      "text": "Ada lagu kami mau nyanyikan\nPada bangsa-bangsa semua\nLagu yang muliakan Tuhan\nDan melenyapkan susah\nDan melenyapkan susah"
+      "text": "Ada lagu kami mau nyanyikan\nPada bangsa-bangsa semua\nLagu yang muliakan Tuhan\nDan melenyapkan susah\nDan melenyapkan susah."
     },
     {
       "label": "3/4",
@@ -42,24 +48,24 @@
       "lines": [
         "Ada kabar kami mau masyhurkan",
         "Pada bangsa-bangsa semua",
-        "Putra Bapa dikorbankan",
-        "S'bagai tanda kasih-Nya",
-        "S'bagai tanda kasih-Nya"
+        "Putra Allah dikorbankan",
+        "S'bagai tanda kasih-Nya,",
+        "S'bagai tanda kasih-Nya."
       ],
-      "text": "Ada kabar kami mau masyhurkan\nPada bangsa-bangsa semua\nPutra Bapa dikorbankan\nS'bagai tanda kasih-Nya\nS'bagai tanda kasih-Nya"
+      "text": "Ada kabar kami mau masyhurkan\nPada bangsa-bangsa semua\nPutra Allah dikorbankan\nS'bagai tanda kasih-Nya,\nS'bagai tanda kasih-Nya."
     },
     {
       "label": "4/4",
       "type": "verse",
       "lines": [
         "Jurus'lamat kami mau tunjukkan",
-        "Pada bangsa bangsa semua",
+        "Pada bangsa-bangsa semua",
         "Supaya mereka semua",
         "T'rima kebenaran-Nya",
-        "T'rima kebenaran-Nya"
+        "T'rima kebenaran-Nya."
       ],
-      "text": "Jurus'lamat kami mau tunjukkan\nPada bangsa bangsa semua\nSupaya mereka semua\nT'rima kebenaran-Nya\nT'rima kebenaran-Nya"
+      "text": "Jurus'lamat kami mau tunjukkan\nPada bangsa-bangsa semua\nSupaya mereka semua\nT'rima kebenaran-Nya\nT'rima kebenaran-Nya."
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/05/331-ada-kisah-kami-mau-critakan.html"
+  "url": "https://alkitab.app/LS/331"
 }

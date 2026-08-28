@@ -8,27 +8,49 @@
   "youtube_url": null,
   "verses": [
     {
-      "label": "1/2",
+      "label": "1/4",
       "type": "verse",
       "lines": [
-        "Dalam hati, dalam hati,",
-        "Masuklah, ya Tuhan Yesus",
-        "Masuk s'karang dan tinggal s'nang",
-        "Dalam hatiku, ya Yesus"
+        "Dalam hati, dalam hati",
+        "Masuklah ya Tuhan Yesus",
+        "Masuk s'karang dan tinggallah",
+        "Dalam hatiku ya Yesus"
       ],
-      "text": "Dalam hati, dalam hati,\nMasuklah, ya Tuhan Yesus\nMasuk s'karang dan tinggal s'nang\nDalam hatiku, ya Yesus"
+      "text": "Dalam hati, dalam hati\nMasuklah ya Tuhan Yesus\nMasuk s'karang dan tinggallah\nDalam hatiku ya Yesus"
     },
     {
-      "label": "2/2",
+      "label": "2/4",
       "type": "verse",
       "lines": [
-        "Dari hati, dari hati,",
+        "Dari hati, dari hati",
         "Bersinarlah, Tuhan Yesus",
-        "Bersinarlah selamanya",
+        "Bersinarlah, selamanya",
         "Dari hatiku, ya Yesus"
       ],
-      "text": "Dari hati, dari hati,\nBersinarlah, Tuhan Yesus\nBersinarlah selamanya\nDari hatiku, ya Yesus"
+      "text": "Dari hati, dari hati\nBersinarlah, Tuhan Yesus\nBersinarlah, selamanya\nDari hatiku, ya Yesus"
+    },
+    {
+      "label": "3/4",
+      "type": "verse",
+      "lines": [
+        "Into my heart, into my heart",
+        "Come into my heart, Lord Jesus",
+        "Come in to-day, come in to stay",
+        "Come in to my heart, Lord Jesus"
+      ],
+      "text": "Into my heart, into my heart\nCome into my heart, Lord Jesus\nCome in to-day, come in to stay\nCome in to my heart, Lord Jesus"
+    },
+    {
+      "label": "4/4",
+      "type": "verse",
+      "lines": [
+        "Out of my heart, out of my heart",
+        "Shine out of my heart, Lord Jesus",
+        "Shine out to-day, shine out to alway",
+        "Shine out of my heart, Lord Jesus"
+      ],
+      "text": "Out of my heart, out of my heart\nShine out of my heart, Lord Jesus\nShine out to-day, shine out to alway\nShine out of my heart, Lord Jesus"
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/06/509-dalam-hati.html"
+  "url": "https://alkitab.app/LS/509"
 }

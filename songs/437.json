@@ -1,14 +1,14 @@
 {
   "number": 437,
-  "title": "IA ALLAH TAK 'KAN GAGAL",
-  "title_full": "437 IA ALLAH TAK 'KAN GAGAL",
+  "title": "IA ALLAH TAKKAN GAGAL",
+  "title_full": "437 IA ALLAH TAKKAN GAGAL",
   "time_signature": "4/4",
   "key": "2b=Bb",
   "author": null,
   "youtube_url": null,
   "verses": [
     {
-      "label": "1/1",
+      "label": "1/2",
       "type": "verse",
       "lines": [
         "Ia Allah takkan gagal",
@@ -17,7 +17,18 @@
         "Jawab doa takkan gagal"
       ],
       "text": "Ia Allah takkan gagal\nDan janji-Nya takkan gagal\nLindungan-Nya takkan gagal\nJawab doa takkan gagal"
+    },
+    {
+      "label": "2/2",
+      "type": "verse",
+      "lines": [
+        "He cannot fail, dor He is God",
+        "He cannot fail, He pledged His word",
+        "He cannot fail, He'll serve you too",
+        "He cannot fail, He'll answer you"
+      ],
+      "text": "He cannot fail, dor He is God\nHe cannot fail, He pledged His word\nHe cannot fail, He'll serve you too\nHe cannot fail, He'll answer you"
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/05/437-ia-allah-tak-kan-gagal.html"
+  "url": "https://alkitab.app/LS/437"
 }

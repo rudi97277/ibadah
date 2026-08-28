@@ -1,7 +1,7 @@
 {
   "number": 117,
-  "title": "DENGAR SUARA MALAEKAT",
-  "title_full": "117 DENGAR SUARA MALAEKAT",
+  "title": "DENGAR SUARA MALAIKAT",
+  "title_full": "117 DENGAR SUARA MALAIKAT",
   "time_signature": "4/4",
   "key": "1b=F",
   "author": null,
@@ -11,12 +11,10 @@
       "label": "1/4",
       "type": "verse",
       "lines": [
-        "Dengar malaikat nyanyi",
-        "S'panjang malam memuji",
-        "Gunung-gunung sepakat",
-        "Masyhurkan kasih suci"
+        "Dengar malaikat nyanyi, S'panjang malam memuji",
+        "Gunung-gunung sepakat, Masyhurkan kasih suci"
       ],
-      "text": "Dengar malaikat nyanyi\nS'panjang malam memuji\nGunung-gunung sepakat\nMasyhurkan kasih suci"
+      "text": "Dengar malaikat nyanyi, S'panjang malam memuji\nGunung-gunung sepakat, Masyhurkan kasih suci"
     },
     {
       "label": "Refrein",
@@ -31,35 +29,29 @@
       "label": "2/4",
       "type": "verse",
       "lines": [
-        "Hai gembala mengapa",
-        "Nyanyianmu bergema?",
-        "Lihatlah cah'ya mulia",
-        "Kabar baik terdengarlah"
+        "Hai gembala mengapa, Nyanyianmu bergema?",
+        "Lihatlah cah'ya mulia, Kabar baik terdengarlah."
       ],
-      "text": "Hai gembala mengapa\nNyanyianmu bergema?\nLihatlah cah'ya mulia\nKabar baik terdengarlah"
+      "text": "Hai gembala mengapa, Nyanyianmu bergema?\nLihatlah cah'ya mulia, Kabar baik terdengarlah."
     },
     {
       "label": "3/4",
       "type": "verse",
       "lines": [
-        "Ke Betlehem datanglah",
-        "Lihat bayi yang lahir",
-        "Mari sujud menyembah",
-        "Kristus Tuhan t'lah hadir"
+        "Ke Betlehem datanglah, Lihat bayi yang lahir",
+        "Mari sujud menyembah, Kristus Tuhan t'lah hadir."
       ],
-      "text": "Ke Betlehem datanglah\nLihat bayi yang lahir\nMari sujud menyembah\nKristus Tuhan t'lah hadir"
+      "text": "Ke Betlehem datanglah, Lihat bayi yang lahir\nMari sujud menyembah, Kristus Tuhan t'lah hadir."
     },
     {
       "label": "4/4",
       "type": "verse",
       "lines": [
-        "Pandang Dia di palungan",
-        "Yang malaikat muliakan",
-        "Maria, Yusuf berkenan",
-        "Kasih tulus dib'rikan"
+        "Pandang Dia di palungan, Yang malaikat muliakan",
+        "Maria, Yusuf berkenan, Kasih tulus dib'rikan."
       ],
-      "text": "Pandang Dia di palungan\nYang malaikat muliakan\nMaria, Yusuf berkenan\nKasih tulus dib'rikan"
+      "text": "Pandang Dia di palungan, Yang malaikat muliakan\nMaria, Yusuf berkenan, Kasih tulus dib'rikan."
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/03/117-dengar-suara-malaekat.html"
+  "url": "https://alkitab.app/LS/117"
 }

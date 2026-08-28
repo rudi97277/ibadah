@@ -8,56 +8,59 @@
   "youtube_url": null,
   "verses": [
     {
-      "label": "1/4",
+      "label": "1/5",
       "type": "verse",
       "lines": [
-        "Nyanyikan kota Allah di pantai laut kaca",
-        "Kita pergi ke sana",
-        "Tempat yang t'lah tersedia"
+        "Nyanyikan kota Allah, Di pantai laut kaca",
+        "Kita pergi ke sana, Tempat yang t'lah tersedia"
       ],
-      "text": "Nyanyikan kota Allah di pantai laut kaca\nKita pergi ke sana\nTempat yang t'lah tersedia"
+      "text": "Nyanyikan kota Allah, Di pantai laut kaca\nKita pergi ke sana, Tempat yang t'lah tersedia"
     },
     {
       "label": "Refrein",
       "type": "chorus",
       "lines": [
         "Ya di sana, di pantai laut kaca",
-        "Ya ke sana aku rindu pindah",
+        "Ya ke sana, aku rindu pindah"
+      ],
+      "text": "Ya di sana, di pantai laut kaca\nYa ke sana, aku rindu pindah"
+    },
+    {
+      "label": "2/5",
+      "type": "verse",
+      "lines": [
         "Tiada susah, tiada duka",
-        "Kota Allah yang mulia di seb'rang sana"
+        "Kota Allah yang mulia, Di seb'rang sana"
       ],
-      "text": "Ya di sana, di pantai laut kaca\nYa ke sana aku rindu pindah\nTiada susah, tiada duka\nKota Allah yang mulia di seb'rang sana"
+      "text": "Tiada susah, tiada duka\nKota Allah yang mulia, Di seb'rang sana"
     },
     {
-      "label": "2/4",
+      "label": "3/5",
       "type": "verse",
       "lines": [
-        "Di sana ada kota, emaslah jalannya",
-        "Sungguh elok dan mulia",
-        "Yang belum pernah ada"
+        "Di sana ada kota, Emas jalannya",
+        "Sungguh elok dan mulia, Yang b'lum pernah ada."
       ],
-      "text": "Di sana ada kota, emaslah jalannya\nSungguh elok dan mulia\nYang belum pernah ada"
+      "text": "Di sana ada kota, Emas jalannya\nSungguh elok dan mulia, Yang b'lum pernah ada."
     },
     {
-      "label": "3/4",
+      "label": "4/5",
       "type": "verse",
       "lines": [
-        "Air hidup mengalir, buahnya berlimpah",
-        "Sana tak ada kuatir",
-        "Lapar dan haus sirna"
+        "Air hidup mengalir, Buahnya berlimpah",
+        "Sana tak ada kuatir, Lapar dan haus sirna."
       ],
-      "text": "Air hidup mengalir, buahnya berlimpah\nSana tak ada kuatir\nLapar dan haus sirna"
+      "text": "Air hidup mengalir, Buahnya berlimpah\nSana tak ada kuatir, Lapar dan haus sirna."
     },
     {
-      "label": "4/4",
+      "label": "5/5",
       "type": "verse",
       "lines": [
-        "Mari bersama-sama menuju ke Surga",
-        "Yesus mengundang semua",
-        "Siarkan undangan-Nya"
+        "Mari bersama-sama, Menuju ke surga",
+        "Yesus mengundang semua, Siarkan undangan-Nya."
       ],
-      "text": "Mari bersama-sama menuju ke Surga\nYesus mengundang semua\nSiarkan undangan-Nya"
+      "text": "Mari bersama-sama, Menuju ke surga\nYesus mengundang semua, Siarkan undangan-Nya."
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/05/373-ya-di-sana.html"
+  "url": "https://alkitab.app/LS/373"
 }

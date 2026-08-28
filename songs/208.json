@@ -1,7 +1,7 @@
 {
   "number": 208,
-  "title": "SUARAMU KU DENGAR",
-  "title_full": "208 SUARAMU KU DENGAR",
+  "title": "SUARA-MU KUDENGAR",
+  "title_full": "208 SUARA-MU KUDENGAR",
   "time_signature": "3/4",
   "key": "5b=Db",
   "author": null,
@@ -11,55 +11,47 @@
       "label": "1/4",
       "type": "verse",
       "lines": [
-        "Suara-Mu ku dengar",
-        "Memanggil padaku",
-        "Agar hatiku yang cemar",
-        "Dibasuh darah-Mu"
+        "Suara-Mu kudengar, Memanggil padaku",
+        "Agar hatiku yang cemar, Dibasuh darah-Mu"
       ],
-      "text": "Suara-Mu ku dengar\nMemanggil padaku\nAgar hatiku yang cemar\nDibasuh darah-Mu"
+      "text": "Suara-Mu kudengar, Memanggil padaku\nAgar hatiku yang cemar, Dibasuh darah-Mu"
     },
     {
       "label": "Refrein",
       "type": "chorus",
       "lines": [
-        "S'karang ku datang, datang pada-Mu",
-        "Sucikan aku skarang,di dalam darah-Mu"
+        "S'karang kudatang, Datang pada-Mu",
+        "Sucikan aku s'karang, Di dalam darah-Mu"
       ],
-      "text": "S'karang ku datang, datang pada-Mu\nSucikan aku skarang,di dalam darah-Mu"
+      "text": "S'karang kudatang, Datang pada-Mu\nSucikan aku s'karang, Di dalam darah-Mu"
     },
     {
       "label": "2/4",
       "type": "verse",
       "lines": [
-        "Meski aku lemah",
-        "Tuhan menguatkan",
-        "Pikiran, hati dan jiwa",
-        "Engkau yang sucikan"
+        "Meski aku lemah, Tuhan menguatkan",
+        "Pikiran, hati dan jiwa, Engkau yang sucikan."
       ],
-      "text": "Meski aku lemah\nTuhan menguatkan\nPikiran, hati dan jiwa\nEngkau yang sucikan"
+      "text": "Meski aku lemah, Tuhan menguatkan\nPikiran, hati dan jiwa, Engkau yang sucikan."
     },
     {
       "label": "3/4",
       "type": "verse",
       "lines": [
-        "Tuhan menjanjikan",
-        "Iman yang sempurna",
-        "Damai, kasih dan harapan",
-        "Di dunia dan surga"
+        "Tuhan menjanjikan, Iman yang sempurna",
+        "Damai, kasih dan harapan, Di dunia dan surga."
       ],
-      "text": "Tuhan menjanjikan\nIman yang sempurna\nDamai, kasih dan harapan\nDi dunia dan surga"
+      "text": "Tuhan menjanjikan, Iman yang sempurna\nDamai, kasih dan harapan, Di dunia dan surga."
     },
     {
       "label": "4/4",
       "type": "verse",
       "lines": [
-        "Darah Jurus'lamat",
-        "Membawa tebusan",
-        "Puji Dia yang b'ri s'lamat",
-        "Yesus Kebenaran"
+        "Darah Jurus'lamat, Membawa tebusan",
+        "Puji Dia yang b'ri s'lamat, Yesus kebenaran."
       ],
-      "text": "Darah Jurus'lamat\nMembawa tebusan\nPuji Dia yang b'ri s'lamat\nYesus Kebenaran"
+      "text": "Darah Jurus'lamat, Membawa tebusan\nPuji Dia yang b'ri s'lamat, Yesus kebenaran."
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/03/208-suaramu-ku-dengar.html"
+  "url": "https://alkitab.app/LS/208"
 }

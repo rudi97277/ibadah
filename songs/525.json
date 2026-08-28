@@ -8,20 +8,27 @@
   "youtube_url": null,
   "verses": [
     {
-      "label": "1/1",
+      "label": "1/2",
       "type": "verse",
       "lines": [
         "Karunia kes'lamatan dari Tuhan",
         "Karunia yang memb'rikan kemenangan",
         "Karunia yang ajaib menjaga kita",
-        "Karunia berlimpah s'bagai anug'rah",
+        "Karunia berlimpah dib'ri percuma"
+      ],
+      "text": "Karunia kes'lamatan dari Tuhan\nKarunia yang memb'rikan kemenangan\nKarunia yang ajaib menjaga kita\nKarunia berlimpah dib'ri percuma"
+    },
+    {
+      "label": "2/2",
+      "type": "verse",
+      "lines": [
         "Karunia-Nya yang menebus manusia",
         "Karunia-Nya anug'rahkan hidup baka",
         "Karunia-Nya yang buat kupandang wajah-Nya",
         "Masyhurkan karunia-Nya s'lamanya"
       ],
-      "text": "Karunia kes'lamatan dari Tuhan\nKarunia yang memb'rikan kemenangan\nKarunia yang ajaib menjaga kita\nKarunia berlimpah s'bagai anug'rah\nKarunia-Nya yang menebus manusia\nKarunia-Nya anug'rahkan hidup baka\nKarunia-Nya yang buat kupandang wajah-Nya\nMasyhurkan karunia-Nya s'lamanya"
+      "text": "Karunia-Nya yang menebus manusia\nKarunia-Nya anug'rahkan hidup baka\nKarunia-Nya yang buat kupandang wajah-Nya\nMasyhurkan karunia-Nya s'lamanya"
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/06/525-masyhurkan-karunia-nya.html"
+  "url": "https://alkitab.app/LS/525"
 }

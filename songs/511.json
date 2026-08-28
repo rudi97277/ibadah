@@ -1,7 +1,7 @@
 {
   "number": 511,
-  "title": "AJAIB ENGKAU YA YESUS",
-  "title_full": "511 AJAIB ENGKAU YA YESUS",
+  "title": "AJAIB ENGKAU, YA YESUS",
+  "title_full": "511 AJAIB ENGKAU, YA YESUS",
   "time_signature": "3/4",
   "key": "3b=Eb",
   "author": null,
@@ -11,17 +11,29 @@
       "label": "1/2",
       "type": "verse",
       "lines": [
-        "Ajaib Engkau, ya Yesus",
-        "Tiadalah taranya",
-        "Ajaib Engkau, ya Yesus",
-        "Bagiku Kau maha indah",
-        "Ajaib Engkau, ya Yesus",
-        "Engkau ku kasihi",
+        "Ajaib engkau ya Yesus, Tiada taranya",
+        "Ajaib Engkau ya Yesus Bagiku, Kau maha indah",
+        "Ajaib Engkau, ya Yesus, Engkau kukasihi",
         "Engkau yang maha indah",
         "Bagiku, ya Yesus"
       ],
-      "text": "Ajaib Engkau, ya Yesus\nTiadalah taranya\nAjaib Engkau, ya Yesus\nBagiku Kau maha indah\nAjaib Engkau, ya Yesus\nEngkau ku kasihi\nEngkau yang maha indah\nBagiku, ya Yesus"
+      "text": "Ajaib engkau ya Yesus, Tiada taranya\nAjaib Engkau ya Yesus Bagiku, Kau maha indah\nAjaib Engkau, ya Yesus, Engkau kukasihi\nEngkau yang maha indah\nBagiku, ya Yesus"
+    },
+    {
+      "label": "2/2",
+      "type": "verse",
+      "lines": [
+        "Wonderful, wonderful Jesus",
+        "Who can compare with Thee",
+        "Wonderful, wonderful Jesus",
+        "Fairer than all art Thou to me",
+        "Wonderful, wonderful Jesus",
+        "Oh how my soul loves Thee",
+        "Fairer than all the fairest",
+        "Jesus, art Thou to me"
+      ],
+      "text": "Wonderful, wonderful Jesus\nWho can compare with Thee\nWonderful, wonderful Jesus\nFairer than all art Thou to me\nWonderful, wonderful Jesus\nOh how my soul loves Thee\nFairer than all the fairest\nJesus, art Thou to me"
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/06/511-ajaib-engkau-ya-yesus.html"
+  "url": "https://alkitab.app/LS/511"
 }

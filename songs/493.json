@@ -8,65 +8,59 @@
   "youtube_url": null,
   "verses": [
     {
-      "label": "1/4",
+      "label": "1/5",
       "type": "verse",
       "lines": [
-        "Tak pernah ku akan lupa",
-        "Pesan ibu kepadaku",
-        "Oh anakku yang mau pisah",
-        "Ingatlah doa ibumu"
+        "Tak pernah ku akan lupa, Pesan ibu kepadaku",
+        "\"Oh anakku yang mau pisah, Ingatlah doa ibumu\""
       ],
-      "text": "Tak pernah ku akan lupa\nPesan ibu kepadaku\nOh anakku yang mau pisah\nIngatlah doa ibumu"
+      "text": "Tak pernah ku akan lupa, Pesan ibu kepadaku\n\"Oh anakku yang mau pisah, Ingatlah doa ibumu\""
     },
     {
       "label": "Refrein",
       "type": "chorus",
       "lines": [
-        "Tiap kali aku kenang",
-        "Akan budi baik ibuku",
-        "Terdengar bisik yang senang",
-        "Mengingatkan doa ibu"
+        "Tiap kali aku kenang, Akan budi baik ibuku",
+        "Terdengar bisik yang senang, Mengingatkan doa ibu"
       ],
-      "text": "Tiap kali aku kenang\nAkan budi baik ibuku\nTerdengar bisik yang senang\nMengingatkan doa ibu"
+      "text": "Tiap kali aku kenang, Akan budi baik ibuku\nTerdengar bisik yang senang, Mengingatkan doa ibu"
     },
     {
-      "label": "2/4",
+      "label": "2/5",
       "type": "verse",
       "lines": [
-        "Tak pernah ku akan lupa",
-        "Suara ibu manis merdu",
-        "Meski aku sesat, susah",
-        "Ku ingat t'rus doa ibu"
+        "Tak pernah ku akan lupa , Suara ibu manis merdu",
+        "Meski aku sesat, susah, Kuingat t'rus doa ibu."
       ],
-      "text": "Tak pernah ku akan lupa\nSuara ibu manis merdu\nMeski aku sesat, susah\nKu ingat t'rus doa ibu"
+      "text": "Tak pernah ku akan lupa , Suara ibu manis merdu\nMeski aku sesat, susah, Kuingat t'rus doa ibu."
     },
     {
-      "label": "3/4",
+      "label": "3/5",
       "type": "verse",
       "lines": [
-        "Tak pernah ku akan lupa",
-        "Tidur ibu dalam Tuhan",
-        "Kasihnya selalu nyata",
-        "Dalam doa yang hiburkan"
+        "Tak pernah ku akan lupa, Tidur ibu dalam Tuhan",
+        "Kasihnya selalu nyata, Dalam doa yang hiburkan."
       ],
-      "text": "Tak pernah ku akan lupa\nTidur ibu dalam Tuhan\nKasihnya selalu nyata\nDalam doa yang hiburkan"
+      "text": "Tak pernah ku akan lupa, Tidur ibu dalam Tuhan\nKasihnya selalu nyata, Dalam doa yang hiburkan."
     },
     {
-      "label": "4/4",
+      "label": "4/5",
       "type": "verse",
       "lines": [
-        "Tak pernah ku akan lupa",
-        "Saat aku t'rima Yesus",
-        "Diampun-Nya s'gala dosa",
-        "Doa ibu dijawab-Nya",
-        "Ref ayat 4:",
-        "Oh pujilah rahmat Yesus",
-        "Yang t'lah selamatkan aku",
-        "Dan aku boleh ke surga",
-        "Terkabullah doa ibu"
+        "Tak pernah ku akan lupa, Saat aku t'rima Yesus",
+        "Diampun-Nya s'gala dosa, Doa ibu dijawab-Nya."
       ],
-      "text": "Tak pernah ku akan lupa\nSaat aku t'rima Yesus\nDiampun-Nya s'gala dosa\nDoa ibu dijawab-Nya\nRef ayat 4:\nOh pujilah rahmat Yesus\nYang t'lah selamatkan aku\nDan aku boleh ke surga\nTerkabullah doa ibu"
+      "text": "Tak pernah ku akan lupa, Saat aku t'rima Yesus\nDiampun-Nya s'gala dosa, Doa ibu dijawab-Nya."
+    },
+    {
+      "label": "5/5",
+      "type": "verse",
+      "lines": [
+        "Oh pujilah rahmat Yesus, Yang t'lah selamatkan aku",
+        "Dan aku boleh ke surga, Terkabullah doa ibu"
+      ],
+      "text": "Oh pujilah rahmat Yesus, Yang t'lah selamatkan aku\nDan aku boleh ke surga, Terkabullah doa ibu"
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/06/493-doa-ibu.html"
+  "url": "https://alkitab.app/LS/493"
 }

@@ -235,8 +235,8 @@
   },
   {
     "number": 40,
-    "title": "TUHAN, PIMPINLAH AKU",
-    "title_full": "040 TUHAN, PIMPINLAH AKU",
+    "title": "TUHAN PIMPINLAH AKU",
+    "title_full": "040 TUHAN PIMPINLAH AKU",
     "file": "songs/40.json"
   },
   {
@@ -259,8 +259,8 @@
   },
   {
     "number": 44,
-    "title": "ALLAH KHALIK LANGIT, BUMI",
-    "title_full": "044 ALLAH KHALIK LANGIT, BUMI",
+    "title": "ALLAH KHALIK LANGIT BUMI",
+    "title_full": "044 ALLAH KHALIK LANGIT BUMI",
     "file": "songs/44.json"
   },
   {
@@ -295,8 +295,8 @@
   },
   {
     "number": 50,
-    "title": "YESUS GEMBALA, DENGARLAH",
-    "title_full": "050 YESUS GEMBALA, DENGARLAH",
+    "title": "YESUS GEMBALA DENGARLAH",
+    "title_full": "050 YESUS GEMBALA DENGARLAH",
     "file": "songs/50.json"
   },
   {
@@ -349,20 +349,20 @@
   },
   {
     "number": 59,
-    "title": "TUHAN JADIKANLAH KAMI LEBIH SUCI",
-    "title_full": "059 TUHAN JADIKANLAH KAMI LEBIH SUCI",
+    "title": "TUHAN JADIKANLAH KAMI",
+    "title_full": "059 TUHAN JADIKANLAH KAMI",
     "file": "songs/59.json"
   },
   {
     "number": 60,
-    "title": "PADA AKHIR KEBAKTIAN INI",
-    "title_full": "060 PADA AKHIR KEBAKTIAN INI",
+    "title": "PADA AKHIR KEBAKTIAN",
+    "title_full": "060 PADA AKHIR KEBAKTIAN",
     "file": "songs/60.json"
   },
   {
     "number": 61,
-    "title": "YA TUHANKU TUNTUN AKU",
-    "title_full": "061 YA TUHANKU TUNTUN AKU",
+    "title": "YA TUHANKU, TUNTUN AKU BERJALAN",
+    "title_full": "061 YA TUHANKU, TUNTUN AKU BERJALAN",
     "file": "songs/61.json"
   },
   {
@@ -379,8 +379,8 @@
   },
   {
     "number": 64,
-    "title": "TIADA LAIN PELINDUNG SEPERTI YESUS",
-    "title_full": "064 TIADA LAIN PELINDUNG SEPERTI YESUS",
+    "title": "TIADA LAIN PELINDUNG S'PERTI YESUS",
+    "title_full": "064 TIADA LAIN PELINDUNG S'PERTI YESUS",
     "file": "songs/64.json"
   },
   {
@@ -403,8 +403,8 @@
   },
   {
     "number": 68,
-    "title": "BAPA, KAMI DATANG",
-    "title_full": "068 BAPA, KAMI DATANG",
+    "title": "BAPA KAMI DATANG",
+    "title_full": "068 BAPA KAMI DATANG",
     "file": "songs/68.json"
   },
   {
@@ -427,8 +427,8 @@
   },
   {
     "number": 72,
-    "title": "BESAR KASIH-MU YA ALLAH",
-    "title_full": "072 BESAR KASIH-MU YA ALLAH",
+    "title": "BESAR KASIHMU, YA ALLAH",
+    "title_full": "072 BESAR KASIHMU, YA ALLAH",
     "file": "songs/72.json"
   },
   {
@@ -445,8 +445,8 @@
   },
   {
     "number": 75,
-    "title": "BERSUKACITALAH, TUHAN RAJA",
-    "title_full": "075 BERSUKACITALAH, TUHAN RAJA",
+    "title": "BERSUKACITALAH, TUHAN RAJA SURGA",
+    "title_full": "075 BERSUKACITALAH, TUHAN RAJA SURGA",
     "file": "songs/75.json"
   },
   {
@@ -457,8 +457,8 @@
   },
   {
     "number": 77,
-    "title": "YA TUHANKU SUNGGUH KU TERPESONA",
-    "title_full": "077 YA TUHANKU SUNGGUH KU TERPESONA",
+    "title": "YA TUHANKU, SUNGGUH KU TERPESONA",
+    "title_full": "077 YA TUHANKU, SUNGGUH KU TERPESONA",
     "file": "songs/77.json"
   },
   {
@@ -487,8 +487,8 @@
   },
   {
     "number": 82,
-    "title": "HAI DENGARLAH KISAH AJAIB",
-    "title_full": "082 HAI DENGARLAH KISAH AJAIB",
+    "title": "HAI, DENGARLAH KISAH AJAIB",
+    "title_full": "082 HAI, DENGARLAH KISAH AJAIB",
     "file": "songs/82.json"
   },
   {
@@ -529,8 +529,8 @@
   },
   {
     "number": 89,
-    "title": "BESARLAH YA TUHAN KASIH SETIA-MU",
-    "title_full": "089 BESARLAH YA TUHAN KASIH SETIA-MU",
+    "title": "BESARLAH YA TUHAN, KASIH SETIA-MU",
+    "title_full": "089 BESARLAH YA TUHAN, KASIH SETIA-MU",
     "file": "songs/89.json"
   },
   {
@@ -541,8 +541,8 @@
   },
   {
     "number": 91,
-    "title": "GEMBALAKU, PENOLONGKU",
-    "title_full": "091 GEMBALAKU, PENOLONGKU",
+    "title": "GEMBALAKU PENOLONGKU",
+    "title_full": "091 GEMBALAKU PENOLONGKU",
     "file": "songs/91.json"
   },
   {
@@ -589,8 +589,8 @@
   },
   {
     "number": 99,
-    "title": "BAPAKU MAHA KUASA",
-    "title_full": "099 BAPAKU MAHA KUASA",
+    "title": "BAPAKU MAHAKUASA",
+    "title_full": "099 BAPAKU MAHAKUASA",
     "file": "songs/99.json"
   },
   {
@@ -601,8 +601,8 @@
   },
   {
     "number": 101,
-    "title": "O, DATANGLAH IMANUEL",
-    "title_full": "101 O, DATANGLAH IMANUEL",
+    "title": "O DATANGLAH IMANUEL",
+    "title_full": "101 O DATANGLAH IMANUEL",
     "file": "songs/101.json"
   },
   {
@@ -625,8 +625,8 @@
   },
   {
     "number": 105,
-    "title": "DENGAR MALAIKAT NYANYI",
-    "title_full": "105 DENGAR MALAIKAT NYANYI",
+    "title": "DENGAN MALAIKAT NYANYI",
+    "title_full": "105 DENGAN MALAIKAT NYANYI",
     "file": "songs/105.json"
   },
   {
@@ -691,14 +691,14 @@
   },
   {
     "number": 116,
-    "title": "KAU TINGGALKAN TAKHTA SURGA",
-    "title_full": "116 KAU TINGGALKAN TAKHTA SURGA",
+    "title": "KAU TINGGALKAN TAHTA SURGA",
+    "title_full": "116 KAU TINGGALKAN TAHTA SURGA",
     "file": "songs/116.json"
   },
   {
     "number": 117,
-    "title": "DENGAR SUARA MALAEKAT",
-    "title_full": "117 DENGAR SUARA MALAEKAT",
+    "title": "DENGAR SUARA MALAIKAT",
+    "title_full": "117 DENGAR SUARA MALAIKAT",
     "file": "songs/117.json"
   },
   {
@@ -715,26 +715,26 @@
   },
   {
     "number": 120,
-    "title": "MALAM KUDUS",
-    "title_full": "120 MALAM KUDUS",
+    "title": "MALAM KUDUS, SUNYI SENYAP",
+    "title_full": "120 MALAM KUDUS, SUNYI SENYAP",
     "file": "songs/120.json"
   },
   {
     "number": 121,
-    "title": "SIAPA DIA NUN DI SANA?",
-    "title_full": "121 SIAPA DIA NUN DI SANA?",
+    "title": "SIAPA DIA NUN DI SANA",
+    "title_full": "121 SIAPA DIA NUN DI SANA",
     "file": "songs/121.json"
   },
   {
     "number": 122,
-    "title": "BILA KU RENUNGKAN",
-    "title_full": "122 BILA KU RENUNGKAN",
+    "title": "BILA KURENUNGKAN",
+    "title_full": "122 BILA KURENUNGKAN",
     "file": "songs/122.json"
   },
   {
     "number": 123,
-    "title": "C'RITAKANLAH KISAH YESUS",
-    "title_full": "123 C'RITAKANLAH KISAH YESUS",
+    "title": "C'RITAKAN KISAH YESUS",
+    "title_full": "123 C'RITAKAN KISAH YESUS",
     "file": "songs/123.json"
   },
   {
@@ -751,8 +751,8 @@
   },
   {
     "number": 126,
-    "title": "KEPALA-MU YANG LUKA",
-    "title_full": "126 KEPALA-MU YANG LUKA",
+    "title": "KEPALAMU YANG LUKA",
+    "title_full": "126 KEPALAMU YANG LUKA",
     "file": "songs/126.json"
   },
   {
@@ -769,14 +769,14 @@
   },
   {
     "number": 129,
-    "title": "AKU TLAH MATI BERSAMA YESUS",
-    "title_full": "129 AKU TLAH MATI BERSAMA YESUS",
+    "title": "AKU T'LAH MATI BERSAMA YESUS",
+    "title_full": "129 AKU T'LAH MATI BERSAMA YESUS",
     "file": "songs/129.json"
   },
   {
     "number": 130,
-    "title": "BILA KU PANDANG SALIB-MU",
-    "title_full": "130 BILA KU PANDANG SALIB-MU",
+    "title": "BILA KUPANDANG SALIB-MU",
+    "title_full": "130 BILA KUPANDANG SALIB-MU",
     "file": "songs/130.json"
   },
   {
@@ -835,14 +835,14 @@
   },
   {
     "number": 140,
-    "title": "TAK 'KAN LAMA LAGI",
-    "title_full": "140 TAK 'KAN LAMA LAGI",
+    "title": "TAKKAN LAMA LAGI",
+    "title_full": "140 TAKKAN LAMA LAGI",
     "file": "songs/140.json"
   },
   {
     "number": 141,
-    "title": "PERJUANGAN BERAKHIRLAH",
-    "title_full": "141 PERJUANGAN BERAKHIRLAH",
+    "title": "PERJUANGAN SUDAH BERAKHIR",
+    "title_full": "141 PERJUANGAN SUDAH BERAKHIR",
     "file": "songs/141.json"
   },
   {
@@ -901,14 +901,14 @@
   },
   {
     "number": 151,
-    "title": "GEMBALA AGUNG, ENGKAU MILIKKU",
-    "title_full": "151 GEMBALA AGUNG, ENGKAU MILIKKU",
+    "title": "GEMBALA AGUNG ENGKAU MILIKI",
+    "title_full": "151 GEMBALA AGUNG ENGKAU MILIKI",
     "file": "songs/151.json"
   },
   {
     "number": 152,
-    "title": "KRISTUS HIDUP! BERNYANYILAH",
-    "title_full": "152 KRISTUS HIDUP! BERNYANYILAH",
+    "title": "KRISTUS HIDUP, BERNYANYILAH",
+    "title_full": "152 KRISTUS HIDUP, BERNYANYILAH",
     "file": "songs/152.json"
   },
   {
@@ -919,14 +919,14 @@
   },
   {
     "number": 154,
-    "title": "JAGA, SEDIA",
-    "title_full": "154 JAGA, SEDIA",
+    "title": "JAGA SEDIA",
+    "title_full": "154 JAGA SEDIA",
     "file": "songs/154.json"
   },
   {
     "number": 155,
-    "title": "DAPATKAH AKU DISUCIKAN?",
-    "title_full": "155 DAPATKAH AKU DISUCIKAN?",
+    "title": "DAPATKAH AKU DISUCIKAN",
+    "title_full": "155 DAPATKAH AKU DISUCIKAN",
     "file": "songs/155.json"
   },
   {
@@ -937,8 +937,8 @@
   },
   {
     "number": 157,
-    "title": "TUHAN 'KAN DATANG SEG'RA",
-    "title_full": "157 TUHAN 'KAN DATANG SEG'RA",
+    "title": "TUHAN 'KAN DATANG SEGERA",
+    "title_full": "157 TUHAN 'KAN DATANG SEGERA",
     "file": "songs/157.json"
   },
   {
@@ -1021,8 +1021,8 @@
   },
   {
     "number": 171,
-    "title": "KITA DIJAMU OLEH RAJA",
-    "title_full": "171 KITA DIJAMU OLEH RAJA",
+    "title": "KITA AKAN DIJAMU RAJA",
+    "title_full": "171 KITA AKAN DIJAMU RAJA",
     "file": "songs/171.json"
   },
   {
@@ -1039,8 +1039,8 @@
   },
   {
     "number": 174,
-    "title": "KRISTUS T'LAH ADA DI PINTU",
-    "title_full": "174 KRISTUS T'LAH ADA DI PINTU",
+    "title": "KRISTUS T'LAH ADA DIPINTU",
+    "title_full": "174 KRISTUS T'LAH ADA DIPINTU",
     "file": "songs/174.json"
   },
   {
@@ -1051,20 +1051,20 @@
   },
   {
     "number": 176,
-    "title": "KASIH ALLAH BENAR,TEGUH",
-    "title_full": "176 KASIH ALLAH BENAR,TEGUH",
+    "title": "KASIH ALLAH, BENAR DAN TEGUH",
+    "title_full": "176 KASIH ALLAH, BENAR DAN TEGUH",
     "file": "songs/176.json"
   },
   {
     "number": 177,
-    "title": "HORMAT DAN PUJI BAGI-MU",
-    "title_full": "177 HORMAT DAN PUJI BAGI-MU",
+    "title": "HORMAT DAN PUJIAN BAGIMU",
+    "title_full": "177 HORMAT DAN PUJIAN BAGIMU",
     "file": "songs/177.json"
   },
   {
     "number": 178,
-    "title": "KU KASIH PADA-MU, YA YESUS",
-    "title_full": "178 KU KASIH PADA-MU, YA YESUS",
+    "title": "KU KASIH PADA-MU, YA YESUS TUHANKU",
+    "title_full": "178 KU KASIH PADA-MU, YA YESUS TUHANKU",
     "file": "songs/178.json"
   },
   {
@@ -1105,20 +1105,20 @@
   },
   {
     "number": 185,
-    "title": "OH KU KASIH YESUS",
-    "title_full": "185 OH KU KASIH YESUS",
+    "title": "OH, KU KASIH YESUS",
+    "title_full": "185 OH, KU KASIH YESUS",
     "file": "songs/185.json"
   },
   {
     "number": 186,
-    "title": "PUJI DIA, YESUS JURUS'LAMAT",
-    "title_full": "186 PUJI DIA, YESUS JURUS'LAMAT",
+    "title": "PUJI DIA, YESUS JURUS'LAMAT KITA",
+    "title_full": "186 PUJI DIA, YESUS JURUS'LAMAT KITA",
     "file": "songs/186.json"
   },
   {
     "number": 187,
-    "title": "BERIBU LIDAH BERNYANYI",
-    "title_full": "187 BERIBU LIDAH BERNYANYI",
+    "title": "BERIBU LIDAH MENYANYI",
+    "title_full": "187 BERIBU LIDAH MENYANYI",
     "file": "songs/187.json"
   },
   {
@@ -1171,8 +1171,8 @@
   },
   {
     "number": 196,
-    "title": "OH NYALA API ROH KUDUS",
-    "title_full": "196 OH NYALA API ROH KUDUS",
+    "title": "O, NYALA API ROH KUDUS",
+    "title_full": "196 O, NYALA API ROH KUDUS",
     "file": "songs/196.json"
   },
   {
@@ -1189,8 +1189,8 @@
   },
   {
     "number": 199,
-    "title": "ROH KUDUS TERANG ALLAH",
-    "title_full": "199 ROH KUDUS TERANG ALLAH",
+    "title": "ROH KUDUS, TERANG ALLAH",
+    "title_full": "199 ROH KUDUS, TERANG ALLAH",
     "file": "songs/199.json"
   },
   {
@@ -1207,8 +1207,8 @@
   },
   {
     "number": 202,
-    "title": "WALAU KU BERBAHASA MALAEIKAT",
-    "title_full": "202 WALAU KU BERBAHASA MALAEIKAT",
+    "title": "WALAU KU BERBAHASA MALAIKAT",
+    "title_full": "202 WALAU KU BERBAHASA MALAIKAT",
     "file": "songs/202.json"
   },
   {
@@ -1219,8 +1219,8 @@
   },
   {
     "number": 204,
-    "title": "B'RIKANLAH, YA TUHAN",
-    "title_full": "204 B'RIKANLAH, YA TUHAN",
+    "title": "B'RIKANLAH YA TUHAN",
+    "title_full": "204 B'RIKANLAH YA TUHAN",
     "file": "songs/204.json"
   },
   {
@@ -1237,14 +1237,14 @@
   },
   {
     "number": 207,
-    "title": "KU S'RAHKAN HIDUPKU",
-    "title_full": "207 KU S'RAHKAN HIDUPKU",
+    "title": "KUS'RAHKAN HIDUPKU",
+    "title_full": "207 KUS'RAHKAN HIDUPKU",
     "file": "songs/207.json"
   },
   {
     "number": 208,
-    "title": "SUARAMU KU DENGAR",
-    "title_full": "208 SUARAMU KU DENGAR",
+    "title": "SUARA-MU KUDENGAR",
+    "title_full": "208 SUARA-MU KUDENGAR",
     "file": "songs/208.json"
   },
   {
@@ -1261,8 +1261,8 @@
   },
   {
     "number": 211,
-    "title": "AKU MAU TURUT, YA TUHAN",
-    "title_full": "211 AKU MAU TURUT, YA TUHAN",
+    "title": "AKU MAU TURUT YA TUHAN",
+    "title_full": "211 AKU MAU TURUT YA TUHAN",
     "file": "songs/211.json"
   },
   {
@@ -1297,8 +1297,8 @@
   },
   {
     "number": 217,
-    "title": "YA YESUS, YANG PENUH KASIH",
-    "title_full": "217 YA YESUS, YANG PENUH KASIH",
+    "title": "YA YESUS YANG PENUH KASIH",
+    "title_full": "217 YA YESUS YANG PENUH KASIH",
     "file": "songs/217.json"
   },
   {
@@ -1315,8 +1315,8 @@
   },
   {
     "number": 220,
-    "title": "HARUSKAH YESUS SENDIRI?",
-    "title_full": "220 HARUSKAH YESUS SENDIRI?",
+    "title": "HARUSKAH YESUS SENDIRI",
+    "title_full": "220 HARUSKAH YESUS SENDIRI",
     "file": "songs/220.json"
   },
   {
@@ -1339,8 +1339,8 @@
   },
   {
     "number": 224,
-    "title": "APA KITA HIDUP DEKAT YESUS?",
-    "title_full": "224 APA KITA HIDUP DEKAT YESUS?",
+    "title": "APA KITA HIDUP DEKAT YESUS",
+    "title_full": "224 APA KITA HIDUP DEKAT YESUS",
     "file": "songs/224.json"
   },
   {
@@ -1351,8 +1351,8 @@
   },
   {
     "number": 226,
-    "title": "KU PULANG KE RUMAH",
-    "title_full": "226 KU PULANG KE RUMAH",
+    "title": "S'KARANG KU PULANG",
+    "title_full": "226 S'KARANG KU PULANG",
     "file": "songs/226.json"
   },
   {
@@ -1375,8 +1375,8 @@
   },
   {
     "number": 230,
-    "title": "AJAIBLAH YESUS, JURUSELAMATKU",
-    "title_full": "230 AJAIBLAH YESUS, JURUSELAMATKU",
+    "title": "AJAIBLAH YESUS JURUS'LAMATKU",
+    "title_full": "230 AJAIBLAH YESUS JURUS'LAMATKU",
     "file": "songs/230.json"
   },
   {
@@ -1417,8 +1417,8 @@
   },
   {
     "number": 237,
-    "title": "JADIKAN AKU MILIK-MU, TUHAN",
-    "title_full": "237 JADIKAN AKU MILIK-MU, TUHAN",
+    "title": "JADIKAN AKU MILIK-MU TUHAN",
+    "title_full": "237 JADIKAN AKU MILIK-MU TUHAN",
     "file": "songs/237.json"
   },
   {
@@ -1429,8 +1429,8 @@
   },
   {
     "number": 239,
-    "title": "AKU MAU MENJADI MILIK-MU",
-    "title_full": "239 AKU MAU MENJADI MILIK-MU",
+    "title": "AKU MAU JADI MILIK-MU",
+    "title_full": "239 AKU MAU JADI MILIK-MU",
     "file": "songs/239.json"
   },
   {
@@ -1453,8 +1453,8 @@
   },
   {
     "number": 243,
-    "title": "TARIK AKU, YA YESUS",
-    "title_full": "243 TARIK AKU, YA YESUS",
+    "title": "TARIK AKU YA YESUS",
+    "title_full": "243 TARIK AKU YA YESUS",
     "file": "songs/243.json"
   },
   {
@@ -1465,8 +1465,8 @@
   },
   {
     "number": 245,
-    "title": "PIMPIN KU KE SALIB",
-    "title_full": "245 PIMPIN KU KE SALIB",
+    "title": "PIMPINKU KE SALIB",
+    "title_full": "245 PIMPINKU KE SALIB",
     "file": "songs/245.json"
   },
   {
@@ -1477,14 +1477,14 @@
   },
   {
     "number": 247,
-    "title": "AKU MAU MENJADI KRISTEN",
-    "title_full": "247 AKU MAU MENJADI KRISTEN",
+    "title": "AKU MAU JADI KRISTEN",
+    "title_full": "247 AKU MAU JADI KRISTEN",
     "file": "songs/247.json"
   },
   {
     "number": 248,
-    "title": "KU KASIH PADAMU",
-    "title_full": "248 KU KASIH PADAMU",
+    "title": "KU KASIH PADA-MU",
+    "title_full": "248 KU KASIH PADA-MU",
     "file": "songs/248.json"
   },
   {
@@ -1495,14 +1495,14 @@
   },
   {
     "number": 250,
-    "title": "YESUS, KU PIKUL SALIBKU",
-    "title_full": "250 YESUS, KU PIKUL SALIBKU",
+    "title": "YESUS, KUPIKUL SALIBKU",
+    "title_full": "250 YESUS, KUPIKUL SALIBKU",
     "file": "songs/250.json"
   },
   {
     "number": 251,
-    "title": "BUKA MATAKU, YA TUHAN",
-    "title_full": "251 BUKA MATAKU, YA TUHAN",
+    "title": "BUKA MATAKU YA TUHAN",
+    "title_full": "251 BUKA MATAKU YA TUHAN",
     "file": "songs/251.json"
   },
   {
@@ -1525,8 +1525,8 @@
   },
   {
     "number": 255,
-    "title": "BUANGKAN DUNIA, T'RIMA YESUS",
-    "title_full": "255 BUANGKAN DUNIA, T'RIMA YESUS",
+    "title": "BUANGKAN DUNIA T'RIMA YESUS",
+    "title_full": "255 BUANGKAN DUNIA T'RIMA YESUS",
     "file": "songs/255.json"
   },
   {
@@ -1537,8 +1537,8 @@
   },
   {
     "number": 257,
-    "title": "AKU DENGAR YESUS PANGGIL",
-    "title_full": "257 AKU DENGAR YESUS PANGGIL",
+    "title": "AKU DENGAN YESUS PANGGIL",
+    "title_full": "257 AKU DENGAN YESUS PANGGIL",
     "file": "songs/257.json"
   },
   {
@@ -1567,8 +1567,8 @@
   },
   {
     "number": 262,
-    "title": "HAI SAUDARA MENGAPA?",
-    "title_full": "262 HAI SAUDARA MENGAPA?",
+    "title": "HAI SAUDARA MENGAPA",
+    "title_full": "262 HAI SAUDARA MENGAPA",
     "file": "songs/262.json"
   },
   {
@@ -1609,8 +1609,8 @@
   },
   {
     "number": 269,
-    "title": "BERJALANLAH DI DALAM T'RANG",
-    "title_full": "269 BERJALANLAH DI DALAM T'RANG",
+    "title": "BERJALAN DI DALAM T'RANG",
+    "title_full": "269 BERJALAN DI DALAM T'RANG",
     "file": "songs/269.json"
   },
   {
@@ -1639,8 +1639,8 @@
   },
   {
     "number": 274,
-    "title": "MENGAPA DARAH-MU YESUS",
-    "title_full": "274 MENGAPA DARAH-MU YESUS",
+    "title": "MENGAPA DARAHMU, YESUS",
+    "title_full": "274 MENGAPA DARAHMU, YESUS",
     "file": "songs/274.json"
   },
   {
@@ -1669,8 +1669,8 @@
   },
   {
     "number": 279,
-    "title": "KRISTUS T'LAH SLAMATKAN",
-    "title_full": "279 KRISTUS T'LAH SLAMATKAN",
+    "title": "KRISTUS T'LAH S'LAMATKAN",
+    "title_full": "279 KRISTUS T'LAH S'LAMATKAN",
     "file": "songs/279.json"
   },
   {
@@ -1699,8 +1699,8 @@
   },
   {
     "number": 284,
-    "title": "EDEN, TAMAN YANG TERINDAH",
-    "title_full": "284 EDEN, TAMAN YANG TERINDAH",
+    "title": "EDEN TAMAN YANG TERINDAH",
+    "title_full": "284 EDEN TAMAN YANG TERINDAH",
     "file": "songs/284.json"
   },
   {
@@ -1741,8 +1741,8 @@
   },
   {
     "number": 291,
-    "title": "SIAPA MASUK PINTU GERBANG?",
-    "title_full": "291 SIAPA MASUK PINTU GERBANG?",
+    "title": "SIAPA MASUK PINTU GERBANG",
+    "title_full": "291 SIAPA MASUK PINTU GERBANG",
     "file": "songs/291.json"
   },
   {
@@ -1759,8 +1759,8 @@
   },
   {
     "number": 294,
-    "title": "KU YAKIN BAPA PASTI TA'U",
-    "title_full": "294 KU YAKIN BAPA PASTI TA'U",
+    "title": "KU YAKIN BAPA TAHU",
+    "title_full": "294 KU YAKIN BAPA TAHU",
     "file": "songs/294.json"
   },
   {
@@ -1837,8 +1837,8 @@
   },
   {
     "number": 307,
-    "title": "PENJAGA BUNYIKAN TROMPET",
-    "title_full": "307 PENJAGA BUNYIKAN TROMPET",
+    "title": "PENJAGA, BUNYIKAN TROMPET",
+    "title_full": "307 PENJAGA, BUNYIKAN TROMPET",
     "file": "songs/307.json"
   },
   {
@@ -1855,14 +1855,14 @@
   },
   {
     "number": 310,
-    "title": "TARIKLAH AKU, YA BAPAKU",
-    "title_full": "310 TARIKLAH AKU, YA BAPAKU",
+    "title": "TARIKLAH AKU YA BAPAKU",
+    "title_full": "310 TARIKLAH AKU YA BAPAKU",
     "file": "songs/310.json"
   },
   {
     "number": 311,
-    "title": "AKU MENGASIHI TUHAN",
-    "title_full": "311 AKU MENGASIHI TUHAN",
+    "title": "AKU KASIH TUHAN LEBIH",
+    "title_full": "311 AKU KASIH TUHAN LEBIH",
     "file": "songs/311.json"
   },
   {
@@ -1879,8 +1879,8 @@
   },
   {
     "number": 314,
-    "title": "DALAM SIBUK KEHIDUPAN",
-    "title_full": "314 DALAM SIBUK KEHIDUPAN",
+    "title": "DALAM SIBUK KEHIDUPAN KITA",
+    "title_full": "314 DALAM SIBUK KEHIDUPAN KITA",
     "file": "songs/314.json"
   },
   {
@@ -1963,14 +1963,14 @@
   },
   {
     "number": 328,
-    "title": "TABUR WAKTU PAGI",
-    "title_full": "328 TABUR WAKTU PAGI",
+    "title": "AKU MAU MEMBAGIKAN IMANKU",
+    "title_full": "328 AKU MAU MEMBAGIKAN IMANKU",
     "file": "songs/328.json"
   },
   {
     "number": 329,
-    "title": "KERJALAH!",
-    "title_full": "329 KERJALAH!",
+    "title": "KERJALAH, KERJALAH",
+    "title_full": "329 KERJALAH, KERJALAH",
     "file": "songs/329.json"
   },
   {
@@ -1993,8 +1993,8 @@
   },
   {
     "number": 333,
-    "title": "MASYHURKANLAH YESUS",
-    "title_full": "333 MASYHURKANLAH YESUS",
+    "title": "C'RITAKANLAH PADAKU",
+    "title_full": "333 C'RITAKANLAH PADAKU",
     "file": "songs/333.json"
   },
   {
@@ -2023,8 +2023,8 @@
   },
   {
     "number": 338,
-    "title": "RUMAH TANGGA BAHAGIA",
-    "title_full": "338 RUMAH TANGGA BAHAGIA",
+    "title": "RUMAH YANG BAHAGIA",
+    "title_full": "338 RUMAH YANG BAHAGIA",
     "file": "songs/338.json"
   },
   {
@@ -2071,8 +2071,8 @@
   },
   {
     "number": 346,
-    "title": "BAGAIKAN BURUNG TERBANG",
-    "title_full": "346 BAGAIKAN BURUNG TERBANG",
+    "title": "BAGAIKAN BURUNG TERBANG KE SARANGNYA",
+    "title_full": "346 BAGAIKAN BURUNG TERBANG KE SARANGNYA",
     "file": "songs/346.json"
   },
   {
@@ -2089,8 +2089,8 @@
   },
   {
     "number": 349,
-    "title": "DATANGLAH PULA HARI YANG SUCI",
-    "title_full": "349 DATANGLAH PULA HARI YANG SUCI",
+    "title": "DATANG LAGI HARI YANG SUCI",
+    "title_full": "349 DATANG LAGI HARI YANG SUCI",
     "file": "songs/349.json"
   },
   {
@@ -2119,8 +2119,8 @@
   },
   {
     "number": 354,
-    "title": "BAPA, PIMPINLAH AKU",
-    "title_full": "354 BAPA, PIMPINLAH AKU",
+    "title": "BAPA, PIMPINLAH KAMI",
+    "title_full": "354 BAPA, PIMPINLAH KAMI",
     "file": "songs/354.json"
   },
   {
@@ -2131,8 +2131,8 @@
   },
   {
     "number": 356,
-    "title": "TUHAN, KASIHANILAH KAMI INI",
-    "title_full": "356 TUHAN, KASIHANILAH KAMI INI",
+    "title": "TUHAN, KASIHANI KAMI INI",
+    "title_full": "356 TUHAN, KASIHANI KAMI INI",
     "file": "songs/356.json"
   },
   {
@@ -2173,14 +2173,14 @@
   },
   {
     "number": 363,
-    "title": "YERUSALEM, OH RUMAHKU",
-    "title_full": "363 YERUSALEM, OH RUMAHKU",
+    "title": "YERUSALEM, OH, RUMAHKU",
+    "title_full": "363 YERUSALEM, OH, RUMAHKU",
     "file": "songs/363.json"
   },
   {
     "number": 364,
-    "title": "BUKIT–BUKIT YANG PERMAI",
-    "title_full": "364 BUKIT–BUKIT YANG PERMAI",
+    "title": "BUKIT-BUKIT YANG PERMAI",
+    "title_full": "364 BUKIT-BUKIT YANG PERMAI",
     "file": "songs/364.json"
   },
   {
@@ -2209,20 +2209,20 @@
   },
   {
     "number": 369,
-    "title": "DI NEG'RI BAPA YANG INDAH",
-    "title_full": "369 DI NEG'RI BAPA YANG INDAH",
+    "title": "DI KOTA ALLAH YANG INDAH",
+    "title_full": "369 DI KOTA ALLAH YANG INDAH",
     "file": "songs/369.json"
   },
   {
     "number": 370,
-    "title": "OH B'RAPA JAUH DARI RUMAH?",
-    "title_full": "370 OH B'RAPA JAUH DARI RUMAH?",
+    "title": "OH B'RAPA JAUH DARI RUMAH",
+    "title_full": "370 OH B'RAPA JAUH DARI RUMAH",
     "file": "songs/370.json"
   },
   {
     "number": 371,
-    "title": "AKU KLAK PANDANG RAJA SURGA",
-    "title_full": "371 AKU KLAK PANDANG RAJA SURGA",
+    "title": "AKU K'LAK PANDANG RAJA DI SURGA",
+    "title_full": "371 AKU K'LAK PANDANG RAJA DI SURGA",
     "file": "songs/371.json"
   },
   {
@@ -2281,8 +2281,8 @@
   },
   {
     "number": 381,
-    "title": "KITA TAK 'KAN TAU",
-    "title_full": "381 KITA TAK 'KAN TAU",
+    "title": "KITA TAKKAN TAHU",
+    "title_full": "381 KITA TAKKAN TAHU",
     "file": "songs/381.json"
   },
   {
@@ -2347,8 +2347,8 @@
   },
   {
     "number": 392,
-    "title": "LEBIH KASIH TUHAN, KEPADA-MU",
-    "title_full": "392 LEBIH KASIH TUHAN, KEPADA-MU",
+    "title": "LEBIH KASIH TUHAN KEPADA-MU",
+    "title_full": "392 LEBIH KASIH TUHAN KEPADA-MU",
     "file": "songs/392.json"
   },
   {
@@ -2365,14 +2365,14 @@
   },
   {
     "number": 395,
-    "title": "DAMAI AJAIB",
-    "title_full": "395 DAMAI AJAIB",
+    "title": "DAMAI, DAMAI AJAIB",
+    "title_full": "395 DAMAI, DAMAI AJAIB",
     "file": "songs/395.json"
   },
   {
     "number": 396,
-    "title": "RAJA DAMAI TUNTUNLAH",
-    "title_full": "396 RAJA DAMAI TUNTUNLAH",
+    "title": "RAJA DAMAI TURUNLAH",
+    "title_full": "396 RAJA DAMAI TURUNLAH",
     "file": "songs/396.json"
   },
   {
@@ -2383,8 +2383,8 @@
   },
   {
     "number": 398,
-    "title": "KALAU KAU MAU SENANG",
-    "title_full": "398 KALAU KAU MAU SENANG",
+    "title": "KALAU KAMU MAU SENANG",
+    "title_full": "398 KALAU KAMU MAU SENANG",
     "file": "songs/398.json"
   },
   {
@@ -2401,8 +2401,8 @@
   },
   {
     "number": 401,
-    "title": "BAPAKU KAYA RUMAH DAN TANAH",
-    "title_full": "401 BAPAKU KAYA RUMAH DAN TANAH",
+    "title": "BAPAKU KAYA, RUMAH DAN TANAH",
+    "title_full": "401 BAPAKU KAYA, RUMAH DAN TANAH",
     "file": "songs/401.json"
   },
   {
@@ -2413,14 +2413,14 @@
   },
   {
     "number": 403,
-    "title": "SERING KU DENGAR LAGU",
-    "title_full": "403 SERING KU DENGAR LAGU",
+    "title": "SERING KUDENGAR LAGU",
+    "title_full": "403 SERING KUDENGAR LAGU",
     "file": "songs/403.json"
   },
   {
     "number": 404,
-    "title": "YA ALLAH AKU MAU",
-    "title_full": "404 YA ALLAH AKU MAU",
+    "title": "YA ALLAH, AKU MAU DATANG DEKAT",
+    "title_full": "404 YA ALLAH, AKU MAU DATANG DEKAT",
     "file": "songs/404.json"
   },
   {
@@ -2437,8 +2437,8 @@
   },
   {
     "number": 407,
-    "title": "D U K A",
-    "title_full": "407 D U K A",
+    "title": "DUKA",
+    "title_full": "407 DUKA",
     "file": "songs/407.json"
   },
   {
@@ -2461,8 +2461,8 @@
   },
   {
     "number": 411,
-    "title": "YA MATAHARI JIWAKU",
-    "title_full": "411 YA MATAHARI JIWAKU",
+    "title": "AKU MASUK DALAM TAMAN",
+    "title_full": "411 AKU MASUK DALAM TAMAN",
     "file": "songs/411.json"
   },
   {
@@ -2491,8 +2491,8 @@
   },
   {
     "number": 416,
-    "title": "KU PERLU ENGKAU, YESUS",
-    "title_full": "416 KU PERLU ENGKAU, YESUS",
+    "title": "KU PERLU ENGKAU YESUS",
+    "title_full": "416 KU PERLU ENGKAU YESUS",
     "file": "songs/416.json"
   },
   {
@@ -2509,8 +2509,8 @@
   },
   {
     "number": 419,
-    "title": "BAPA AJARLAH AKU",
-    "title_full": "419 BAPA AJARLAH AKU",
+    "title": "BAPA, AJARLAH AKU",
+    "title_full": "419 BAPA, AJARLAH AKU",
     "file": "songs/419.json"
   },
   {
@@ -2521,8 +2521,8 @@
   },
   {
     "number": 421,
-    "title": "ADA TEMPAT DIAM TEDUH",
-    "title_full": "421 ADA TEMPAT DIAM TEDUH",
+    "title": "ADA TEMPAT TENANG TEDUH",
+    "title_full": "421 ADA TEMPAT TENANG TEDUH",
     "file": "songs/421.json"
   },
   {
@@ -2539,14 +2539,14 @@
   },
   {
     "number": 424,
-    "title": "KUPERLU DOA KASIHKU",
-    "title_full": "424 KUPERLU DOA KASIHKU",
+    "title": "KU PERLU DOA KASIHKU",
+    "title_full": "424 KU PERLU DOA KASIHKU",
     "file": "songs/424.json"
   },
   {
     "number": 425,
-    "title": "BERSABDALAH, YA YESUS",
-    "title_full": "425 BERSABDALAH, YA YESUS",
+    "title": "BERSABDALAH YA YESUS",
+    "title_full": "425 BERSABDALAH YA YESUS",
     "file": "songs/425.json"
   },
   {
@@ -2557,8 +2557,8 @@
   },
   {
     "number": 427,
-    "title": "KU PERLU PADA-MU TUHAN",
-    "title_full": "427 KU PERLU PADA-MU TUHAN",
+    "title": "KUPERLU PADA-MU TUHAN",
+    "title_full": "427 KUPERLU PADA-MU TUHAN",
     "file": "songs/427.json"
   },
   {
@@ -2569,8 +2569,8 @@
   },
   {
     "number": 429,
-    "title": "BERJAGALAH SKARANG",
-    "title_full": "429 BERJAGALAH SKARANG",
+    "title": "BERJAGALAH S'KARANG",
+    "title_full": "429 BERJAGALAH S'KARANG",
     "file": "songs/429.json"
   },
   {
@@ -2581,8 +2581,8 @@
   },
   {
     "number": 431,
-    "title": "YA YESUS, KU BERJANJI",
-    "title_full": "431 YA YESUS, KU BERJANJI",
+    "title": "YA YESUS KU BERJANJI",
+    "title_full": "431 YA YESUS KU BERJANJI",
     "file": "songs/431.json"
   },
   {
@@ -2593,8 +2593,8 @@
   },
   {
     "number": 433,
-    "title": "INILAH JAM KU BERDOA",
-    "title_full": "433 INILAH JAM KU BERDOA",
+    "title": "INILAH JAM KUBERDOA",
+    "title_full": "433 INILAH JAM KUBERDOA",
     "file": "songs/433.json"
   },
   {
@@ -2617,8 +2617,8 @@
   },
   {
     "number": 437,
-    "title": "IA ALLAH TAK 'KAN GAGAL",
-    "title_full": "437 IA ALLAH TAK 'KAN GAGAL",
+    "title": "IA ALLAH TAKKAN GAGAL",
+    "title_full": "437 IA ALLAH TAKKAN GAGAL",
     "file": "songs/437.json"
   },
   {
@@ -2671,8 +2671,8 @@
   },
   {
     "number": 446,
-    "title": "ALLAH UTUS YESUS PUTRA-NYA",
-    "title_full": "446 ALLAH UTUS YESUS PUTRA-NYA",
+    "title": "ALLAH UTUS PUTRA-NYA",
+    "title_full": "446 ALLAH UTUS PUTRA-NYA",
     "file": "songs/446.json"
   },
   {
@@ -2695,14 +2695,14 @@
   },
   {
     "number": 450,
-    "title": "B'RI KU BERJALAN DENGAN-MU",
-    "title_full": "450 B'RI KU BERJALAN DENGAN-MU",
+    "title": "B'RI KUBERJALAN DENGAN-MU",
+    "title_full": "450 B'RI KUBERJALAN DENGAN-MU",
     "file": "songs/450.json"
   },
   {
     "number": 451,
-    "title": "APAKAH JANGKARMU AKAN TAHAN?",
-    "title_full": "451 APAKAH JANGKARMU AKAN TAHAN?",
+    "title": "APAKAH JANGKARMU AKAN TAHAN",
+    "title_full": "451 APAKAH JANGKARMU AKAN TAHAN",
     "file": "songs/451.json"
   },
   {
@@ -2755,8 +2755,8 @@
   },
   {
     "number": 460,
-    "title": "YESUS, KEMUDIKANLAH",
-    "title_full": "460 YESUS, KEMUDIKANLAH",
+    "title": "YESUS KEMUDIKANLAH",
+    "title_full": "460 YESUS KEMUDIKANLAH",
     "file": "songs/460.json"
   },
   {
@@ -2785,8 +2785,8 @@
   },
   {
     "number": 465,
-    "title": "KAR'NA BUMI YANG INDAH",
-    "title_full": "465 KAR'NA BUMI YANG INDAH",
+    "title": "KAR'NA BUMI INI INDAH",
+    "title_full": "465 KAR'NA BUMI INI INDAH",
     "file": "songs/465.json"
   },
   {
@@ -2797,8 +2797,8 @@
   },
   {
     "number": 467,
-    "title": "JANGANLAH LEWATKAN AKU",
-    "title_full": "467 JANGANLAH LEWATKAN AKU",
+    "title": "JANGANLAH LIWATKAN AKU",
+    "title_full": "467 JANGANLAH LIWATKAN AKU",
     "file": "songs/467.json"
   },
   {
@@ -2839,8 +2839,8 @@
   },
   {
     "number": 474,
-    "title": "TUHAN DI HADIRAT-MU KU BERSUKA",
-    "title_full": "474 TUHAN DI HADIRAT-MU KU BERSUKA",
+    "title": "TUHAN, DI HADIRAT-MU KU BERSUKA",
+    "title_full": "474 TUHAN, DI HADIRAT-MU KU BERSUKA",
     "file": "songs/474.json"
   },
   {
@@ -2851,8 +2851,8 @@
   },
   {
     "number": 476,
-    "title": "AKUKAH LASKAR SALIB-NYA?",
-    "title_full": "476 AKUKAH LASKAR SALIB-NYA?",
+    "title": "AKUKAH LASKAR SALIBNYA",
+    "title_full": "476 AKUKAH LASKAR SALIBNYA",
     "file": "songs/476.json"
   },
   {
@@ -2869,8 +2869,8 @@
   },
   {
     "number": 479,
-    "title": "HAI KRISTEN, JAGA!",
-    "title_full": "479 HAI KRISTEN, JAGA!",
+    "title": "HAI KRISTEN JAGA",
+    "title_full": "479 HAI KRISTEN JAGA",
     "file": "songs/479.json"
   },
   {
@@ -2929,8 +2929,8 @@
   },
   {
     "number": 489,
-    "title": "MATAKU T'LAH MELIHAT",
-    "title_full": "489 MATAKU T'LAH MELIHAT",
+    "title": "MATAKU T'LAH MELIHAT KEMULIAAN TUHAN",
+    "title_full": "489 MATAKU T'LAH MELIHAT KEMULIAAN TUHAN",
     "file": "songs/489.json"
   },
   {
@@ -2947,8 +2947,8 @@
   },
   {
     "number": 492,
-    "title": "KASIH-MU TUHAN",
-    "title_full": "492 KASIH-MU TUHAN",
+    "title": "KASIH-MU ALLAH",
+    "title_full": "492 KASIH-MU ALLAH",
     "file": "songs/492.json"
   },
   {
@@ -2995,8 +2995,8 @@
   },
   {
     "number": 500,
-    "title": "PEMUDA MAJULAH",
-    "title_full": "500 PEMUDA MAJULAH",
+    "title": "PEMUDA, MAJULAH",
+    "title_full": "500 PEMUDA, MAJULAH",
     "file": "songs/500.json"
   },
   {
@@ -3007,8 +3007,8 @@
   },
   {
     "number": 502,
-    "title": "KARENA ALLAH KASIH",
-    "title_full": "502 KARENA ALLAH KASIH",
+    "title": "KAR'NA ALLAH KASIH",
+    "title_full": "502 KAR'NA ALLAH KASIH",
     "file": "songs/502.json"
   },
   {
@@ -3031,8 +3031,8 @@
   },
   {
     "number": 506,
-    "title": "SEMUA ORANG HARUS TA'U",
-    "title_full": "506 SEMUA ORANG HARUS TA'U",
+    "title": "SEMUA ORANG HARUS TAU",
+    "title_full": "506 SEMUA ORANG HARUS TAU",
     "file": "songs/506.json"
   },
   {
@@ -3043,8 +3043,8 @@
   },
   {
     "number": 508,
-    "title": "TUHAN, B'RI KAMI SETIA",
-    "title_full": "508 TUHAN, B'RI KAMI SETIA",
+    "title": "TUHAN B'RI KAMI SETIA S'LALU",
+    "title_full": "508 TUHAN B'RI KAMI SETIA S'LALU",
     "file": "songs/508.json"
   },
   {
@@ -3061,8 +3061,8 @@
   },
   {
     "number": 511,
-    "title": "AJAIB ENGKAU YA YESUS",
-    "title_full": "511 AJAIB ENGKAU YA YESUS",
+    "title": "AJAIB ENGKAU, YA YESUS",
+    "title_full": "511 AJAIB ENGKAU, YA YESUS",
     "file": "songs/511.json"
   },
   {

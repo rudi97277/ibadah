@@ -8,55 +8,49 @@
   "youtube_url": null,
   "verses": [
     {
-      "label": "1/3",
+      "label": "1/4",
       "type": "verse",
       "lines": [
-        "Dosamu dihapuskan",
-        "Meski pun sangat besar",
-        "Dosamu dihapuskan",
-        "Meski pun sangat besar",
-        "Amat besar kasih-Nya,",
-        "Yang mengampunkan",
-        "Dosamu dihapuskan",
-        "Dosamu dihapuskan",
-        "Meski pun sangat besar",
-        "Meski pun sangat besar"
+        "Dosamu dihapuskan, Meskipun sangat besar",
+        "Dosamu dihapuskan, Meskipun sangat besar",
+        "Amat besar kasih-Nya, Yang mengampuni",
+        "Dosamu dihapuskan, Dosamu dihapuskan",
+        "Meskipun sangat besar, Meskipun sangat besar"
       ],
-      "text": "Dosamu dihapuskan\nMeski pun sangat besar\nDosamu dihapuskan\nMeski pun sangat besar\nAmat besar kasih-Nya,\nYang mengampunkan\nDosamu dihapuskan\nDosamu dihapuskan\nMeski pun sangat besar\nMeski pun sangat besar"
+      "text": "Dosamu dihapuskan, Meskipun sangat besar\nDosamu dihapuskan, Meskipun sangat besar\nAmat besar kasih-Nya, Yang mengampuni\nDosamu dihapuskan, Dosamu dihapuskan\nMeskipun sangat besar, Meskipun sangat besar"
     },
     {
-      "label": "2/3",
+      "label": "2/4",
       "type": "verse",
       "lines": [
-        "Dengarlah suara Yesus",
-        "Yang memanggil namamu",
-        "Dengarlah suara Yesus",
-        "Yang memanggil namamu",
+        "Dengarlah suara Yesus, Yang memanggil namamu",
+        "Dengarlah suara Yesus, Yang memanggil namamu",
         "Amat besar rahmat-Nya, Murah hati-Nya",
-        "Dengarlah suara Yesus",
-        "Dengarlah suara Yesus",
-        "Yang memanggil namamu",
-        "Yang memanggil namamu"
+        "Dengarlah suara Yesus, Dengarlah suara Yesus",
+        "Yang memanggil namamu, Yang memanggil namamu"
       ],
-      "text": "Dengarlah suara Yesus\nYang memanggil namamu\nDengarlah suara Yesus\nYang memanggil namamu\nAmat besar rahmat-Nya, Murah hati-Nya\nDengarlah suara Yesus\nDengarlah suara Yesus\nYang memanggil namamu\nYang memanggil namamu"
+      "text": "Dengarlah suara Yesus, Yang memanggil namamu\nDengarlah suara Yesus, Yang memanggil namamu\nAmat besar rahmat-Nya, Murah hati-Nya\nDengarlah suara Yesus, Dengarlah suara Yesus\nYang memanggil namamu, Yang memanggil namamu"
     },
     {
-      "label": "3/3",
+      "label": "3/4",
       "type": "verse",
       "lines": [
-        "Dosamu diampuni",
-        "Tak diingat-Nya lagi",
-        "Dosamu diampuni",
-        "Tak diingat-Nya lagi",
-        "Hai pandanglah pada-Ku, kata Tuhanmu",
-        "Dosamu diampuni",
-        "Dosamu diampuni",
-        "Tak diingat-Nya lagi",
-        "Tak diingat-Nya lagi",
-        "Amin..."
+        "Dosamu diampuni, Tak diingat-Nya lagi",
+        "Dosamu diampuni, Tak diingat-Nya lagi",
+        "\"Hai pandanglah pada-Ku\", Kata Tuhanmu",
+        "Dosamu diampuni, Dosamu diampuni",
+        "Tak diingat-Nya lagi, Tak diingat-Nya lagi"
       ],
-      "text": "Dosamu diampuni\nTak diingat-Nya lagi\nDosamu diampuni\nTak diingat-Nya lagi\nHai pandanglah pada-Ku, kata Tuhanmu\nDosamu diampuni\nDosamu diampuni\nTak diingat-Nya lagi\nTak diingat-Nya lagi\nAmin..."
+      "text": "Dosamu diampuni, Tak diingat-Nya lagi\nDosamu diampuni, Tak diingat-Nya lagi\n\"Hai pandanglah pada-Ku\", Kata Tuhanmu\nDosamu diampuni, Dosamu diampuni\nTak diingat-Nya lagi, Tak diingat-Nya lagi"
+    },
+    {
+      "label": "4/4",
+      "type": "verse",
+      "lines": [
+        "Amin."
+      ],
+      "text": "Amin."
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/04/270-dosamu-dihapuskan.html"
+  "url": "https://alkitab.app/LS/270"
 }

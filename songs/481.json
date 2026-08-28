@@ -11,12 +11,23 @@
       "label": "1/4",
       "type": "verse",
       "lines": [
-        "Jagalah hai umat Allah",
+        "Jagalah, hai umat Allah",
         "Penebusmu datang seg'ra",
-        "Tetaplah lampumu nyala",
+        "Tetaplah lampumu nyata",
         "Sampai Tuhanmu datanglah"
       ],
-      "text": "Jagalah hai umat Allah\nPenebusmu datang seg'ra\nTetaplah lampumu nyala\nSampai Tuhanmu datanglah"
+      "text": "Jagalah, hai umat Allah\nPenebusmu datang seg'ra\nTetaplah lampumu nyata\nSampai Tuhanmu datanglah"
+    },
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Lihatlah, Yesus datang",
+        "Kemuliaan-Nya cemerlang",
+        "Raja yang b'ri kemenangan",
+        "Lihatlah, Yesus datang"
+      ],
+      "text": "Lihatlah, Yesus datang\nKemuliaan-Nya cemerlang\nRaja yang b'ri kemenangan\nLihatlah, Yesus datang"
     },
     {
       "label": "2/4",
@@ -25,9 +36,9 @@
         "Kerajaan dunia rubuh",
         "Dunia dijadikan baru",
         "Yesus akan datang lagi",
-        "Nafiri akan berbunyi"
+        "Nafiri akan berbunyi."
       ],
-      "text": "Kerajaan dunia rubuh\nDunia dijadikan baru\nYesus akan datang lagi\nNafiri akan berbunyi"
+      "text": "Kerajaan dunia rubuh\nDunia dijadikan baru\nYesus akan datang lagi\nNafiri akan berbunyi."
     },
     {
       "label": "3/4",
@@ -36,21 +47,21 @@
         "Bangsa yang angkuh 'kan lenyap",
         "Yesus jadi Raja tetap",
         "Tamat s'gala kejahatan",
-        "Hai orang saleh serukan"
+        "Hai orang saleh serukan."
       ],
-      "text": "Bangsa yang angkuh 'kan lenyap\nYesus jadi Raja tetap\nTamat s'gala kejahatan\nHai orang saleh serukan"
+      "text": "Bangsa yang angkuh 'kan lenyap\nYesus jadi Raja tetap\nTamat s'gala kejahatan\nHai orang saleh serukan."
     },
     {
       "label": "4/4",
       "type": "verse",
       "lines": [
         "Hai orang berdosa datang",
-        "Tuhan panggil engkau s'karang",
+        "Tuhan panggil kamu s'karang",
         "Segera tertutup pintu",
-        "Dan Yesus menolak kamu"
+        "Dan Yesus menolak kamu."
       ],
-      "text": "Hai orang berdosa datang\nTuhan panggil engkau s'karang\nSegera tertutup pintu\nDan Yesus menolak kamu"
+      "text": "Hai orang berdosa datang\nTuhan panggil kamu s'karang\nSegera tertutup pintu\nDan Yesus menolak kamu."
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/06/481-jagalah-hai-umat-allah.html"
+  "url": "https://alkitab.app/LS/481"
 }

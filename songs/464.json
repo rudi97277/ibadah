@@ -11,28 +11,34 @@
       "label": "1/3",
       "type": "verse",
       "lines": [
-        "Jaminan berkat Tuhan janji",
+        "Jaminan berkat, Tuhan janji",
         "Yesus menjadi milik kami",
         "Umat tebusan, waris Allah",
-        "Darah Yesus menyucikannya",
-        "Reff.",
-        "Kami Masyurkan dan nyanyikan",
-        "Memuji Yesus spanjang hari",
-        "Kami Masyurkan dan nyanyikan",
-        "Memuji Yesus spanjang hari"
+        "Darah Yesus menyucikannya"
       ],
-      "text": "Jaminan berkat Tuhan janji\nYesus menjadi milik kami\nUmat tebusan, waris Allah\nDarah Yesus menyucikannya\nReff.\nKami Masyurkan dan nyanyikan\nMemuji Yesus spanjang hari\nKami Masyurkan dan nyanyikan\nMemuji Yesus spanjang hari"
+      "text": "Jaminan berkat, Tuhan janji\nYesus menjadi milik kami\nUmat tebusan, waris Allah\nDarah Yesus menyucikannya"
+    },
+    {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Kami masyhurkan dan nyanyikan",
+        "Memuji Yesus s'panjang hari",
+        "Kami masyhurkan dan nyanyikan",
+        "Memuji Yesus s'panjang hari"
+      ],
+      "text": "Kami masyhurkan dan nyanyikan\nMemuji Yesus s'panjang hari\nKami masyhurkan dan nyanyikan\nMemuji Yesus s'panjang hari"
     },
     {
       "label": "2/3",
       "type": "verse",
       "lines": [
-        "Pada-Mu Tuhan kami bers'rah",
+        "Pada-Mu Tuhan, kami bers'rah",
         "Kami beroleh sukacita",
         "Malaikat datang pada kami",
-        "Membawa rahmat serta kasih"
+        "Membawa rahmat serta kasih."
       ],
-      "text": "Pada-Mu Tuhan kami bers'rah\nKami beroleh sukacita\nMalaikat datang pada kami\nMembawa rahmat serta kasih"
+      "text": "Pada-Mu Tuhan, kami bers'rah\nKami beroleh sukacita\nMalaikat datang pada kami\nMembawa rahmat serta kasih."
     },
     {
       "label": "3/3",
@@ -41,10 +47,10 @@
         "Berserah kami pada Tuhan",
         "Damai bahagia dib'rikan-Nya",
         "Kami memohon pada Allah",
-        "Turunkan kuasa dan anug'rah"
+        "Turunkan kuasa dan anug'rah."
       ],
-      "text": "Berserah kami pada Tuhan\nDamai bahagia dib'rikan-Nya\nKami memohon pada Allah\nTurunkan kuasa dan anug'rah"
+      "text": "Berserah kami pada Tuhan\nDamai bahagia dib'rikan-Nya\nKami memohon pada Allah\nTurunkan kuasa dan anug'rah."
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/06/464-jaminan-berkat-tuhan-janji.html"
+  "url": "https://alkitab.app/LS/464"
 }

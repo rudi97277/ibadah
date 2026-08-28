@@ -1,7 +1,7 @@
 {
   "number": 50,
-  "title": "YESUS GEMBALA, DENGARLAH",
-  "title_full": "050 YESUS GEMBALA, DENGARLAH",
+  "title": "YESUS GEMBALA DENGARLAH",
+  "title_full": "050 YESUS GEMBALA DENGARLAH",
   "time_signature": "4/4",
   "key": "3b=Eb",
   "author": null,
@@ -11,24 +11,20 @@
       "label": "1/2",
       "type": "verse",
       "lines": [
-        "Yesus, Gembala dengarlah",
-        "Domba-Mu malam ini",
-        "Dalam gelap jagailah",
-        "Tidurku hingga pagi"
+        "Yesus, Gembala dengarlah, Domba-Mu malam ini",
+        "Dalam gelap jagailah, Tidurku hingga pagi"
       ],
-      "text": "Yesus, Gembala dengarlah\nDomba-Mu malam ini\nDalam gelap jagailah\nTidurku hingga pagi"
+      "text": "Yesus, Gembala dengarlah, Domba-Mu malam ini\nDalam gelap jagailah, Tidurku hingga pagi"
     },
     {
       "label": "2/2",
       "type": "verse",
       "lines": [
-        "Kau menuntun s'panjang hari",
-        "Aku berterima kasih",
-        "Sandang pangan Kau cukupi",
-        "Dengar doa aku ini"
+        "Kau menuntun s'panjang hari, Aku berterima kasih",
+        "Sandang pangan Kau cukupi, Dengar doa aku ini"
       ],
-      "text": "Kau menuntun s'panjang hari\nAku berterima kasih\nSandang pangan Kau cukupi\nDengar doa aku ini"
+      "text": "Kau menuntun s'panjang hari, Aku berterima kasih\nSandang pangan Kau cukupi, Dengar doa aku ini"
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/02/50-yesus-gembala-dengarlah.html"
+  "url": "https://alkitab.app/LS/50"
 }

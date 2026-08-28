@@ -1,54 +1,56 @@
 {
   "number": 141,
-  "title": "PERJUANGAN BERAKHIRLAH",
-  "title_full": "141 PERJUANGAN BERAKHIRLAH",
+  "title": "PERJUANGAN SUDAH BERAKHIR",
+  "title_full": "141 PERJUANGAN SUDAH BERAKHIR",
   "time_signature": "3/4",
   "key": "2#=D",
   "author": null,
   "youtube_url": null,
   "verses": [
     {
+      "label": "Refrein",
+      "type": "chorus",
+      "lines": [
+        "Haleluya, Haleluya, Haleluya!"
+      ],
+      "text": "Haleluya, Haleluya, Haleluya!"
+    },
+    {
       "label": "1/4",
       "type": "verse",
       "lines": [
-        "Haleluya, Haleluya, Haleluya!",
-        "Perjuangan berakhirlah",
-        "kemenangan sudah tiba",
+        "Perjuangan berakhirlah, kemenangan sudah tiba",
         "Nyanyikanlah lagu indah, Haleluya"
       ],
-      "text": "Haleluya, Haleluya, Haleluya!\nPerjuangan berakhirlah\nkemenangan sudah tiba\nNyanyikanlah lagu indah, Haleluya"
+      "text": "Perjuangan berakhirlah, kemenangan sudah tiba\nNyanyikanlah lagu indah, Haleluya"
     },
     {
       "label": "2/4",
       "type": "verse",
       "lines": [
-        "Maut tak lagi berkuasa",
-        "Kristus t'lah mengalahkannya",
+        "Maut tak lagi berkuasa, Kristus t'lah mengalahkannya",
         "Puji Dia, suci, mulia, Haleluya"
       ],
-      "text": "Maut tak lagi berkuasa\nKristus t'lah mengalahkannya\nPuji Dia, suci, mulia, Haleluya"
+      "text": "Maut tak lagi berkuasa, Kristus t'lah mengalahkannya\nPuji Dia, suci, mulia, Haleluya"
     },
     {
       "label": "3/4",
       "type": "verse",
       "lines": [
-        "Tiga hari usai sudah",
-        "Bangkitlah Yesus Penebus",
+        "Tiga hari usai sudah, Bangkitlah Yesus Penebus",
         "Hormat dan puji tak putus, Haleluya"
       ],
-      "text": "Tiga hari usai sudah\nBangkitlah Yesus Penebus\nHormat dan puji tak putus, Haleluya"
+      "text": "Tiga hari usai sudah, Bangkitlah Yesus Penebus\nHormat dan puji tak putus, Haleluya"
     },
     {
       "label": "4/4",
       "type": "verse",
       "lines": [
-        "Ya Tuhan oleh salib-Mu",
-        "Engkau s'lamatkan umat-Mu",
-        "Maha agunglah nama-Mu, Haleluya",
-        "Haleluya, Haleluya, Haleluya!"
+        "Ya Tuhan oleh salib-Mu, Engkau s'lamatkan umat-Mu",
+        "Maha agunglah nama-Mu, Haleluya"
       ],
-      "text": "Ya Tuhan oleh salib-Mu\nEngkau s'lamatkan umat-Mu\nMaha agunglah nama-Mu, Haleluya\nHaleluya, Haleluya, Haleluya!"
+      "text": "Ya Tuhan oleh salib-Mu, Engkau s'lamatkan umat-Mu\nMaha agunglah nama-Mu, Haleluya"
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/03/141-perjuangan-berakhirlah.html"
+  "url": "https://alkitab.app/LS/141"
 }

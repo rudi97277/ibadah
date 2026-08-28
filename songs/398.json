@@ -1,7 +1,7 @@
 {
   "number": 398,
-  "title": "KALAU KAU MAU SENANG",
-  "title_full": "398 KALAU KAU MAU SENANG",
+  "title": "KALAU KAMU MAU SENANG",
+  "title_full": "398 KALAU KAMU MAU SENANG",
   "time_signature": "3/4",
   "key": "4b=Ab",
   "author": null,
@@ -11,16 +11,25 @@
       "label": "1/2",
       "type": "verse",
       "lines": [
-        "Kalau kau mau senang, senang sungguh,",
+        "Kalau kau mau senang, senang sungguh",
         "T'rima Yesus di hatimu",
-        "Kalau kau mau senang, senang sungguh,",
-        "T'rima Yesus di hatimu",
-        "Dosa dihapus-Nya",
-        "Duka jadi suka",
+        "Dosa dihapuskan-Nya, duka jadi suka",
         "Dan hidupmu menjadi baru"
       ],
-      "text": "Kalau kau mau senang, senang sungguh,\nT'rima Yesus di hatimu\nKalau kau mau senang, senang sungguh,\nT'rima Yesus di hatimu\nDosa dihapus-Nya\nDuka jadi suka\nDan hidupmu menjadi baru"
+      "text": "Kalau kau mau senang, senang sungguh\nT'rima Yesus di hatimu\nDosa dihapuskan-Nya, duka jadi suka\nDan hidupmu menjadi baru"
+    },
+    {
+      "label": "2/2",
+      "type": "verse",
+      "lines": [
+        "If you want joy, real joy, wonderful joy",
+        "Let Jesus comes into your heart",
+        "Your sins He'll wash away",
+        "Your night He'll to day",
+        "Your life He'll make it over a new"
+      ],
+      "text": "If you want joy, real joy, wonderful joy\nLet Jesus comes into your heart\nYour sins He'll wash away\nYour night He'll to day\nYour life He'll make it over a new"
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/05/398-kalau-kau-mau-senang.html"
+  "url": "https://alkitab.app/LS/398"
 }

@@ -1,7 +1,7 @@
 {
   "number": 363,
-  "title": "YERUSALEM, OH RUMAHKU",
-  "title_full": "363 YERUSALEM, OH RUMAHKU",
+  "title": "YERUSALEM, OH, RUMAHKU",
+  "title_full": "363 YERUSALEM, OH, RUMAHKU",
   "time_signature": "6/4",
   "key": "1b=F",
   "author": null,
@@ -11,46 +11,38 @@
       "label": "1/4",
       "type": "verse",
       "lines": [
-        "Yerusalem, Oh, rumahku",
-        "Kurindu padamu",
-        "Kapankah lenyap derita",
-        "Kapanku bersuka?"
+        "Yerusalem, Oh, rumahku, Kurindu padamu",
+        "Kapankah lenyap derita, Kapanku bersuka?"
       ],
-      "text": "Yerusalem, Oh, rumahku\nKurindu padamu\nKapankah lenyap derita\nKapanku bersuka?"
+      "text": "Yerusalem, Oh, rumahku, Kurindu padamu\nKapankah lenyap derita, Kapanku bersuka?"
     },
     {
       "label": "2/4",
       "type": "verse",
       "lines": [
-        "Dindingmu batu permata",
-        "Mulia pancarannya",
-        "Gerbangmu sarat mutiara",
-        "Emas s'panjang jalan"
+        "Dindingmu batu permata, Mulia pancarannya",
+        "Gerbangmu sarat mutiara, Emas s'panjang jalan"
       ],
-      "text": "Dindingmu batu permata\nMulia pancarannya\nGerbangmu sarat mutiara\nEmas s'panjang jalan"
+      "text": "Dindingmu batu permata, Mulia pancarannya\nGerbangmu sarat mutiara, Emas s'panjang jalan"
     },
     {
       "label": "3/4",
       "type": "verse",
       "lines": [
-        "Taman dan jalanmu indah",
-        "Telah ku ta'u semua",
-        "Indahlah pemandangannya",
-        "Yang b'lum pernah ada"
+        "Taman dan jalanmu indah, Telah ku ta'u semua",
+        "Indahlah pemandanganya, Yang b'lum pernah ada"
       ],
-      "text": "Taman dan jalanmu indah\nTelah ku ta'u semua\nIndahlah pemandangannya\nYang b'lum pernah ada"
+      "text": "Taman dan jalanmu indah, Telah ku ta'u semua\nIndahlah pemandanganya, Yang b'lum pernah ada"
     },
     {
       "label": "4/4",
       "type": "verse",
       "lines": [
-        "Tuhan, tolong kami semua",
-        "Ingat 'kan janji-Mu",
-        "Jemput kami pulang, Bapa",
-        "Ke Firdaus bahagia"
+        "Tuhan, tolong kami semua, Ingat 'kan janji-Mu",
+        "Jemput kami pulang, Bapa, Ke Firdaus bahagia"
       ],
-      "text": "Tuhan, tolong kami semua\nIngat 'kan janji-Mu\nJemput kami pulang, Bapa\nKe Firdaus bahagia"
+      "text": "Tuhan, tolong kami semua, Ingat 'kan janji-Mu\nJemput kami pulang, Bapa, Ke Firdaus bahagia"
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/05/363-yerusalem-oh-rumahku.html"
+  "url": "https://alkitab.app/LS/363"
 }

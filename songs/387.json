@@ -22,12 +22,10 @@
       "label": "Refrein",
       "type": "chorus",
       "lines": [
-        "Ke Kanaan, Ku menuju",
-        "Ke Kanaan yang mulia",
-        "Kanaan rumah yang bahagia",
-        "Neg'ri Kanaan yang mulia"
+        "Ke Kanaan, Menuju ke Kanaan yang mulia",
+        "Kanaan rumah yang bahagia, Neg'ri Kanaan yang mulia"
       ],
-      "text": "Ke Kanaan, Ku menuju\nKe Kanaan yang mulia\nKanaan rumah yang bahagia\nNeg'ri Kanaan yang mulia"
+      "text": "Ke Kanaan, Menuju ke Kanaan yang mulia\nKanaan rumah yang bahagia, Neg'ri Kanaan yang mulia"
     },
     {
       "label": "2/4",
@@ -35,10 +33,10 @@
       "lines": [
         "Bersedialah dan berdoa",
         "Menuju ke neg'ri Kanaan",
-        "Menanti hari yag mulia",
-        "Menuju ke neg'ri Kanaan"
+        "Menanti hari yag mulia,",
+        "Menuju ke neg'ri Kanaan."
       ],
-      "text": "Bersedialah dan berdoa\nMenuju ke neg'ri Kanaan\nMenanti hari yag mulia\nMenuju ke neg'ri Kanaan"
+      "text": "Bersedialah dan berdoa\nMenuju ke neg'ri Kanaan\nMenanti hari yag mulia,\nMenuju ke neg'ri Kanaan."
     },
     {
       "label": "3/4",
@@ -47,9 +45,9 @@
         "Nyanyi puji berkumandang",
         "Menuju ke neg'ri Kanaan",
         "Sukaku makin cemerlang",
-        "Menuju ke neg'ri Kanaan"
+        "Menuju ke neg'ri Kanaan."
       ],
-      "text": "Nyanyi puji berkumandang\nMenuju ke neg'ri Kanaan\nSukaku makin cemerlang\nMenuju ke neg'ri Kanaan"
+      "text": "Nyanyi puji berkumandang\nMenuju ke neg'ri Kanaan\nSukaku makin cemerlang\nMenuju ke neg'ri Kanaan."
     },
     {
       "label": "4/4",
@@ -58,10 +56,10 @@
         "Marilah hai sahabatku",
         "Menuju ke neg'ri Kanaan",
         "Abadi sukacitamu",
-        "Menuju ke neg'ri Kanaan"
+        "Menuju ke neg'ri Kanaan."
       ],
-      "text": "Marilah hai sahabatku\nMenuju ke neg'ri Kanaan\nAbadi sukacitamu\nMenuju ke neg'ri Kanaan"
+      "text": "Marilah hai sahabatku\nMenuju ke neg'ri Kanaan\nAbadi sukacitamu\nMenuju ke neg'ri Kanaan."
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/05/387-mari-hidup-rukun-damai.html"
+  "url": "https://alkitab.app/LS/387"
 }

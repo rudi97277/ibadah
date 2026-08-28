@@ -1,7 +1,7 @@
 {
   "number": 502,
-  "title": "KARENA ALLAH KASIH",
-  "title_full": "502 KARENA ALLAH KASIH",
+  "title": "KAR'NA ALLAH KASIH",
+  "title_full": "502 KAR'NA ALLAH KASIH",
   "time_signature": "3/4",
   "key": "1#=G",
   "author": null,
@@ -11,16 +11,27 @@
       "label": "1/2",
       "type": "verse",
       "lines": [
-        "Kar'na Allah kasih",
-        "Dib'rilah Anak-Nya",
-        "Mati di Golgota",
-        "Selamatkan kita",
-        "Akan datang Yesus",
-        "Alangkah mulia",
+        "Kar'na Allah kasih, Dib'rilah anak-Nya",
+        "Mati di Golgota, selamatkan kita",
+        "Akan datang Yesus, alangkah mulia",
         "Ajaiblah kasih-Nya"
       ],
-      "text": "Kar'na Allah kasih\nDib'rilah Anak-Nya\nMati di Golgota\nSelamatkan kita\nAkan datang Yesus\nAlangkah mulia\nAjaiblah kasih-Nya"
+      "text": "Kar'na Allah kasih, Dib'rilah anak-Nya\nMati di Golgota, selamatkan kita\nAkan datang Yesus, alangkah mulia\nAjaiblah kasih-Nya"
+    },
+    {
+      "label": "2/2",
+      "type": "verse",
+      "lines": [
+        "For God soloved the world",
+        "He gave His only Son",
+        "To die om Calv'ry tree",
+        "From sin to set me free",
+        "Some day He's coming back",
+        "What glory that will be",
+        "Wonderful His love to me"
+      ],
+      "text": "For God soloved the world\nHe gave His only Son\nTo die om Calv'ry tree\nFrom sin to set me free\nSome day He's coming back\nWhat glory that will be\nWonderful His love to me"
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/06/502-karena-allah-kasih.html"
+  "url": "https://alkitab.app/LS/502"
 }

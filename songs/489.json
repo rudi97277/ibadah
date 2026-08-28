@@ -1,7 +1,7 @@
 {
   "number": 489,
-  "title": "MATAKU T'LAH MELIHAT",
-  "title_full": "489 MATAKU T'LAH MELIHAT",
+  "title": "MATAKU T'LAH MELIHAT KEMULIAAN TUHAN",
+  "title_full": "489 MATAKU T'LAH MELIHAT KEMULIAAN TUHAN",
   "time_signature": "4/4",
   "key": "2b=Bb",
   "author": null,
@@ -22,35 +22,33 @@
       "label": "Refrein",
       "type": "chorus",
       "lines": [
-        "Puji Tuhan, maha mulia",
-        "Puji Tuhan maha mulia",
-        "Puji Tuhan maha mulia",
-        "Kristus seg'ra datang"
+        "Puji Tuhan, maha mulia, Puji Tuhan maha mulia",
+        "Puji Tuhan maha mulia, Kristus seg'ra datang"
       ],
-      "text": "Puji Tuhan, maha mulia\nPuji Tuhan maha mulia\nPuji Tuhan maha mulia\nKristus seg'ra datang"
+      "text": "Puji Tuhan, maha mulia, Puji Tuhan maha mulia\nPuji Tuhan maha mulia, Kristus seg'ra datang"
     },
     {
       "label": "2/3",
       "type": "verse",
       "lines": [
-        "Trompet-Nya t'lah berbunyi, kedatangan Tuhan pasti",
+        "Trompet-Nya t'lah berbunyi, kedatngan Tuhan pasti",
         "Menghakimi manusia dari takhta-Nya yang suci",
         "Hai jiwaku, berserah dan jawablah seruan-Nya",
-        "Tuhan datang seg'ra"
+        "Tuhan datang seg'ra."
       ],
-      "text": "Trompet-Nya t'lah berbunyi, kedatangan Tuhan pasti\nMenghakimi manusia dari takhta-Nya yang suci\nHai jiwaku, berserah dan jawablah seruan-Nya\nTuhan datang seg'ra"
+      "text": "Trompet-Nya t'lah berbunyi, kedatngan Tuhan pasti\nMenghakimi manusia dari takhta-Nya yang suci\nHai jiwaku, berserah dan jawablah seruan-Nya\nTuhan datang seg'ra."
     },
     {
       "label": "3/3",
       "type": "verse",
       "lines": [
         "Bagai bunga bakung indah, Yesus lahir di dunia",
-        "Dengan kuasa takhta-Nya, ubahkan engkau dan saya",
+        "Dengan kuasa takhta-Nya ubahkan engkau dan saya",
         "Dia mati bebaskan dan sucikan manusia",
-        "Tuhan datang seg'ra"
+        "Tuhan datang seg'ra."
       ],
-      "text": "Bagai bunga bakung indah, Yesus lahir di dunia\nDengan kuasa takhta-Nya, ubahkan engkau dan saya\nDia mati bebaskan dan sucikan manusia\nTuhan datang seg'ra"
+      "text": "Bagai bunga bakung indah, Yesus lahir di dunia\nDengan kuasa takhta-Nya ubahkan engkau dan saya\nDia mati bebaskan dan sucikan manusia\nTuhan datang seg'ra."
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/06/489-mataku-tlah-melihat.html"
+  "url": "https://alkitab.app/LS/489"
 }

@@ -1,7 +1,7 @@
 {
   "number": 116,
-  "title": "KAU TINGGALKAN TAKHTA SURGA",
-  "title_full": "116 KAU TINGGALKAN TAKHTA SURGA",
+  "title": "KAU TINGGALKAN TAHTA SURGA",
+  "title_full": "116 KAU TINGGALKAN TAHTA SURGA",
   "time_signature": "4/4",
   "key": "2#=D",
   "author": null,
@@ -22,21 +22,11 @@
       "label": "Refrein",
       "type": "chorus",
       "lines": [
-        "1-4",
-        "Masuklah ya Tuhan Yesus",
-        "Tersedia tempat di hatiku"
+        "(1-4)",
+        "Masuklah ya Tuhan Yesus, Tersedia tempat di hatiku",
+        "(5) Hatiku bersukacita, Bila Kau tinggal besertaku"
       ],
-      "text": "1-4\nMasuklah ya Tuhan Yesus\nTersedia tempat di hatiku"
-    },
-    {
-      "label": "Refrein",
-      "type": "chorus",
-      "lines": [
-        "5",
-        "Hatiku bersukacita",
-        "Bila Kau tinggal besertaku"
-      ],
-      "text": "5\nHatiku bersukacita\nBila Kau tinggal besertaku"
+      "text": "(1-4)\nMasuklah ya Tuhan Yesus, Tersedia tempat di hatiku\n(5) Hatiku bersukacita, Bila Kau tinggal besertaku"
     },
     {
       "label": "2/5",
@@ -45,9 +35,9 @@
         "Malaikat di surga nyanyi memuji",
         "Masyhurkan kemuliaan-Nya",
         "Tapi Kau lahir di kandang yang hina",
-        "Sungguh amat sederhana"
+        "Sungguh amat sederhana."
       ],
-      "text": "Malaikat di surga nyanyi memuji\nMasyhurkan kemuliaan-Nya\nTapi Kau lahir di kandang yang hina\nSungguh amat sederhana"
+      "text": "Malaikat di surga nyanyi memuji\nMasyhurkan kemuliaan-Nya\nTapi Kau lahir di kandang yang hina\nSungguh amat sederhana."
     },
     {
       "label": "3/5",
@@ -67,9 +57,9 @@
         "Tuhan datang dengan sabda abadi",
         "Untuk s'lamatkan manusia",
         "Tapi Kau disalibkan dan dihina",
-        "Diberi mahkota duri"
+        "Diberi mahkota duri."
       ],
-      "text": "Tuhan datang dengan sabda abadi\nUntuk s'lamatkan manusia\nTapi Kau disalibkan dan dihina\nDiberi mahkota duri"
+      "text": "Tuhan datang dengan sabda abadi\nUntuk s'lamatkan manusia\nTapi Kau disalibkan dan dihina\nDiberi mahkota duri."
     },
     {
       "label": "5/5",
@@ -77,11 +67,11 @@
       "lines": [
         "Malaikat bernyanyi, surga ceria",
         "Kau datang dengan kem'nangan",
-        "Ya Tuhan panggil ku pulang ke surga",
+        "Ya Tuhan panggil kupulang ke surga",
         "Yang penuh kebahagiaan"
       ],
-      "text": "Malaikat bernyanyi, surga ceria\nKau datang dengan kem'nangan\nYa Tuhan panggil ku pulang ke surga\nYang penuh kebahagiaan"
+      "text": "Malaikat bernyanyi, surga ceria\nKau datang dengan kem'nangan\nYa Tuhan panggil kupulang ke surga\nYang penuh kebahagiaan"
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/03/116-kau-tinggalkan-takhta-surga.html"
+  "url": "https://alkitab.app/LS/116"
 }

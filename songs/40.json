@@ -1,7 +1,7 @@
 {
   "number": 40,
-  "title": "TUHAN, PIMPINLAH AKU",
-  "title_full": "040 TUHAN, PIMPINLAH AKU",
+  "title": "TUHAN PIMPINLAH AKU",
+  "title_full": "040 TUHAN PIMPINLAH AKU",
   "time_signature": "4/4",
   "key": "5b=Db",
   "author": null,
@@ -11,46 +11,38 @@
       "label": "1/3",
       "type": "verse",
       "lines": [
-        "Tuhan pimpinlah aku",
-        "Sampai ujung jalanku",
-        "Serta-Mu aku s'lamat",
-        "Kasih-Mu memb'ri berkat"
+        "Tuhan pimpinlah aku, Sampai ujung jalanku",
+        "Serta-Mu aku s'lamat, Kasih-Mu memb'ri berkat"
       ],
-      "text": "Tuhan pimpinlah aku\nSampai ujung jalanku\nSerta-Mu aku s'lamat\nKasih-Mu memb'ri berkat"
+      "text": "Tuhan pimpinlah aku, Sampai ujung jalanku\nSerta-Mu aku s'lamat, Kasih-Mu memb'ri berkat"
     },
     {
       "label": "Refrein",
       "type": "chorus",
       "lines": [
-        "Pimpin pimpin",
-        "Tuhan pimpinlah aku",
-        "Dalam susah dan senang",
-        "Tuhan pimpinlah aku"
+        "Pimpin, pimpin, Tuhan pimpinlah aku",
+        "Dalam susah dan senang, Tuhan pimpinlah aku"
       ],
-      "text": "Pimpin pimpin\nTuhan pimpinlah aku\nDalam susah dan senang\nTuhan pimpinlah aku"
+      "text": "Pimpin, pimpin, Tuhan pimpinlah aku\nDalam susah dan senang, Tuhan pimpinlah aku"
     },
     {
       "label": "2/3",
       "type": "verse",
       "lines": [
-        "Engkau benteng jiwaku",
-        "Aku harap pada-Mu",
-        "Kalau aku di goda",
-        "Kasih-Mu memb'ri kuasa"
+        "Engkau benteng jiwaku, Aku harap pada-Mu",
+        "Kalau aku digoda, Kasih-Mu memb'ri kuasa"
       ],
-      "text": "Engkau benteng jiwaku\nAku harap pada-Mu\nKalau aku di goda\nKasih-Mu memb'ri kuasa"
+      "text": "Engkau benteng jiwaku, Aku harap pada-Mu\nKalau aku digoda, Kasih-Mu memb'ri kuasa"
     },
     {
       "label": "3/3",
       "type": "verse",
       "lines": [
-        "Tuhan pimpin aku t'rus",
-        "Pada jalan yang lurus",
-        "Sampai neg'ri yang kudus",
-        "Tempat ku lihat Yesus"
+        "Tuhan pimpin aku t'rus, Pada jalan yang lurus",
+        "Sampai neg'ri yang kudus, Tempat kulihat Yesus"
       ],
-      "text": "Tuhan pimpin aku t'rus\nPada jalan yang lurus\nSampai neg'ri yang kudus\nTempat ku lihat Yesus"
+      "text": "Tuhan pimpin aku t'rus, Pada jalan yang lurus\nSampai neg'ri yang kudus, Tempat kulihat Yesus"
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/02/40-tuhan-pimpinlah-aku.html"
+  "url": "https://alkitab.app/LS/40"
 }

@@ -1,7 +1,7 @@
 {
   "number": 243,
-  "title": "TARIK AKU, YA YESUS",
-  "title_full": "243 TARIK AKU, YA YESUS",
+  "title": "TARIK AKU YA YESUS",
+  "title_full": "243 TARIK AKU YA YESUS",
   "time_signature": "6/8",
   "key": "1b=F",
   "author": null,
@@ -11,57 +11,47 @@
       "label": "1/4",
       "type": "verse",
       "lines": [
-        "Tarik aku ya Yesus",
-        "Dekat ke salib-Mu",
-        "Air hidup Golgota",
-        "Alirkan padaku"
+        "Tarik aku ya Yesus, Dekat ke salib-Mu",
+        "Air hidup Golgota, Alirkan padaku"
       ],
-      "text": "Tarik aku ya Yesus\nDekat ke salib-Mu\nAir hidup Golgota\nAlirkan padaku"
+      "text": "Tarik aku ya Yesus, Dekat ke salib-Mu\nAir hidup Golgota, Alirkan padaku"
     },
     {
       "label": "Refrein",
       "type": "chorus",
       "lines": [
-        "Di salib, di salib",
-        "Itu kemuliaan",
-        "Hingga di seb'rang sungai",
-        "Dapat perhentian"
+        "Di salib, Di salib, Itu kemuliaan",
+        "Hingga di seb'rang sungai, Dapat perhentian"
       ],
-      "text": "Di salib, di salib\nItu kemuliaan\nHingga di seb'rang sungai\nDapat perhentian"
+      "text": "Di salib, Di salib, Itu kemuliaan\nHingga di seb'rang sungai, Dapat perhentian"
     },
     {
       "label": "2/4",
       "type": "verse",
       "lines": [
-        "Dekat salib-Mu Yesus",
-        "Ku dapat rahmat-Mu",
-        "Bintang fajar yang kudus",
-        "Menerangi aku"
+        "Dekat salib-Mu Yesus, Ku dapat rahmat-Mu",
+        "Bintang fajar yang kudus, Menerangi aku."
       ],
-      "text": "Dekat salib-Mu Yesus\nKu dapat rahmat-Mu\nBintang fajar yang kudus\nMenerangi aku"
+      "text": "Dekat salib-Mu Yesus, Ku dapat rahmat-Mu\nBintang fajar yang kudus, Menerangi aku."
     },
     {
       "label": "3/4",
       "type": "verse",
       "lines": [
-        "Di salib, Domba Allah,",
-        "Ku ingat kasih-Mu",
-        "Pimpin aku ya Yesus",
-        "Sepanjang umurku"
+        "Di salib, Domba Allah, Kuingat kasih-Mu",
+        "Pimpin aku, Ya Yesus, Sepanjang umurku."
       ],
-      "text": "Di salib, Domba Allah,\nKu ingat kasih-Mu\nPimpin aku ya Yesus\nSepanjang umurku"
+      "text": "Di salib, Domba Allah, Kuingat kasih-Mu\nPimpin aku, Ya Yesus, Sepanjang umurku."
     },
     {
       "label": "4/4",
       "type": "verse",
       "lines": [
-        "Di salib aku tunggu,",
-        "Harap dan percaya",
-        "Sambil aku menuju",
-        "Ke surga yang baka"
+        "Di salib aku tunggu, Harap dan percaya",
+        "Sambil aku menuju, Ke surga yang baka."
       ],
-      "text": "Di salib aku tunggu,\nHarap dan percaya\nSambil aku menuju\nKe surga yang baka"
+      "text": "Di salib aku tunggu, Harap dan percaya\nSambil aku menuju, Ke surga yang baka."
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/04/243-tarik-aku-ya-yesus.html"
+  "url": "https://alkitab.app/LS/243"
 }

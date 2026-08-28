@@ -1,7 +1,7 @@
 {
   "number": 121,
-  "title": "SIAPA DIA NUN DI SANA?",
-  "title_full": "121 SIAPA DIA NUN DI SANA?",
+  "title": "SIAPA DIA NUN DI SANA",
+  "title_full": "121 SIAPA DIA NUN DI SANA",
   "time_signature": "6/8",
   "key": "3b=Eb",
   "author": null,
@@ -20,15 +20,12 @@
       "label": "Refrein",
       "type": "chorus",
       "lines": [
-        "Dialah Allah yang perkasa",
-        "Tuhan dan Raja mulia",
-        "Kusujud di kakinya",
-        "Dan memahkotai-Nya",
+        "Dialah Allah yang perkasa, Tuhan dan Raja mulia",
+        "Kusujud di kakinya, Dan memahkotai-Nya",
         "Kusujud di kaki Tuhan sang Raja",
-        "Nobatkanlah Yesus",
-        "Tuhan, Rajakan Dia"
+        "Nobatkanlah Yesus, Tuhan, Rajakan Dia"
       ],
-      "text": "Dialah Allah yang perkasa\nTuhan dan Raja mulia\nKusujud di kakinya\nDan memahkotai-Nya\nKusujud di kaki Tuhan sang Raja\nNobatkanlah Yesus\nTuhan, Rajakan Dia"
+      "text": "Dialah Allah yang perkasa, Tuhan dan Raja mulia\nKusujud di kakinya, Dan memahkotai-Nya\nKusujud di kaki Tuhan sang Raja\nNobatkanlah Yesus, Tuhan, Rajakan Dia"
     },
     {
       "label": "2/7",
@@ -43,10 +40,10 @@
       "label": "3/7",
       "type": "verse",
       "lines": [
-        "Siapa yang dielukan",
+        "Siapa yang diekukan",
         "Dengan lagu kem'nangan?"
       ],
-      "text": "Siapa yang dielukan\nDengan lagu kem'nangan?"
+      "text": "Siapa yang diekukan\nDengan lagu kem'nangan?"
     },
     {
       "label": "4/7",
@@ -80,10 +77,10 @@
       "type": "verse",
       "lines": [
         "Siapakah yang mem'rintah",
-        "Dari takhta di surga?"
+        "Dari tahta di surga?"
       ],
-      "text": "Siapakah yang mem'rintah\nDari takhta di surga?"
+      "text": "Siapakah yang mem'rintah\nDari tahta di surga?"
     }
   ],
-  "url": "https://lagusiononline.blogspot.co.id/2016/03/121-siapa-dia-nun-di-sana.html"
+  "url": "https://alkitab.app/LS/121"
 }
