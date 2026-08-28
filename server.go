@@ -412,7 +412,7 @@ func handleSettingsAPI(filePath string) http.HandlerFunc {
 			data, err := os.ReadFile(filePath)
 			if err != nil {
 				if os.IsNotExist(err) {
-					defaultSettings := `{"font_family":"system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif","font_size_rem":3.6,"show_metadata":true,"autohide_nav":true,"auto_split_long_verses":true,"refrain_interleaving":true,"worship_playlist":[]}`
+					defaultSettings := `{"font_family":"system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif","font_size_lagusion_rem":3.4,"font_size_alkitab_rem":3.6,"show_metadata":true,"autohide_nav":true,"auto_split_long_verses":true,"refrain_interleaving":true,"worship_playlist":[]}`
 					_ = os.WriteFile(filePath, []byte(defaultSettings), 0644)
 					w.WriteHeader(http.StatusOK)
 					_, _ = w.Write([]byte(defaultSettings))

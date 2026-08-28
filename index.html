@@ -1076,7 +1076,7 @@
 
       const defaultSettings = {
         font_family: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-        font_size_rem: 3.4,
+        font_size_lagusion_rem: 3.4,
         show_metadata: true,
         autohide_nav: true,
         auto_split_long_verses: true,
@@ -1271,11 +1271,20 @@
         }
       }
 
+      function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
       // Initialize
       async function init() {
         await loadAppSettings();
+        await loadAllSongs();
         await loadCustomSongs();
-        await loadSongsIndex();
 
         updateCustomSongsCount();
         renderDrawerList('');
@@ -1299,18 +1308,6 @@
         await loadSong(initialSong, initialSlide);
         setupEventListeners();
         startAutoHideTimer();
-
-        // Background preload all_songs.json for ultra-fast song switching
-        try {
-          fetch('all_songs.json', { cache: 'no-store' })
-            .then(res => res.ok ? res.json() : null)
-            .then(allData => {
-              if (allData && Object.keys(allData).length > 0) {
-                songsData = { ...allData, ...songsData };
-              }
-            })
-            .catch(() => {});
-        } catch (e) {}
       }
 
       function showToast(msg) {
@@ -1319,17 +1316,23 @@
         setTimeout(() => toast.classList.remove('show'), 2000);
       }
 
-      // Load Songs Index from index.json
-      async function loadSongsIndex() {
+      // Load all songs from all_songs.json (Single Source of Truth)
+      async function loadAllSongs() {
         try {
-          const res = await fetch('index.json', { cache: 'no-store' });
+          const res = await fetch('all_songs.json?t=' + Date.now(), { cache: 'no-store' });
           if (res.ok) {
             const data = await res.json();
-            songsIndex = Array.isArray(data) ? data : [];
+            if (data && typeof data === 'object') {
+              songsData = data;
+            }
           }
         } catch (e) {
-          console.warn('Could not fetch index.json:', e);
+          console.warn('Could not fetch all_songs.json:', e);
         }
+      }
+
+      function getLaguSionList() {
+        return Object.values(songsData).sort((a, b) => (a.number || 0) - (b.number || 0));
       }
 
       // Load Custom Songs from Server API, local custom_songs.json, or localStorage
@@ -1369,22 +1372,64 @@
 
       function updateCustomSongsCount() {
         if (countLaguTambahan) countLaguTambahan.textContent = customSongs.length;
-        if (countLaguSion) countLaguSion.textContent = (songsIndex && songsIndex.length) ? songsIndex.length : 525;
+        const sionCount = Object.keys(songsData).length || 525;
+        if (countLaguSion) countLaguSion.textContent = sionCount;
       }
 
       function findSong(idOrNum) {
         if (idOrNum === undefined || idOrNum === null) return null;
         const strVal = String(idOrNum).trim();
+        if (!strVal) return null;
+        const queryLower = strVal.toLowerCase();
         
         // 1. Check customSongs first by id or title
-        const custom = customSongs.find(s => s.id === strVal || String(s.id).toLowerCase() === strVal.toLowerCase() || (s.title && s.title.toLowerCase() === strVal.toLowerCase()));
+        const custom = customSongs.find(s => s.id === strVal || String(s.id).toLowerCase() === queryLower || (s.title && s.title.toLowerCase() === queryLower));
         if (custom) return custom;
 
-        // 2. Check songsData by number
-        const num = parseInt(idOrNum);
+        // 2. Check songsData directly by key or number
+        const num = parseInt(strVal);
         if (!isNaN(num) && (songsData[num] || songsData[String(num)])) {
           return songsData[num] || songsData[String(num)];
         }
+        if (songsData[strVal]) {
+          return songsData[strVal];
+        }
+
+        // 3. Match exact or partial title in songsData
+        const foundTitle = Object.values(songsData).find(s => s.title && s.title.toLowerCase() === queryLower);
+        if (foundTitle) return foundTitle;
+
+        const partialTitle = Object.values(songsData).find(s => s.title && s.title.toLowerCase().includes(queryLower));
+        if (partialTitle) return partialTitle;
+
+        // 4. Match lyrics line in songsData
+        for (const s of Object.values(songsData)) {
+          if (s.verses && Array.isArray(s.verses)) {
+            for (const v of s.verses) {
+              const lines = v.lines || (v.text ? v.text.split('\n') : []);
+              for (const line of lines) {
+                if (line.toLowerCase().includes(queryLower)) {
+                  return s;
+                }
+              }
+            }
+          }
+        }
+
+        // 5. Match lyrics line in customSongs
+        for (const s of customSongs) {
+          if (s.verses && Array.isArray(s.verses)) {
+            for (const v of s.verses) {
+              const lines = v.lines || (v.text ? v.text.split('\n') : []);
+              for (const line of lines) {
+                if (line.toLowerCase().includes(queryLower)) {
+                  return s;
+                }
+              }
+            }
+          }
+        }
+
         return null;
       }
 
@@ -1402,7 +1447,7 @@
         } catch (e) {}
 
         // 2. Coba baca file settings.json langsung
-        if (!loaded || !loaded.font_size_rem) {
+        if (!loaded || (!loaded.font_size_lagusion_rem && !loaded.font_size_rem)) {
           try {
             const res = await fetch('settings.json?t=' + Date.now(), { cache: 'no-store' });
             if (res.ok) {
@@ -1431,7 +1476,7 @@
         document.body.style.fontFamily = appSettings.font_family;
         settingFontFamily.value = appSettings.font_family;
 
-        fontSizeRem = parseFloat(appSettings.font_size_rem) || 3.4;
+        fontSizeRem = parseFloat(appSettings.font_size_lagusion_rem || appSettings.font_size_rem) || 3.4;
         dispLyrics.style.fontSize = `${fontSizeRem}rem`;
         document.documentElement.style.setProperty('--full-verse-font-size', `${fontSizeRem}rem`);
         document.querySelectorAll('.full-verse-lines').forEach(el => {
@@ -1456,7 +1501,9 @@
       // Save settings to LocalStorage and send update to server (settings.json)
       async function saveAppSettings(notify = false) {
         if (settingFontFamily && settingFontFamily.value) appSettings.font_family = settingFontFamily.value;
-        if (settingFontSize && settingFontSize.value) appSettings.font_size_rem = parseFloat(settingFontSize.value);
+        if (settingFontSize && settingFontSize.value) {
+          appSettings.font_size_lagusion_rem = parseFloat(settingFontSize.value);
+        }
         if (settingShowMeta) appSettings.show_metadata = settingShowMeta.checked;
         if (settingAutohideNav) appSettings.autohide_nav = settingAutohideNav.checked;
         if (settingSplitVerses) appSettings.auto_split_long_verses = settingSplitVerses.checked;
@@ -1954,17 +2001,10 @@
       // Load specific song (by number 1-525 or custom song ID) and slide index
       async function loadSong(songIdOrNum, slideIdx = 0) {
         let song = findSong(songIdOrNum);
-        let num = parseInt(songIdOrNum);
 
-        if (!song && !isNaN(num) && num >= 1 && num <= 525) {
-          try {
-            const resp = await fetch(`songs/${num}.json`);
-            song = await resp.json();
-            songsData[num] = song;
-          } catch (err) {
-            console.error(`Failed to load song ${num}:`, err);
-            return;
-          }
+        if (!song && Object.keys(songsData).length === 0) {
+          await loadAllSongs();
+          song = findSong(songIdOrNum);
         }
 
         if (!song) {
@@ -2355,13 +2395,26 @@
 
         if (currentActiveTab === 'tambahan') {
           // Render Custom Songs (Tanpa Nomor)
-          const filtered = customSongs.filter(s => {
-            if (!filterText) return true;
-            return (s.title && s.title.toLowerCase().includes(filterText)) ||
-                   (s.verses && s.verses.some(v => v.lines && v.lines.some(l => l.toLowerCase().includes(filterText))));
-          });
+          const matched = customSongs.map(s => {
+            if (!filterText) return { song: s, matchedLine: null };
+            const titleLower = (s.title || '').toLowerCase();
+            if (titleLower.includes(filterText)) {
+              return { song: s, matchedLine: null };
+            }
+            if (s.verses && Array.isArray(s.verses)) {
+              for (const v of s.verses) {
+                const lines = v.lines || (v.text ? v.text.split('\n') : []);
+                for (const line of lines) {
+                  if (line.toLowerCase().includes(filterText)) {
+                    return { song: s, matchedLine: line.trim() };
+                  }
+                }
+              }
+            }
+            return null;
+          }).filter(Boolean);
 
-          if (filtered.length === 0) {
+          if (matched.length === 0) {
             songListItems.innerHTML = `
               <li style="padding: 30px 16px; text-align: center; color: #94a3b8; font-size: 13px; line-height: 1.6;">
                 Belum ada lagu tambahan yang cocok.<br>
@@ -2371,7 +2424,7 @@
             return;
           }
 
-          filtered.forEach((item) => {
+          matched.forEach(({ song: item, matchedLine }) => {
             const li = document.createElement('li');
             li.className = 'song-item';
             li.dataset.songId = item.id;
@@ -2381,15 +2434,20 @@
             
             const infoSpan = document.createElement('div');
             infoSpan.style.display = 'flex';
-            infoSpan.style.alignItems = 'center';
+            infoSpan.style.flexDirection = 'column';
             infoSpan.style.flex = '1';
             infoSpan.style.overflow = 'hidden';
             infoSpan.style.cursor = 'pointer';
             const countTambahan = (item.verses && item.verses.length) ? `(${item.verses.length})` : '';
+            const snippetHtml = matchedLine ? `<div style="font-size: 11px; color: #64748b; font-style: italic; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-left: 36px;">"...${escapeHtml(matchedLine)}..."</div>` : '';
+
             infoSpan.innerHTML = `
-              <span class="song-item-num" style="color: #2563eb; font-size: 16px; width: 36px;">🎵</span>
-              <span class="song-item-title" style="font-weight: 600;">${item.title}</span>
-              <span class="song-item-verses">${countTambahan}</span>
+              <div style="display: flex; align-items: center; width: 100%;">
+                <span class="song-item-num" style="color: #2563eb; font-size: 16px; width: 36px;">🎵</span>
+                <span class="song-item-title" style="font-weight: 600;">${escapeHtml(item.title)}</span>
+                <span class="song-item-verses">${countTambahan}</span>
+              </div>
+              ${snippetHtml}
             `;
             infoSpan.addEventListener('click', () => {
               loadSong(item.id, 0);
@@ -2411,13 +2469,28 @@
           });
         } else {
           // Render Lagu Sion (1 - 525)
-          const filtered = songsIndex.filter(s => {
-            if (!filterText) return true;
-            return String(s.number).includes(filterText) ||
-                   (s.title && s.title.toLowerCase().includes(filterText));
-          });
+          const allSion = getLaguSionList();
+          const matched = allSion.map(s => {
+            if (!filterText) return { song: s, matchedLine: null };
+            const numStr = String(s.number);
+            const titleLower = (s.title || '').toLowerCase();
+            if (numStr.includes(filterText) || titleLower.includes(filterText)) {
+              return { song: s, matchedLine: null };
+            }
+            if (s.verses && Array.isArray(s.verses)) {
+              for (const v of s.verses) {
+                const lines = v.lines || (v.text ? v.text.split('\n') : []);
+                for (const line of lines) {
+                  if (line.toLowerCase().includes(filterText)) {
+                    return { song: s, matchedLine: line.trim() };
+                  }
+                }
+              }
+            }
+            return null;
+          }).filter(Boolean);
 
-          if (filtered.length === 0) {
+          if (matched.length === 0) {
             songListItems.innerHTML = `
               <li style="padding: 30px 16px; text-align: center; color: #94a3b8; font-size: 13px;">
                 Tidak ada lagu sion ditemukan.
@@ -2426,7 +2499,7 @@
             return;
           }
 
-          filtered.forEach(item => {
+          matched.forEach(({ song: item, matchedLine }) => {
             const li = document.createElement('li');
             li.className = 'song-item';
             li.dataset.songId = item.number;
@@ -2436,15 +2509,20 @@
             
             const infoSpan = document.createElement('div');
             infoSpan.style.display = 'flex';
-            infoSpan.style.alignItems = 'center';
+            infoSpan.style.flexDirection = 'column';
             infoSpan.style.flex = '1';
             infoSpan.style.overflow = 'hidden';
             infoSpan.style.cursor = 'pointer';
-            const countSion = item.verse_count ? `(${item.verse_count})` : '';
+            const countSion = (item.verses && item.verses.length) ? `(${item.verses.length})` : '';
+            const snippetHtml = matchedLine ? `<div style="font-size: 11px; color: #64748b; font-style: italic; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-left: 36px;">"...${escapeHtml(matchedLine)}..."</div>` : '';
+
             infoSpan.innerHTML = `
-              <span class="song-item-num">${String(item.number).padStart(3, '0')}</span>
-              <span class="song-item-title">${item.title}</span>
-              <span class="song-item-verses">${countSion}</span>
+              <div style="display: flex; align-items: center; width: 100%;">
+                <span class="song-item-num">${String(item.number).padStart(3, '0')}</span>
+                <span class="song-item-title">${escapeHtml(item.title)}</span>
+                <span class="song-item-verses">${countSion}</span>
+              </div>
+              ${snippetHtml}
             `;
             infoSpan.addEventListener('click', () => {
               loadSong(item.number, 0);
@@ -2492,8 +2570,12 @@
         drawerBackdrop.classList.remove('open');
       }
 
+      let searchDebounceTimer = null;
       function filterSongs(query) {
-        renderDrawerList(query);
+        if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
+        searchDebounceTimer = setTimeout(() => {
+          renderDrawerList(query);
+        }, 150);
       }
 
       // Event Listeners
@@ -2537,6 +2619,7 @@
           tabLaguSion.classList.add('active');
           tabLaguTambahan.classList.remove('active');
           songSearchInput.placeholder = '🔍 Cari nomor atau judul lagu...';
+          if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
           renderDrawerList(songSearchInput.value);
         });
 
@@ -2545,6 +2628,7 @@
           tabLaguTambahan.classList.add('active');
           tabLaguSion.classList.remove('active');
           songSearchInput.placeholder = '🔍 Cari judul lagu tambahan atau lirik...';
+          if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
           renderDrawerList(songSearchInput.value);
         });
 

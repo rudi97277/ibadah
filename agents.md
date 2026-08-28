@@ -167,17 +167,38 @@ State yang dikirimkan ke layar proyektor (`display.html`) memiliki skema JSON be
 
 ---
 
+### 9. Pembaruan Dataset Lagu Sion via Scraper & Pemisahan Variabel Ukuran Font
+* **User Requests**:
+  1. *"can you make a new scrapper that will get and update the songs from this website? https://alkitab.app/LS/1"*
+  2. *"can you make the size for lagusion and alkitab in separate variable?"*
+  3. *"gunakan all song saja. tapi, support search nya menggunakan lines juga, jangan cuma nomor dan judul"*
+* **Aksi/Solusi**:
+  * **Single Source of Truth (`all_songs.json`)**:
+    * Menghapus folder `songs/` (525 file terpisah) dan `index.json`. Seluruh 525 lagu dimuat langsung dari satu file master `all_songs.json` (~1 MB) saat aplikasi start.
+    * Menghilangkan beban sinkronisasi ganda.
+  * **Pencarian Lirik Lengkap (Nomor, Judul, & Baris Lirik)**:
+    * Pencarian di Drawer dan bilah input atas sekarang memeriksa nomor lagu, judul, serta **seluruh baris lirik di setiap bait/refrein**.
+    * Jika ditemukan kecocokan pada baris lirik, ditampilkan *snippet* cuplikan lirik di bawah judul lagu.
+  * **Scraper Mandiri (`scrape_alkitab_app.py`)**:
+    * Mengambil 525 lagu secara paralel dari `https://alkitab.app/LS/{nomor}` dan menyimpannya langsung ke `all_songs.json`.
+  * **Pemisahan Variabel Ukuran Font**:
+    * **Lagu Sion**: Disimpan dalam variabel `font_size_lagusion_rem` (default `3.4rem`).
+    * **Alkitab**: Disimpan dalam variabel `font_size_alkitab_rem` (default `3.6rem`).
+
+---
+
 ## 📁 Peta File Proyek
 
-* `index.html` — Konsol Operator untuk Lagu Sion.
+* `index.html` — Konsol Operator untuk Lagu Sion (dengan pencarian lirik lengkap).
 * `alkitab.html` — Konsol Operator untuk Alkitab TB.
 * `display.html` — Halaman Layar Khusus Proyektor Jemaat (Monitor 2).
 * `server.go` — Backend native Golang yang melayani file statis dan REST API.
 * `server-linux` — Binary server siap jalan untuk Linux x86_64.
 * `server-windows.exe` — Binary server siap jalan untuk Windows x86_64.
-* `all_songs.json` & `songs/` — Database 525 Lagu Sion.
+* `all_songs.json` — Single Source of Truth database 525 Lagu Sion.
 * `alkitab_tb.txt` — Database lengkap 31.084 ayat Alkitab Terjemahan Baru.
-* `settings.json` — Konfigurasi ukuran font, playlist Lagu Sion, dll.
+* `scrape_alkitab_app.py` — Script pembaruan lirik dari `alkitab.app`.
+* `settings.json` — Konfigurasi ukuran font mandiri (`font_size_lagusion_rem` & `font_size_alkitab_rem`), playlist ibadah, dll.
 * `custom_songs.json` — Penyimpanan lagu kustom tambahan.
 * `README.md` — Panduan penggunaan pengguna akhir.
 * `agents.md` — Arsip pengetahuan teknis dan histori percakapan proyek ini.

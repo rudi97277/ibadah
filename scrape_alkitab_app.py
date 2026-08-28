@@ -190,11 +190,6 @@ def main():
             try:
                 num, song_data = future.result()
                 if song_data and song_data.get("verses"):
-                    # Save individual song file
-                    song_path = os.path.join(SONGS_DIR, f"{num}.json")
-                    with open(song_path, "w", encoding="utf-8") as f:
-                        json.dump(song_data, f, indent=2, ensure_ascii=False)
-
                     # Update master dictionary
                     existing_dict[str(num)] = song_data
                     updated_count += 1
@@ -206,31 +201,16 @@ def main():
                 print(f"Exception on song {num}: {e}")
                 failed_songs.append(num)
 
-    # Save updated all_songs.json
-    # Sort dictionary keys numerically
+    # Save updated all_songs.json (Single Source of Truth)
     sorted_dict = {str(k): existing_dict[str(k)] for k in sorted([int(k) for k in existing_dict.keys()])}
     with open(ALL_SONGS_FILE, "w", encoding="utf-8") as f:
         json.dump(sorted_dict, f, indent=2, ensure_ascii=False)
     print(f"\nSaved {len(sorted_dict)} songs to {ALL_SONGS_FILE}")
 
-    # Generate index.json
-    index_list = []
-    for k, s in sorted_dict.items():
-        index_list.append({
-            "number": s["number"],
-            "title": s["title"],
-            "title_full": s["title_full"],
-            "file": f"songs/{s['number']}.json"
-        })
-
-    with open(INDEX_FILE, "w", encoding="utf-8") as f:
-        json.dump(index_list, f, indent=2, ensure_ascii=False)
-    print(f"Saved {len(index_list)} songs index to {INDEX_FILE}")
-
     if failed_songs:
         print(f"\nWarning: {len(failed_songs)} songs failed to scrape: {failed_songs}")
     else:
-        print(f"\nAll {updated_count} songs successfully fetched and updated from alkitab.app!")
+        print(f"\nAll {updated_count} songs successfully fetched and updated in all_songs.json!")
 
 if __name__ == "__main__":
     main()

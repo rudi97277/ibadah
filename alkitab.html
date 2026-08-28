@@ -891,7 +891,7 @@
 
       let appSettings = {
         font_family: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-        font_size_rem: 3.6,
+        font_size_alkitab_rem: 3.6,
         auto_split_long_verses: true,
         show_verse_num: true,
         autohide_nav: true
@@ -924,8 +924,9 @@
           if (settingFontFamily) settingFontFamily.value = appSettings.font_family;
         }
 
-        if (appSettings.font_size_rem) {
-          fontSizeRem = parseFloat(appSettings.font_size_rem);
+        const savedSize = appSettings.font_size_alkitab_rem || appSettings.font_size_rem;
+        if (savedSize) {
+          fontSizeRem = parseFloat(savedSize);
           dispVerseText.style.fontSize = `${fontSizeRem}rem`;
           if (settingFontSize) settingFontSize.value = fontSizeRem;
           if (fontSizeVal) fontSizeVal.textContent = `${fontSizeRem.toFixed(1)}rem`;
@@ -947,7 +948,7 @@
 
       async function saveAppSettings() {
         if (settingFontFamily) appSettings.font_family = settingFontFamily.value;
-        if (settingFontSize) appSettings.font_size_rem = parseFloat(settingFontSize.value);
+        if (settingFontSize) appSettings.font_size_alkitab_rem = parseFloat(settingFontSize.value);
         if (settingSplitVerses) appSettings.auto_split_long_verses = settingSplitVerses.checked;
         if (settingShowVerseNum) appSettings.show_verse_num = settingShowVerseNum.checked;
         if (settingAutohideNav) appSettings.autohide_nav = settingAutohideNav.checked;

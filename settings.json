@@ -2,14 +2,10 @@
   "auto_split_long_verses": true,
   "autohide_nav": true,
   "font_family": "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-  "font_size_rem": 6.5,
+  "font_size_alkitab_rem": 3.3,
+  "font_size_lagusion_rem": 6.5,
   "refrain_interleaving": true,
   "show_metadata": false,
   "show_verse_num": true,
-  "worship_playlist": [
-    2,
-    10,
-    23,
-    34
-  ]
+  "worship_playlist": []
 }
