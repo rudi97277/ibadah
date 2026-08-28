@@ -181,6 +181,8 @@ State yang dikirimkan ke layar proyektor (`display.html`) memiliki skema JSON be
     * Jika ditemukan kecocokan pada baris lirik, ditampilkan *snippet* cuplikan lirik di bawah judul lagu.
   * **Scraper Mandiri (`scrape_alkitab_app.py`)**:
     * Mengambil 525 lagu secara paralel dari `https://alkitab.app/LS/{nomor}` dan menyimpannya langsung ke `all_songs.json`.
+  * **Debounce Pencarian**:
+    * Menggunakan debounce 150ms pada pengetikan pencarian drawer untuk performa optimal, responsif, dan hemat resource.
   * **Pemisahan Variabel Ukuran Font**:
     * **Lagu Sion**: Disimpan dalam variabel `font_size_lagusion_rem` (default `3.4rem`).
     * **Alkitab**: Disimpan dalam variabel `font_size_alkitab_rem` (default `3.6rem`).
