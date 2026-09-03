@@ -1,0 +1,174 @@
+import { state, findSong } from './state.js';
+import { renderSlide, renderFullSong, renderVerseJumpPills, updateBackgroundDisplay } from './render.js';
+import { updateActiveDrawerItem } from './drawer.js';
+import { buildSlideSequence } from './song-utils.js';
+import { loadAllSongs, pickRandomBackground } from './song-loader.js';
+
+const $ = (id) => document.getElementById(id);
+
+export async function loadSong(songIdOrNum, slideIdx = 0) {
+  let song = findSong(songIdOrNum);
+
+  if (!song && Object.keys(state.songsData).length === 0) {
+    await loadAllSongs();
+    song = findSong(songIdOrNum);
+  }
+
+  if (!song) {
+    console.warn('Song not found:', songIdOrNum);
+    return;
+  }
+
+  const isNewSong = (state.currentSongId !== (song.id || song.number || songIdOrNum));
+  state.currentSongId = song.id || song.number || songIdOrNum;
+  state.currentSongNumber = song.number || state.currentSongId;
+  if (isNewSong && state.appSettings.background_mode === 'random' && state.availableBackgrounds.length > 0) {
+    state.currentBgImage = pickRandomBackground();
+    updateBackgroundDisplay();
+  }
+
+  const jumpNumInput = $('jump-num-input');
+  if (jumpNumInput) jumpNumInput.value = song.number ? song.number : '';
+
+  state.currentSlideSequence = buildSlideSequence(song, state.appSettings, state.fontSizeRem);
+  if (slideIdx >= state.currentSlideSequence.length) slideIdx = Math.max(0, state.currentSlideSequence.length - 1);
+  if (slideIdx < 0) slideIdx = 0;
+  state.currentVerseIndex = slideIdx;
+
+  try {
+    localStorage.setItem('lagu_sion_last_song', String(state.currentSongId));
+    localStorage.setItem('lagu_sion_last_slide', String(slideIdx));
+  } catch (e) {}
+
+  renderSlide(song, slideIdx);
+  renderFullSong(song);
+  renderVerseJumpPills(state.currentSlideSequence, slideIdx);
+  updateActiveDrawerItem(state.currentSongId);
+
+  const statusIndicator = $('status-indicator');
+  if (!statusIndicator) return;
+
+  const list = Array.isArray(state.appSettings.worship_playlist) ? state.appSettings.worship_playlist : [];
+  const playlistIdx = list.findIndex(item => {
+    const sItem = String(item).trim().toLowerCase();
+    const sId = String(state.currentSongId).trim().toLowerCase();
+    const sNum = String(song.number || '').trim().toLowerCase();
+    const sNumNoZero = String(parseInt(sNum) || '').toLowerCase();
+    const sItemNoZero = String(parseInt(sItem) || '').toLowerCase();
+    return sItem === sId || sItem === sNum || (sItemNoZero && sItemNoZero === sNumNoZero);
+  });
+
+  if (playlistIdx !== -1) {
+    const nextItem = (playlistIdx < list.length - 1) ? list[playlistIdx + 1] : null;
+    let nextLabel = ' (Lagu Terakhir)';
+    if (nextItem) {
+      const nextSongObj = findSong(nextItem);
+      nextLabel = nextSongObj && nextSongObj.number ? ` ➔ Brkt: #${nextSongObj.number}` : (nextSongObj ? ` ➔ Brkt: ${nextSongObj.title}` : ` ➔ Brkt: ${nextItem}`);
+    }
+    const songDisplayName = song.number ? `Lagu ${song.number}` : song.title;
+    statusIndicator.textContent = `[Urutan ${playlistIdx + 1}/${list.length}] ${songDisplayName} (${slideIdx + 1}/${state.currentSlideSequence.length || 1})${nextLabel}`;
+  } else {
+    statusIndicator.textContent = song.number
+      ? `Lagu ${song.number} / 525 (${slideIdx + 1}/${state.currentSlideSequence.length || 1})`
+      : `${song.title} (${slideIdx + 1}/${state.currentSlideSequence.length || 1})`;
+  }
+}
+
+export function nextSlide() {
+  if (state.currentVerseIndex < state.currentSlideSequence.length - 1) {
+    loadSong(state.currentSongId, state.currentVerseIndex + 1);
+  } else {
+    nextSong();
+  }
+}
+
+export function prevSlide() {
+  if (state.currentVerseIndex > 0) {
+    loadSong(state.currentSongId, state.currentVerseIndex - 1);
+  } else {
+    prevSong(true);
+  }
+}
+
+export function nextSong() {
+  const list = Array.isArray(state.appSettings.worship_playlist) ? state.appSettings.worship_playlist : [];
+  if (list.length > 0) {
+    const currIdx = list.findIndex(item => {
+      const sItem = String(item).trim().toLowerCase();
+      const sId = String(state.currentSongId).trim().toLowerCase();
+      const sNum = String(state.currentSongNumber || '').trim().toLowerCase();
+      const sNumNoZero = String(parseInt(sNum) || '').toLowerCase();
+      const sItemNoZero = String(parseInt(sItem) || '').toLowerCase();
+      return sItem === sId || sItem === sNum || (sItemNoZero && sItemNoZero === sNumNoZero);
+    });
+
+    if (currIdx !== -1 && currIdx < list.length - 1) {
+      loadSong(list[currIdx + 1], 0);
+      return;
+    } else if (currIdx === -1) {
+      loadSong(list[0], 0);
+      return;
+    }
+  }
+
+  const num = parseInt(state.currentSongNumber);
+  if (!isNaN(num) && num < 525) {
+    loadSong(num + 1, 0);
+  }
+}
+
+export async function prevSong(toLastSlide = false) {
+  const list = Array.isArray(state.appSettings.worship_playlist) ? state.appSettings.worship_playlist : [];
+  if (list.length > 0) {
+    const currIdx = list.findIndex(item => {
+      const sItem = String(item).trim().toLowerCase();
+      const sId = String(state.currentSongId).trim().toLowerCase();
+      const sNum = String(state.currentSongNumber || '').trim().toLowerCase();
+      const sNumNoZero = String(parseInt(sNum) || '').toLowerCase();
+      const sItemNoZero = String(parseInt(sItem) || '').toLowerCase();
+      return sItem === sId || sItem === sNum || (sItemNoZero && sItemNoZero === sNumNoZero);
+    });
+
+    if (currIdx > 0) {
+      const targetId = list[currIdx - 1];
+      if (toLastSlide) {
+        let prevSongObj = findSong(targetId);
+        if (!prevSongObj && !isNaN(parseInt(targetId))) {
+          try {
+            const resp = await fetch(`songs/${targetId}.json`);
+            if (resp.ok) {
+              prevSongObj = await resp.json();
+              state.songsData[targetId] = prevSongObj;
+            }
+          } catch (e) {}
+        }
+        const prevSeq = prevSongObj ? buildSlideSequence(prevSongObj, state.appSettings, state.fontSizeRem) : [];
+        loadSong(targetId, Math.max(0, prevSeq.length - 1));
+      } else {
+        loadSong(targetId, 0);
+      }
+      return;
+    }
+  }
+
+  const num = parseInt(state.currentSongNumber);
+  if (!isNaN(num) && num > 1) {
+    const targetNum = num - 1;
+    if (toLastSlide) {
+      let prevSongObj = findSong(targetNum);
+      if (!prevSongObj) {
+        try {
+          const resp = await fetch(`songs/${targetNum}.json`);
+          if (resp.ok) {
+            prevSongObj = await resp.json();
+            state.songsData[targetNum] = prevSongObj;
+          }
+        } catch (e) {}
+      }
+      const prevSeq = prevSongObj ? buildSlideSequence(prevSongObj, state.appSettings, state.fontSizeRem) : [];
+      loadSong(targetNum, Math.max(0, prevSeq.length - 1));
+    } else {
+      loadSong(targetNum, 0);
+    }
+  }
+}
