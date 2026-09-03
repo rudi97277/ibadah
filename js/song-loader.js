@@ -11,8 +11,8 @@ export async function loadBackgrounds() {
       const list = await res.json();
       if (Array.isArray(list)) state.availableBackgrounds = list;
     }
-  } catch (e) {
-    console.warn('Could not fetch backgrounds:', e);
+  } catch (err) {
+    console.warn('Could not fetch backgrounds from /api/backgrounds:', err);
   }
 }
 
@@ -35,8 +35,8 @@ export async function loadAllSongs() {
       title: s.title,
       versesCount: s.verses ? s.verses.length : 0
     }));
-  } catch (e) {
-    console.error('Gagal memuat all_songs.json:', e);
+  } catch (err) {
+    console.error('Gagal memuat all_songs.json:', err);
   }
 }
 
@@ -50,7 +50,9 @@ export async function loadCustomSongs() {
         return;
       }
     }
-  } catch (e) {}
+  } catch (err) {
+    console.warn('Could not fetch custom songs from /api/custom_songs:', err);
+  }
 
   try {
     const localStr = localStorage.getItem('lagu_sion_custom_songs');
@@ -58,10 +60,13 @@ export async function loadCustomSongs() {
       const parsed = JSON.parse(localStr);
       if (Array.isArray(parsed)) state.customSongs = parsed;
     }
-  } catch (e) {}
+  } catch (err) {
+    console.warn('Could not read custom songs from localStorage:', err);
+  }
 }
 
 export async function loadAppSettings() {
+  const fallbackSettings = { ...state.appSettings };
   let loaded = null;
 
   try {
@@ -70,7 +75,9 @@ export async function loadAppSettings() {
       const apiData = await res.json();
       if (apiData && Object.keys(apiData).length > 0) loaded = apiData;
     }
-  } catch (e) {}
+  } catch (err) {
+    console.warn('Could not read settings from /api/settings:', err);
+  }
 
   if (!loaded || (!loaded.font_size_lagusion_rem && !loaded.font_size_rem)) {
     try {
@@ -79,17 +86,21 @@ export async function loadAppSettings() {
         const fileData = await res.json();
         if (fileData && Object.keys(fileData).length > 0) loaded = fileData;
       }
-    } catch (e) {}
+    } catch (err) {
+      console.warn('Could not read settings from settings.json:', err);
+    }
   }
 
   if (!loaded || Object.keys(loaded).length === 0) {
     try {
       const localStr = localStorage.getItem('lagu_sion_settings');
       if (localStr) loaded = JSON.parse(localStr);
-    } catch (e) {}
+    } catch (err) {
+      console.warn('Could not read settings from localStorage:', err);
+    }
   }
 
-  state.appSettings = { ...defaultSettings, ...(loaded || {}) };
+  state.appSettings = { ...defaultSettings, ...(loaded || fallbackSettings) };
   applySettingsToUI();
 }
 
@@ -119,7 +130,9 @@ export async function connectDiskFileHandle() {
         const parsed = JSON.parse(text);
         state.appSettings = { ...defaultSettings, ...parsed };
         applySettingsToUI();
-      } catch (e) {}
+      } catch (err) {
+        console.warn('Failed to parse settings JSON from connected file:', err);
+      }
 
       if (settingsSaveStatus) {
         settingsSaveStatus.textContent = `💾 Terhubung ke file: ${file.name} (Auto-update aktif!)`;

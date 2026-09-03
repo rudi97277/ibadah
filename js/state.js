@@ -95,6 +95,14 @@ export function getLaguSionList() {
 }
 
 export async function saveAppSettings(notify = false) {
+  const previousSettings = JSON.parse(JSON.stringify(state.appSettings));
+  let previousLocalSettings = null;
+  try {
+    previousLocalSettings = localStorage.getItem('lagu_sion_settings');
+  } catch (err) {
+    console.warn('Could not read existing settings from localStorage:', err);
+  }
+
   const fields = [
     ['setting-font-family', 'font_family'],
     ['setting-text-color', 'text_color'],
@@ -119,9 +127,13 @@ export async function saveAppSettings(notify = false) {
   if (state.currentSongNumber) loadSong(state.currentSongNumber, state.currentVerseIndex);
   syncCurrentToProjector(false);
 
+  let localSaved = false;
   try {
     localStorage.setItem('lagu_sion_settings', JSON.stringify(state.appSettings));
-  } catch (e) {}
+    localSaved = true;
+  } catch (err) {
+    console.warn('Failed to save settings to localStorage:', err);
+  }
 
   let savedToDiskFile = false;
   if (state.diskFileHandle) {
@@ -130,8 +142,8 @@ export async function saveAppSettings(notify = false) {
       await writable.write(JSON.stringify(state.appSettings, null, 2));
       await writable.close();
       savedToDiskFile = true;
-    } catch (e) {
-      console.warn('File handle write failed:', e);
+    } catch (err) {
+      console.warn('File handle write failed:', err);
     }
   }
 
@@ -142,8 +154,25 @@ export async function saveAppSettings(notify = false) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(state.appSettings)
     });
-    if (res.ok) savedToServer = true;
-  } catch (e) {}
+    if (res.ok) {
+      savedToServer = true;
+    } else {
+      console.warn('Server API /api/settings returned non-ok status:', res.status);
+    }
+  } catch (err) {
+    console.warn('Failed to save settings to /api/settings:', err);
+  }
+
+  if (!localSaved && !savedToDiskFile && !savedToServer) {
+    console.warn('All settings persistence attempts failed. Reverting to previous in-memory state.');
+    state.appSettings = previousSettings;
+    applySettingsToUI();
+    if (previousLocalSettings !== null) {
+      try { localStorage.setItem('lagu_sion_settings', previousLocalSettings); } catch (e) {}
+    }
+    showToast('Gagal menyimpan pengaturan.');
+    return;
+  }
 
   const status = $('settings-save-status');
   if (status) {
@@ -198,20 +227,44 @@ export async function saveNewCustomSong() {
     verses
   };
 
+  const previousCustomSongs = [...state.customSongs];
+  let previousLocalCustom = null;
+  try { previousLocalCustom = localStorage.getItem('lagu_sion_custom_songs'); } catch (e) {}
+
   state.customSongs.push(newSong);
   updateCustomSongsCount();
 
+  let localSaved = false;
   try {
     localStorage.setItem('lagu_sion_custom_songs', JSON.stringify(state.customSongs));
-  } catch (e) {}
+    localSaved = true;
+  } catch (err) {
+    console.warn('Failed to save custom songs to localStorage:', err);
+  }
 
+  let serverSaved = false;
   try {
-    await fetch('/api/custom_songs', {
+    const res = await fetch('/api/custom_songs', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(state.customSongs)
     });
-  } catch (e) {}
+    if (res.ok) serverSaved = true;
+    else console.warn('Server API /api/custom_songs returned non-ok status:', res.status);
+  } catch (err) {
+    console.warn('Failed to save custom songs to /api/custom_songs:', err);
+  }
+
+  if (!localSaved && !serverSaved) {
+    console.warn('Failed to save new custom song to any storage. Reverting in-memory state.');
+    state.customSongs = previousCustomSongs;
+    updateCustomSongsCount();
+    if (previousLocalCustom !== null) {
+      try { localStorage.setItem('lagu_sion_custom_songs', previousLocalCustom); } catch (e) {}
+    }
+    showToast('Gagal menyimpan lagu ke penyimpanan.');
+    return;
+  }
 
   if (addSongModalBackdrop) addSongModalBackdrop.classList.remove('open');
   if (newSongTitle) newSongTitle.value = '';
