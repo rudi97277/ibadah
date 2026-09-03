@@ -1,7 +1,7 @@
-import { state, saveAppSettings, saveNewCustomSong, clearPlaylist, applyBatchPlaylistInput, loadBackgrounds, loadAppSettings, loadAllSongs, loadCustomSongs, updateCustomSongsCount, connectDiskFileHandle } from './state.js';
+import { state, saveAppSettings, saveNewCustomSong, clearPlaylist, applyBatchPlaylistInput, loadBackgrounds, loadAppSettings, loadAllSongs, loadCustomSongs, connectDiskFileHandle } from './state.js';
 import { loadSong, prevSlide, nextSlide, prevSong, nextSong } from './navigation.js';
 import { openDrawer, closeDrawer, filterSongs, renderDrawerList } from './drawer.js';
-import { renderPlaylistModal } from './render.js';
+import { renderPlaylistModal, updateCustomSongsCount } from './render.js';
 import { openProjectorWindow, toggleLiveBroadcast, syncCurrentToProjector, initProjector } from './projector.js';
 import { hideToolbarsImmediately, startAutoHideTimer } from './toolbar.js';
 import { setupKeyboardShortcuts } from './keyboard.js';
