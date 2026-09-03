@@ -415,13 +415,14 @@
 
           dispBibleRefBadge.textContent = (state.reference || '').toUpperCase();
           
-          let html = '';
+          dispBibleText.textContent = '';
           if (state.showVerseNum && state.verseNum) {
-            html += `<span class="verse-num-prefix">${state.verseNum}.</span> `;
+            const verseSpan = document.createElement('span');
+            verseSpan.className = 'verse-num-prefix';
+            verseSpan.textContent = `${state.verseNum}.`;
+            dispBibleText.appendChild(verseSpan);
           }
-          html += (state.text || '');
-
-          dispBibleText.innerHTML = html;
+          dispBibleText.appendChild(document.createTextNode(state.text || ''));
           dispBibleText.style.fontSize = `${state.fontSizeRem || 3.6}rem`;
           if (state.fontFamily) {
             dispBibleText.style.fontFamily = state.fontFamily;
