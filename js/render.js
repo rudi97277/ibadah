@@ -245,9 +245,14 @@ export function renderVerseJumpPills(sequence, currentIdx) {
     let label = s.displayLabel || s.label || `${idx + 1}`;
     if (s.isChorus || s.type === 'chorus' || label.toLowerCase().includes('ref')) {
       btn.classList.add('is-chorus');
-      label = 'Ref';
+      if (s.subPageTotal > 1) {
+        const letters = ['a', 'b', 'c', 'd'];
+        label = `Ref.${letters[s.subPageIndex] || s.subPageIndex + 1}`;
+      } else {
+        label = 'Ref';
+      }
     } else {
-      const m = label.match(/^(\d+)/i);
+      const m = label.match(/^(\d+[a-z]?)/i);
       if (m) label = m[1];
     }
 
@@ -256,7 +261,7 @@ export function renderVerseJumpPills(sequence, currentIdx) {
 
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      loadSong(state.currentSongId, idx);
+      loadSong(state.currentPlaylistItem || state.currentSongId, idx);
     });
     container.appendChild(btn);
   });

@@ -1,17 +1,31 @@
 export function getMaxLinesForFontSize(sizeRem) {
-  if (sizeRem >= 4.5) return 2;
-  if (sizeRem >= 3.6) return 3;
+  if (sizeRem >= 5.0) return 2;
+  if (sizeRem >= 4.0) return 3;
   if (sizeRem >= 2.8) return 4;
   if (sizeRem >= 2.2) return 5;
   return 6;
 }
 
 export function getMaxCharsForFontSize(sizeRem) {
-  if (sizeRem >= 4.5) return 80;
-  if (sizeRem >= 3.6) return 130;
-  if (sizeRem >= 2.8) return 180;
-  if (sizeRem >= 2.2) return 240;
-  return 300;
+  if (sizeRem >= 5.0) return 100;
+  if (sizeRem >= 4.0) return 160;
+  if (sizeRem >= 2.8) return 220;
+  if (sizeRem >= 2.2) return 280;
+  return 360;
+}
+
+export function formatSubPageLabel(baseLabel, pageIndex, totalPages) {
+  if (totalPages <= 1 || !baseLabel) return baseLabel || '1/1';
+  const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
+  const suffixLetter = letters[pageIndex] || String(pageIndex + 1);
+
+  const fractionMatch = String(baseLabel).match(/^(\d+)\/(\d+)$/);
+  if (fractionMatch) return `${fractionMatch[1]}${suffixLetter}/${fractionMatch[2]}`;
+  if (/^ref(rein)?$/i.test(String(baseLabel).trim())) return `${baseLabel} (${pageIndex + 1}/${totalPages})`;
+  if (/^\d+$/.test(String(baseLabel).trim())) return `${baseLabel}${suffixLetter}`;
+  const baitMatch = String(baseLabel).match(/^bait\s*(\d+)$/i);
+  if (baitMatch) return `Bait ${baitMatch[1]}${suffixLetter}`;
+  return `${baseLabel} (${pageIndex + 1}/${totalPages})`;
 }
 
 export function parseVerseFilter(str) {
@@ -42,61 +56,70 @@ export function parsePlaylistItem(item) {
   const colonIdx = str.indexOf(':');
   if (colonIdx === -1) {
     const num = parseInt(str);
-    return {
-      raw: item,
-      songId: (!isNaN(num) && String(num) === str) ? num : str,
-      verseFilter: null,
-      verseFilterStr: ''
-    };
+    return { raw: item, songId: (!isNaN(num) && String(num) === str) ? num : str, verseFilter: null, verseFilterStr: '' };
   }
   const songPart = str.slice(0, colonIdx).trim();
   const versePart = str.slice(colonIdx + 1).trim();
   const num = parseInt(songPart);
   const songId = (!isNaN(num) && String(num) === songPart) ? num : songPart;
-  const verseFilter = parseVerseFilter(versePart);
-  return { raw: str, songId, verseFilter, verseFilterStr: versePart };
+  return { raw: str, songId, verseFilter: parseVerseFilter(versePart), verseFilterStr: versePart };
 }
 
 export function splitVerseIntoPages(v, totalVersesCount = 0, sizeRem = 3.4, shouldSplit = true) {
   const lines = v.lines || (v.text ? v.text.split('\n') : []);
+  if (!lines || lines.length === 0) return [];
+
   const maxLines = getMaxLinesForFontSize(sizeRem);
   const maxChars = getMaxCharsForFontSize(sizeRem);
   const isChorus = v.type === 'chorus' || (v.label && (v.label.toLowerCase().includes('ref') || v.label.toLowerCase().includes('koor') || v.label.toLowerCase().includes('chorus')));
   const baseLabel = v.label || (isChorus ? 'Refrein' : (totalVersesCount > 0 ? `1/${totalVersesCount}` : '1'));
 
-  const chunks = [];
-  let currentChunk = [];
-  let currentChars = 0;
+  const totalLines = lines.length;
+  const totalChars = lines.reduce((acc, l) => acc + l.length, 0);
 
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    const wouldExceedLines = (currentChunk.length + 1 > maxLines);
-    const wouldExceedChars = (currentChars + line.length > maxChars && currentChunk.length > 0);
+  if (!shouldSplit || (totalLines <= maxLines && totalChars <= maxChars)) {
+    return [{ ...v, lines, text: lines.join('\n'), displayLabel: baseLabel, label: baseLabel, baseLabel, isChorus }];
+  }
 
-    if ((wouldExceedLines || wouldExceedChars) && currentChunk.length > 0) {
-      chunks.push(currentChunk);
-      currentChunk = [];
-      currentChars = 0;
+  let k = Math.min(Math.max(2, Math.ceil(totalLines / maxLines), Math.ceil(totalChars / maxChars)), totalLines);
+  let chunks = [];
+
+  while (k <= totalLines) {
+    const b = Math.floor(totalLines / k);
+    const r = totalLines % k;
+    chunks = [];
+    let idx = 0;
+    let anyChunkExceeds = false;
+
+    for (let i = 0; i < k; i++) {
+      const chunkSize = (i < r) ? (b + 1) : b;
+      const chunkLines = lines.slice(idx, idx + chunkSize);
+      const chunkChars = chunkLines.reduce((acc, l) => acc + l.length, 0);
+      if (chunkLines.length > maxLines || (chunkChars > maxChars && chunkLines.length > 1)) {
+        anyChunkExceeds = true;
+      }
+      chunks.push(chunkLines);
+      idx += chunkSize;
     }
-    currentChunk.push(line);
-    currentChars += line.length;
-  }
-  if (currentChunk.length > 0) chunks.push(currentChunk);
 
-  if (!shouldSplit || chunks.length <= 1) {
-    return [{ ...v, lines, text: lines.join('\n'), displayLabel: baseLabel, label: baseLabel, isChorus }];
+    if (!anyChunkExceeds || k === totalLines) break;
+    k++;
   }
 
-  return chunks.map((chunkLines, cIdx) => ({
-    ...v,
-    displayLabel: baseLabel,
-    label: baseLabel,
-    lines: chunkLines,
-    text: chunkLines.join('\n'),
-    subPageIndex: cIdx,
-    subPageTotal: chunks.length,
-    isChorus
-  }));
+  return chunks.map((chunkLines, cIdx) => {
+    const subLabel = formatSubPageLabel(baseLabel, cIdx, chunks.length);
+    return {
+      ...v,
+      displayLabel: subLabel,
+      label: subLabel,
+      baseLabel,
+      lines: chunkLines,
+      text: chunkLines.join('\n'),
+      subPageIndex: cIdx,
+      subPageTotal: chunks.length,
+      isChorus
+    };
+  });
 }
 
 export function buildSlideSequence(song, settings = {}, sizeRem = 3.4, verseFilter = null) {
