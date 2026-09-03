@@ -1,72 +1,90 @@
-export function getMaxLinesForFontSize(sizeRem, defaultSize = 3.6) {
-  const size = parseFloat(sizeRem) || defaultSize;
-  if (size <= 2.4) return 8;
-  if (size <= 3.2) return 6;
-  if (size <= 4.0) return 4;
-  return 2;
+export function getMaxLinesForFontSize(sizeRem) {
+  if (sizeRem >= 4.5) return 2;
+  if (sizeRem >= 3.6) return 3;
+  if (sizeRem >= 2.8) return 4;
+  if (sizeRem >= 2.2) return 5;
+  return 6;
 }
 
-export function getMaxCharsForFontSize(sizeRem, defaultSize = 3.6) {
-  let size = parseFloat(sizeRem) || defaultSize;
-  size = Math.max(1.5, Math.min(8.0, size));
-  const baseSize = 3.6;
-  const baseChars = 320;
-  const ratio = baseSize / size;
-  return Math.max(100, Math.round(baseChars * Math.pow(ratio, 1.5)));
+export function getMaxCharsForFontSize(sizeRem) {
+  if (sizeRem >= 4.5) return 80;
+  if (sizeRem >= 3.6) return 130;
+  if (sizeRem >= 2.8) return 180;
+  if (sizeRem >= 2.2) return 240;
+  return 300;
 }
 
-export function splitVerseIntoPages(v, totalVersesCount, sizeRem = 3.4, autoSplit = true) {
-  const rawLines = v.lines || (v.text ? v.text.split('\n') : []);
-  const lines = rawLines.map(l => l.trim()).filter(l => l.length > 0);
-  if (lines.length === 0) return [];
-
-  const isChorus = v.type === 'chorus' || (v.label && (v.label.toLowerCase().includes('ref') || v.label.toLowerCase().includes('koor') || v.label.toLowerCase().includes('chorus')));
-  const baseLabel = v.label || (isChorus ? 'Refrein' : (totalVersesCount ? `1/${totalVersesCount}` : '1/1'));
-
-  if (!autoSplit) {
-    return [{
-      ...v,
-      lines: lines,
-      text: lines.join('\n'),
-      displayLabel: baseLabel,
-      label: baseLabel,
-      isChorus: isChorus
-    }];
-  }
-
-  const totalChars = lines.reduce((sum, l) => sum + l.length, 0);
-  const maxLines = getMaxLinesForFontSize(sizeRem);
-  const maxChars = getMaxCharsForFontSize(sizeRem);
-  const n = lines.length;
-
-  let shouldSplit = false;
-  let chunks = [];
-
-  if (n > maxLines || totalChars > maxChars) {
-    shouldSplit = true;
-    if (n === 4 || n === 3) {
-      chunks = [lines.slice(0, 2), lines.slice(2)];
-    } else if (n === 5 || n === 6) {
-      const mid = Math.ceil(n / 2);
-      chunks = [lines.slice(0, mid), lines.slice(mid)];
-    } else if (n === 7 || n === 8) {
-      chunks = [lines.slice(0, 4), lines.slice(4)];
-    } else {
-      for (let i = 0; i < n; i += 4) {
-        chunks.push(lines.slice(i, i + 4));
+export function parseVerseFilter(str) {
+  if (!str) return null;
+  const cleaned = String(str).trim();
+  if (!cleaned) return null;
+  const result = new Set();
+  const parts = cleaned.split(/[,;\s.]+/);
+  for (const part of parts) {
+    if (part.includes('-')) {
+      const [startStr, endStr] = part.split('-');
+      const start = parseInt(startStr);
+      const end = parseInt(endStr);
+      if (!isNaN(start) && !isNaN(end)) {
+        for (let i = Math.min(start, end); i <= Math.max(start, end); i++) result.add(i);
       }
+    } else {
+      const n = parseInt(part);
+      if (!isNaN(n)) result.add(n);
     }
   }
+  return result.size > 0 ? Array.from(result).sort((a, b) => a - b) : null;
+}
+
+export function parsePlaylistItem(item) {
+  if (item === null || item === undefined) return { raw: '', songId: '', verseFilter: null, verseFilterStr: '' };
+  const str = String(item).trim();
+  const colonIdx = str.indexOf(':');
+  if (colonIdx === -1) {
+    const num = parseInt(str);
+    return {
+      raw: item,
+      songId: (!isNaN(num) && String(num) === str) ? num : str,
+      verseFilter: null,
+      verseFilterStr: ''
+    };
+  }
+  const songPart = str.slice(0, colonIdx).trim();
+  const versePart = str.slice(colonIdx + 1).trim();
+  const num = parseInt(songPart);
+  const songId = (!isNaN(num) && String(num) === songPart) ? num : songPart;
+  const verseFilter = parseVerseFilter(versePart);
+  return { raw: str, songId, verseFilter, verseFilterStr: versePart };
+}
+
+export function splitVerseIntoPages(v, totalVersesCount = 0, sizeRem = 3.4, shouldSplit = true) {
+  const lines = v.lines || (v.text ? v.text.split('\n') : []);
+  const maxLines = getMaxLinesForFontSize(sizeRem);
+  const maxChars = getMaxCharsForFontSize(sizeRem);
+  const isChorus = v.type === 'chorus' || (v.label && (v.label.toLowerCase().includes('ref') || v.label.toLowerCase().includes('koor') || v.label.toLowerCase().includes('chorus')));
+  const baseLabel = v.label || (isChorus ? 'Refrein' : (totalVersesCount > 0 ? `1/${totalVersesCount}` : '1'));
+
+  const chunks = [];
+  let currentChunk = [];
+  let currentChars = 0;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const wouldExceedLines = (currentChunk.length + 1 > maxLines);
+    const wouldExceedChars = (currentChars + line.length > maxChars && currentChunk.length > 0);
+
+    if ((wouldExceedLines || wouldExceedChars) && currentChunk.length > 0) {
+      chunks.push(currentChunk);
+      currentChunk = [];
+      currentChars = 0;
+    }
+    currentChunk.push(line);
+    currentChars += line.length;
+  }
+  if (currentChunk.length > 0) chunks.push(currentChunk);
 
   if (!shouldSplit || chunks.length <= 1) {
-    return [{
-      ...v,
-      lines: lines,
-      text: lines.join('\n'),
-      displayLabel: baseLabel,
-      label: baseLabel,
-      isChorus: isChorus
-    }];
+    return [{ ...v, lines, text: lines.join('\n'), displayLabel: baseLabel, label: baseLabel, isChorus }];
   }
 
   return chunks.map((chunkLines, cIdx) => ({
@@ -77,11 +95,11 @@ export function splitVerseIntoPages(v, totalVersesCount, sizeRem = 3.4, autoSpli
     text: chunkLines.join('\n'),
     subPageIndex: cIdx,
     subPageTotal: chunks.length,
-    isChorus: isChorus
+    isChorus
   }));
 }
 
-export function buildSlideSequence(song, settings = {}, sizeRem = 3.4) {
+export function buildSlideSequence(song, settings = {}, sizeRem = 3.4, verseFilter = null) {
   const verses = song ? (song.verses || []) : [];
   if (verses.length === 0) return [];
 
@@ -90,20 +108,34 @@ export function buildSlideSequence(song, settings = {}, sizeRem = 3.4) {
   const isChorus = (v) => v.type === 'chorus' || (v.label && (v.label.toLowerCase().includes('ref') || v.label.toLowerCase().includes('koor') || v.label.toLowerCase().includes('chorus')));
 
   const choruses = verses.filter(isChorus);
-  const normalVerses = verses.filter(v => !isChorus(v));
+  const allNormalVerses = verses.filter(v => !isChorus(v));
+
+  let normalVerses = allNormalVerses;
+  if (verseFilter && Array.isArray(verseFilter) && verseFilter.length > 0) {
+    normalVerses = allNormalVerses.filter((v, idx) => {
+      const labelMatch = v.label ? v.label.match(/^(\d+)/) : null;
+      const verseNum = labelMatch ? parseInt(labelMatch[1]) : (idx + 1);
+      return verseFilter.includes(verseNum);
+    });
+    if (normalVerses.length === 0) normalVerses = allNormalVerses;
+  }
 
   const sequence = [];
 
   if (!interleave || choruses.length === 0 || normalVerses.length === 0) {
-    verses.forEach((v) => {
+    const filteredVerses = (verseFilter && Array.isArray(verseFilter) && verseFilter.length > 0)
+      ? verses.filter((v, idx) => {
+          if (isChorus(v)) return true;
+          const labelMatch = v.label ? v.label.match(/^(\d+)/) : null;
+          const normalIdx = allNormalVerses.indexOf(v);
+          const verseNum = labelMatch ? parseInt(labelMatch[1]) : (normalIdx !== -1 ? normalIdx + 1 : idx + 1);
+          return verseFilter.includes(verseNum);
+        })
+      : verses;
+
+    filteredVerses.forEach((v) => {
       const pages = splitVerseIntoPages(v, verses.length, sizeRem, autoSplit);
-      pages.forEach((p) => {
-        sequence.push({
-          ...p,
-          slideIndex: sequence.length,
-          isChorus: isChorus(v)
-        });
-      });
+      pages.forEach(p => sequence.push({ ...p, slideIndex: sequence.length, isChorus: isChorus(v) }));
     });
     return sequence;
   }
@@ -112,39 +144,45 @@ export function buildSlideSequence(song, settings = {}, sizeRem = 3.4) {
   const chorusPages = splitVerseIntoPages(mainChorus, 0, sizeRem, autoSplit);
 
   normalVerses.forEach((nv) => {
-    const nvPages = splitVerseIntoPages(nv, normalVerses.length, sizeRem, autoSplit);
-    nvPages.forEach((p) => {
-      sequence.push({
-        ...p,
-        slideIndex: sequence.length,
-        isChorus: false
-      });
-    });
-
-    chorusPages.forEach((cp) => {
-      sequence.push({
-        ...cp,
-        slideIndex: sequence.length,
-        isChorus: true,
-        displayLabel: cp.displayLabel || 'Refrein'
-      });
-    });
+    const nvPages = splitVerseIntoPages(nv, allNormalVerses.length, sizeRem, autoSplit);
+    nvPages.forEach(p => sequence.push({ ...p, slideIndex: sequence.length, isChorus: false }));
+    chorusPages.forEach(cp => sequence.push({ ...cp, slideIndex: sequence.length, isChorus: true, displayLabel: cp.displayLabel || 'Refrein' }));
   });
 
   return sequence;
 }
 
-export function buildFullSongSequence(song, settings = {}) {
+export function buildFullSongSequence(song, settings = {}, verseFilter = null) {
   const verses = song ? (song.verses || []) : [];
   if (verses.length === 0) return [];
 
   const interleave = settings.refrain_interleaving !== false;
   const isChorus = (v) => v.type === 'chorus' || (v.label && (v.label.toLowerCase().includes('ref') || v.label.toLowerCase().includes('koor') || v.label.toLowerCase().includes('chorus')));
   const choruses = verses.filter(isChorus);
-  const normalVerses = verses.filter(v => !isChorus(v));
+  const allNormalVerses = verses.filter(v => !isChorus(v));
+
+  let normalVerses = allNormalVerses;
+  if (verseFilter && Array.isArray(verseFilter) && verseFilter.length > 0) {
+    normalVerses = allNormalVerses.filter((v, idx) => {
+      const labelMatch = v.label ? v.label.match(/^(\d+)/) : null;
+      const verseNum = labelMatch ? parseInt(labelMatch[1]) : (idx + 1);
+      return verseFilter.includes(verseNum);
+    });
+    if (normalVerses.length === 0) normalVerses = allNormalVerses;
+  }
 
   if (!interleave || choruses.length === 0 || normalVerses.length === 0) {
-    return verses.map((v, i) => ({
+    const filtered = (verseFilter && Array.isArray(verseFilter) && verseFilter.length > 0)
+      ? verses.filter((v, idx) => {
+          if (isChorus(v)) return true;
+          const labelMatch = v.label ? v.label.match(/^(\d+)/) : null;
+          const normalIdx = allNormalVerses.indexOf(v);
+          const verseNum = labelMatch ? parseInt(labelMatch[1]) : (normalIdx !== -1 ? normalIdx + 1 : idx + 1);
+          return verseFilter.includes(verseNum);
+        })
+      : verses;
+
+    return filtered.map((v, i) => ({
       ...v,
       displayLabel: v.label || (isChorus(v) ? 'Refrein' : `${i + 1}/${verses.length}`),
       lines: v.lines || (v.text ? v.text.split('\n') : []),
@@ -154,10 +192,11 @@ export function buildFullSongSequence(song, settings = {}) {
 
   const mainChorus = choruses[0];
   const fullSequence = [];
-  normalVerses.forEach((nv, nvIdx) => {
+  normalVerses.forEach((nv) => {
+    const nvIdx = allNormalVerses.indexOf(nv);
     fullSequence.push({
       ...nv,
-      displayLabel: nv.label || `${nvIdx + 1}/${normalVerses.length}`,
+      displayLabel: nv.label || `${nvIdx !== -1 ? nvIdx + 1 : 1}/${allNormalVerses.length}`,
       lines: nv.lines || (nv.text ? nv.text.split('\n') : []),
       isChorus: false
     });
@@ -168,66 +207,55 @@ export function buildFullSongSequence(song, settings = {}) {
       isChorus: true
     });
   });
+
   return fullSequence;
 }
 
-export function parseCustomSongLyrics(lyrics) {
-  const blocks = (lyrics || '').split(/\n\s*\n+/);
-  const parsedBlocks = [];
+export function parseCustomSongLyrics(lyricsText) {
+  const blocks = lyricsText.split(/\n\s*\n/).map(b => b.trim()).filter(b => b.length > 0);
+  const verses = [];
+  let verseCounter = 1;
 
-  blocks.forEach((blk) => {
-    const rawLines = blk.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-    if (rawLines.length === 0) return;
+  blocks.forEach((block) => {
+    const lines = block.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    if (lines.length === 0) return;
 
-    const firstLine = rawLines[0].toLowerCase();
-    let isChorus = false;
-    let customLabel = '';
-    let linesToKeep = [...rawLines];
+    const firstLineLower = lines[0].toLowerCase();
+    const isChorus = firstLineLower.startsWith('reff') ||
+                     firstLineLower.startsWith('ref') ||
+                     firstLineLower.startsWith('chorus') ||
+                     firstLineLower.startsWith('koor');
 
-    if (firstLine.startsWith('reff:') || firstLine.startsWith('reff') || firstLine.startsWith('chorus:') || firstLine.startsWith('refrein:') || firstLine.startsWith('ref:')) {
-      isChorus = true;
-      if (rawLines[0].match(/^(reff|refrein|chorus|koor)[:\s]*$/i)) {
-        linesToKeep.shift();
-      } else {
-        linesToKeep[0] = linesToKeep[0].replace(/^(reff|refrein|chorus|koor)[:\s]*/i, '').trim();
+    let cleanLines = [...lines];
+    let label = '';
+
+    if (isChorus) {
+      if (lines[0].includes(':')) {
+        const parts = lines[0].split(':');
+        if (parts.length > 1 && parts[1].trim()) cleanLines[0] = parts.slice(1).join(':').trim();
+        else cleanLines.shift();
+      } else if (/^(reff|ref|chorus|koor)$/i.test(lines[0])) {
+        cleanLines.shift();
       }
+      label = 'Refrein';
     } else {
-      const matchCustomLabel = rawLines[0].match(/^([0-9]+\/[0-9]+|bait\s*[0-9]+|[0-9]+)[\.:\s]*$/i);
-      if (matchCustomLabel) {
-        customLabel = matchCustomLabel[1];
-        linesToKeep.shift();
+      const matchBait = lines[0].match(/^(bait|verse|\d+)\s*[:.]?\s*(.*)/i);
+      if (matchBait && matchBait[1]) {
+        if (matchBait[2] && matchBait[2].trim()) cleanLines[0] = matchBait[2].trim();
+        else if (/^(bait|verse)\s*\d*$/i.test(lines[0])) cleanLines.shift();
       }
+      label = `Bait ${verseCounter++}`;
     }
 
-    if (linesToKeep.length > 0) {
-      parsedBlocks.push({
-        isChorus: isChorus,
-        customLabel: customLabel,
-        lines: linesToKeep
+    if (cleanLines.length > 0) {
+      verses.push({
+        type: isChorus ? 'chorus' : 'verse',
+        label,
+        lines: cleanLines,
+        text: cleanLines.join('\n')
       });
     }
   });
 
-  const totalNormalVerses = parsedBlocks.filter(b => !b.isChorus).length;
-  let normalVerseIdx = 0;
-
-  return parsedBlocks.map(b => {
-    if (b.isChorus) {
-      return {
-        type: 'chorus',
-        label: 'Refrein',
-        lines: b.lines
-      };
-    }
-    normalVerseIdx++;
-    let label = b.customLabel;
-    if (!label || !label.includes('/')) {
-      label = `${normalVerseIdx}/${totalNormalVerses || 1}`;
-    }
-    return {
-      type: 'verse',
-      label: label,
-      lines: b.lines
-    };
-  });
+  return verses;
 }

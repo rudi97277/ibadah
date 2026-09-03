@@ -4,10 +4,11 @@ import { parseCustomSongLyrics } from './song-utils.js';
 import { loadSong } from './navigation.js';
 import { renderDrawerList } from './drawer.js';
 
-export { buildSlideSequence, buildFullSongSequence, parseCustomSongLyrics, getMaxLinesForFontSize, getMaxCharsForFontSize, splitVerseIntoPages } from './song-utils.js';
+export { buildSlideSequence, buildFullSongSequence, parseCustomSongLyrics, getMaxLinesForFontSize, getMaxCharsForFontSize, splitVerseIntoPages, parseVerseFilter, parsePlaylistItem } from './song-utils.js';
 export { addToPlaylist, removeFromPlaylist, movePlaylistItem, applyBatchPlaylistInput, clearPlaylist, updatePlaylistBadge, renderPlaylistModal } from './playlist.js';
 export { loadBackgrounds, pickRandomBackground, loadAllSongs, loadCustomSongs, loadAppSettings, connectDiskFileHandle } from './song-loader.js';
 export { loadSong, nextSlide, prevSlide, nextSong, prevSong } from './navigation.js';
+export { updateCustomSongsCount } from './render.js';
 
 const $ = (id) => document.getElementById(id);
 
@@ -32,6 +33,7 @@ export const state = {
   songsIndex: [],
   currentSongNumber: 1,
   currentSongId: 1,
+  currentPlaylistItem: null,
   currentVerseIndex: 0,
   currentSlideSequence: [],
   isFullSongMode: false,
@@ -124,7 +126,7 @@ export async function saveAppSettings(notify = false) {
   if ($('setting-interleave-ref')) state.appSettings.refrain_interleaving = $('setting-interleave-ref').checked;
 
   applySettingsToUI();
-  if (state.currentSongNumber) loadSong(state.currentSongNumber, state.currentVerseIndex);
+  if (state.currentSongNumber) loadSong(state.currentPlaylistItem || state.currentSongNumber, state.currentVerseIndex);
   syncCurrentToProjector(false);
 
   let localSaved = false;

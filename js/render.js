@@ -187,7 +187,7 @@ export function renderSlide(song, slideIdx) {
   syncCurrentToProjector(false);
 }
 
-export function renderFullSong(song) {
+export function renderFullSong(song, verseFilter = null) {
   const fullDispTitle = $('full-disp-title');
   const fullDispKey = $('full-disp-key');
   const fullDispTime = $('full-disp-time');
@@ -214,7 +214,7 @@ export function renderFullSong(song) {
 
   if (!fullVersesList) return;
   fullVersesList.innerHTML = '';
-  const itemsToRender = buildFullSongSequence(song, state.appSettings);
+  const itemsToRender = buildFullSongSequence(song, state.appSettings, verseFilter);
 
   itemsToRender.forEach((v, idx) => {
     const block = document.createElement('div');
