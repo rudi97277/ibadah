@@ -245,14 +245,9 @@ export function renderVerseJumpPills(sequence, currentIdx) {
     let label = s.displayLabel || s.label || `${idx + 1}`;
     if (s.isChorus || s.type === 'chorus' || label.toLowerCase().includes('ref')) {
       btn.classList.add('is-chorus');
-      if (s.subPageTotal > 1) {
-        const letters = ['a', 'b', 'c', 'd'];
-        label = `Ref.${letters[s.subPageIndex] || s.subPageIndex + 1}`;
-      } else {
-        label = 'Ref';
-      }
+      label = 'Ref';
     } else {
-      const m = label.match(/^(\d+[a-z]?)/i);
+      const m = label.match(/^(\d+)/i);
       if (m) label = m[1];
     }
 

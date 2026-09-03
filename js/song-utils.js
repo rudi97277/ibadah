@@ -14,20 +14,6 @@ export function getMaxCharsForFontSize(sizeRem) {
   return 360;
 }
 
-export function formatSubPageLabel(baseLabel, pageIndex, totalPages) {
-  if (totalPages <= 1 || !baseLabel) return baseLabel || '1/1';
-  const letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
-  const suffixLetter = letters[pageIndex] || String(pageIndex + 1);
-
-  const fractionMatch = String(baseLabel).match(/^(\d+)\/(\d+)$/);
-  if (fractionMatch) return `${fractionMatch[1]}${suffixLetter}/${fractionMatch[2]}`;
-  if (/^ref(rein)?$/i.test(String(baseLabel).trim())) return `${baseLabel} (${pageIndex + 1}/${totalPages})`;
-  if (/^\d+$/.test(String(baseLabel).trim())) return `${baseLabel}${suffixLetter}`;
-  const baitMatch = String(baseLabel).match(/^bait\s*(\d+)$/i);
-  if (baitMatch) return `Bait ${baitMatch[1]}${suffixLetter}`;
-  return `${baseLabel} (${pageIndex + 1}/${totalPages})`;
-}
-
 export function parseVerseFilter(str) {
   if (!str) return null;
   const cleaned = String(str).trim();
@@ -78,7 +64,7 @@ export function splitVerseIntoPages(v, totalVersesCount = 0, sizeRem = 3.4, shou
   const totalChars = lines.reduce((acc, l) => acc + l.length, 0);
 
   if (!shouldSplit || (totalLines <= maxLines && totalChars <= maxChars)) {
-    return [{ ...v, lines, text: lines.join('\n'), displayLabel: baseLabel, label: baseLabel, baseLabel, isChorus }];
+    return [{ ...v, lines, text: lines.join('\n'), displayLabel: baseLabel, label: baseLabel, isChorus }];
   }
 
   let k = Math.min(Math.max(2, Math.ceil(totalLines / maxLines), Math.ceil(totalChars / maxChars)), totalLines);
@@ -106,20 +92,16 @@ export function splitVerseIntoPages(v, totalVersesCount = 0, sizeRem = 3.4, shou
     k++;
   }
 
-  return chunks.map((chunkLines, cIdx) => {
-    const subLabel = formatSubPageLabel(baseLabel, cIdx, chunks.length);
-    return {
-      ...v,
-      displayLabel: subLabel,
-      label: subLabel,
-      baseLabel,
-      lines: chunkLines,
-      text: chunkLines.join('\n'),
-      subPageIndex: cIdx,
-      subPageTotal: chunks.length,
-      isChorus
-    };
-  });
+  return chunks.map((chunkLines, cIdx) => ({
+    ...v,
+    displayLabel: baseLabel,
+    label: baseLabel,
+    lines: chunkLines,
+    text: chunkLines.join('\n'),
+    subPageIndex: cIdx,
+    subPageTotal: chunks.length,
+    isChorus
+  }));
 }
 
 export function buildSlideSequence(song, settings = {}, sizeRem = 3.4, verseFilter = null) {
