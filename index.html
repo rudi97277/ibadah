@@ -1261,12 +1261,49 @@
         }
       }
 
-      function openProjectorWindow() {
+      async function openProjectorWindow() {
         if (!projectorWindow || projectorWindow.closed) {
-          projectorWindow = window.open('display.html', 'LaguSionProjector', 'width=1280,height=720,menubar=no,toolbar=no,location=no');
+          let opened = false;
+          if ('getScreenDetails' in window && typeof window.getScreenDetails === 'function') {
+            try {
+              const details = await window.getScreenDetails();
+              const targetScreen = (details && details.screens) ? (details.screens.find(s => !s.isPrimary) || details.screens[0]) : null;
+              if (targetScreen) {
+                const features = `left=${targetScreen.left},top=${targetScreen.top},width=${targetScreen.width},height=${targetScreen.height},menubar=no,toolbar=no,location=no`;
+                projectorWindow = window.open('display.html', 'LaguSionProjector', features);
+                opened = true;
+              }
+            } catch (err) {
+              console.warn('Window Management API getScreenDetails unavailable or denied:', err);
+            }
+          }
+
+          if (!opened) {
+            projectorWindow = window.open('display.html', 'LaguSionProjector', 'width=1280,height=720,menubar=no,toolbar=no,location=no');
+          }
+
+          if (projectorWindow) {
+            const tryFullscreen = () => {
+              try {
+                if (projectorWindow.document && projectorWindow.document.documentElement) {
+                  projectorWindow.document.documentElement.requestFullscreen().catch((err) => {
+                    console.warn('Auto-fullscreen request rejected:', err);
+                  });
+                }
+              } catch (err) {
+                console.warn('Auto-fullscreen request error:', err);
+              }
+            };
+
+            projectorWindow.addEventListener('load', tryFullscreen);
+            if (projectorWindow.document && projectorWindow.document.readyState === 'complete') {
+              tryFullscreen();
+            }
+          }
         } else {
           projectorWindow.focus();
         }
+
         if (isLiveBroadcasting) {
           setTimeout(() => syncCurrentToProjector(true), 300);
         }
