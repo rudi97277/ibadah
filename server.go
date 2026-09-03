@@ -511,11 +511,36 @@ func main() {
 
 	mux := http.NewServeMux()
 
-	// Song APIs
+	// Song & Background APIs
 	mux.HandleFunc("/api/settings", handleSettingsAPI(settingsPath))
 	mux.HandleFunc("/api/settings/", handleSettingsAPI(settingsPath))
 	mux.HandleFunc("/api/custom_songs", handleJSONAPI(customSongsPath, "[]"))
 	mux.HandleFunc("/api/custom_songs/", handleJSONAPI(customSongsPath, "[]"))
+	mux.HandleFunc("/api/backgrounds", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+
+		bgDir := filepath.Join(baseDir, "background")
+		var bgList []string
+
+		entries, err := os.ReadDir(bgDir)
+		if err == nil {
+			for _, entry := range entries {
+				if entry.IsDir() {
+					continue
+				}
+				name := entry.Name()
+				ext := strings.ToLower(filepath.Ext(name))
+				if ext == ".webp" || ext == ".jpg" || ext == ".jpeg" || ext == ".png" || ext == ".avif" {
+					bgList = append(bgList, "background/"+name)
+				}
+			}
+		}
+		if bgList == nil {
+			bgList = []string{}
+		}
+		_ = json.NewEncoder(w).Encode(bgList)
+	})
 
 	// Bible APIs
 	mux.HandleFunc("/api/alkitab/books", func(w http.ResponseWriter, r *http.Request) {

@@ -1,11 +1,17 @@
 {
   "auto_split_long_verses": true,
   "autohide_nav": true,
+  "background_color": "#ffffff",
+  "background_mode": "random",
+  "background_overlay_opacity": 0.5,
   "font_family": "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
   "font_size_alkitab_rem": 3.3,
-  "font_size_lagusion_rem": 6.5,
+  "font_size_lagusion_rem": 5.9,
   "refrain_interleaving": true,
   "show_metadata": false,
   "show_verse_num": true,
+  "text_color": "#000000",
+  "text_stroke_color": "#ffffff",
+  "text_stroke_width_px": 3.5,
   "worship_playlist": []
 }

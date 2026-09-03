@@ -166,6 +166,16 @@
       box-shadow: 0 0 0 2px rgba(24, 24, 27, 0.15);
     }
 
+    :root {
+      --slide-bg-color: #ffffff;
+      --slide-bg-image: none;
+      --bg-overlay-opacity: 0.35;
+      --bg-overlay-display: none;
+      --lyrics-text-color: #000000;
+      --lyrics-stroke-color: #ffffff;
+      --lyrics-stroke-width: 3.5px;
+    }
+
     /* Main Slide Viewport */
     .slide-viewport {
       flex: 1;
@@ -176,8 +186,31 @@
       width: 100%;
       height: 100%;
       padding: 70px 40px 60px 40px;
-      background-color: #ffffff;
+      background-color: var(--slide-bg-color, #ffffff);
+      background-image: var(--slide-bg-image, none);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      overflow: hidden;
       cursor: pointer;
+      transition: background-image 0.4s ease-in-out, background-color 0.2s ease;
+    }
+
+    .slide-viewport::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, var(--bg-overlay-opacity, 0.35));
+      pointer-events: none;
+      z-index: 1;
+      display: var(--bg-overlay-display, none);
+      transition: background-color 0.2s ease;
+    }
+
+    .slide-header, .slide-body, .full-passage-container {
+      position: relative;
+      z-index: 2;
     }
 
     .slide-header {
@@ -196,7 +229,8 @@
       font-weight: 800;
       font-size: 1.8rem;
       letter-spacing: 1px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     .slide-body {
@@ -220,7 +254,10 @@
       font-size: 3.6rem;
       font-weight: 700;
       line-height: 1.42;
-      color: #000000;
+      color: var(--lyrics-text-color, #000000);
+      -webkit-text-stroke: var(--lyrics-stroke-width, 3.5px) var(--lyrics-stroke-color, #ffffff);
+      paint-order: stroke fill;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
       word-break: break-word;
       max-width: 100%;
       transition: font-size 0.1s ease;
@@ -627,6 +664,48 @@
       </div>
 
       <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9;">
+        <label for="setting-text-color" style="font-size: 14px; font-weight: 600; color: #334155;">Warna Teks Ayat:</label>
+        <input type="color" id="setting-text-color" value="#000000" style="width: 42px; height: 32px; padding: 2px; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer;">
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9;">
+        <label for="setting-stroke-color" style="font-size: 14px; font-weight: 600; color: #334155;">Warna Garis Luar (Outline):</label>
+        <input type="color" id="setting-stroke-color" value="#ffffff" style="width: 42px; height: 32px; padding: 2px; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer;">
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9;">
+        <label for="setting-stroke-width" style="font-size: 14px; font-weight: 600; color: #334155;">Ketebalan Garis Luar:</label>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <input type="range" id="setting-stroke-width" min="0" max="8.0" step="0.5" value="3.5" style="cursor: pointer;">
+          <span id="stroke-width-val" style="font-size: 13px; font-weight: 700; width: 45px; color: #0f172a;">3.5px</span>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9;">
+        <label for="setting-bg-mode" style="font-size: 14px; font-weight: 600; color: #334155;">Mode Latar Belakang:</label>
+        <select id="setting-bg-mode" style="padding: 6px 12px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 13px; outline: none; background: #fff; color: #111;">
+          <option value="random">🖼️ Acak Gambar (Folder background/)</option>
+          <option value="solid">⬛ / ⬜ Warna Polos (Solid Color)</option>
+        </select>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9;" id="row-bg-color">
+        <label for="setting-bg-color" style="font-size: 14px; font-weight: 600; color: #334155;">Warna Latar Polos:</label>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <input type="color" id="setting-bg-color" value="#ffffff" style="width: 42px; height: 32px; padding: 2px; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer;">
+          <span id="bg-color-val" style="font-size: 13px; font-weight: 700; color: #475569;">#ffffff</span>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9;" id="row-bg-overlay">
+        <label for="setting-bg-overlay" style="font-size: 14px; font-weight: 600; color: #334155;">Kegelapan Overlay Gambar:</label>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <input type="range" id="setting-bg-overlay" min="0" max="0.8" step="0.05" value="0.35" style="cursor: pointer;">
+          <span id="bg-overlay-val" style="font-size: 13px; font-weight: 700; width: 45px; color: #0f172a;">35%</span>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9;">
         <label for="setting-split-verses" style="font-size: 14px; font-weight: 600; color: #334155;">Bagi Ayat Panjang Jadi Sub-Slide:</label>
         <input type="checkbox" id="setting-split-verses" checked style="width: 18px; height: 18px; cursor: pointer;">
       </div>
@@ -850,7 +929,13 @@
           verseNum: slide.verse,
           text: slide.slideText,
           fontSizeRem: fontSizeRem,
-          fontFamily: appSettings.font_family
+          fontFamily: appSettings.font_family,
+          textColor: appSettings.text_color || '#000000',
+          strokeColor: appSettings.text_stroke_color || '#ffffff',
+          strokeWidth: (appSettings.text_stroke_width_px !== undefined) ? appSettings.text_stroke_width_px : 3.5,
+          bgColor: appSettings.background_color || '#ffffff',
+          bgImage: (appSettings.background_mode === 'random' && currentBgImage) ? currentBgImage : null,
+          bgOverlay: (appSettings.background_overlay_opacity !== undefined) ? appSettings.background_overlay_opacity : 0.35
         };
 
         try {
@@ -885,17 +970,85 @@
       const settingFontFamily = document.getElementById('setting-font-family');
       const settingFontSize = document.getElementById('setting-font-size');
       const fontSizeVal = document.getElementById('font-size-val');
+      const settingTextColor = document.getElementById('setting-text-color');
+      const settingStrokeColor = document.getElementById('setting-stroke-color');
+      const settingStrokeWidth = document.getElementById('setting-stroke-width');
+      const strokeWidthVal = document.getElementById('stroke-width-val');
+      const settingBgMode = document.getElementById('setting-bg-mode');
+      const settingBgColor = document.getElementById('setting-bg-color');
+      const bgColorVal = document.getElementById('bg-color-val');
+      const settingBgOverlay = document.getElementById('setting-bg-overlay');
+      const bgOverlayVal = document.getElementById('bg-overlay-val');
+      const rowBgColor = document.getElementById('row-bg-color');
+      const rowBgOverlay = document.getElementById('row-bg-overlay');
       const settingSplitVerses = document.getElementById('setting-split-verses');
       const settingShowVerseNum = document.getElementById('setting-show-verse-num');
       const settingAutohideNav = document.getElementById('setting-autohide-nav');
 
+      let availableBackgrounds = [];
+      let currentBgImage = null;
+
       let appSettings = {
         font_family: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
         font_size_alkitab_rem: 3.6,
+        text_color: "#000000",
+        text_stroke_color: "#ffffff",
+        text_stroke_width_px: 3.5,
+        background_mode: "random",
+        background_color: "#ffffff",
+        background_overlay_opacity: 0.35,
         auto_split_long_verses: true,
         show_verse_num: true,
         autohide_nav: true
       };
+
+      async function loadBackgrounds() {
+        try {
+          const res = await fetch('/api/backgrounds', { cache: 'no-store' });
+          if (res.ok) {
+            const list = await res.json();
+            if (Array.isArray(list)) {
+              availableBackgrounds = list;
+            }
+          }
+        } catch (e) {
+          console.warn('Could not fetch backgrounds:', e);
+        }
+      }
+
+      function pickRandomBackground() {
+        if (availableBackgrounds && availableBackgrounds.length > 0) {
+          const randomIndex = Math.floor(Math.random() * availableBackgrounds.length);
+          return availableBackgrounds[randomIndex];
+        }
+        return null;
+      }
+
+      function updateBackgroundDisplay() {
+        const isRandom = (appSettings.background_mode === 'random' && availableBackgrounds.length > 0);
+        const bgColor = appSettings.background_color || '#ffffff';
+        document.documentElement.style.setProperty('--slide-bg-color', bgColor);
+
+        if (isRandom) {
+          if (!currentBgImage) {
+            currentBgImage = pickRandomBackground();
+          }
+          if (currentBgImage) {
+            document.documentElement.style.setProperty('--slide-bg-image', `url("${currentBgImage}")`);
+            document.documentElement.style.setProperty('--bg-overlay-display', 'block');
+          } else {
+            document.documentElement.style.setProperty('--slide-bg-image', 'none');
+            document.documentElement.style.setProperty('--bg-overlay-display', 'none');
+          }
+        } else {
+          document.documentElement.style.setProperty('--slide-bg-image', 'none');
+          document.documentElement.style.setProperty('--bg-overlay-display', 'none');
+        }
+
+        // Toggle visibility of setting rows in modal
+        if (rowBgColor) rowBgColor.style.display = (appSettings.background_mode === 'solid') ? 'flex' : 'none';
+        if (rowBgOverlay) rowBgOverlay.style.display = (appSettings.background_mode === 'random') ? 'flex' : 'none';
+      }
 
       async function loadAppSettings() {
         try {
@@ -933,6 +1086,30 @@
           document.querySelectorAll('.full-verse-text').forEach(el => el.style.fontSize = `${fontSizeRem * 0.65}rem`);
         }
 
+        const textColor = appSettings.text_color || '#000000';
+        const strokeColor = appSettings.text_stroke_color || '#ffffff';
+        const strokeWidth = (appSettings.text_stroke_width_px !== undefined) ? appSettings.text_stroke_width_px : 3.5;
+        const bgMode = appSettings.background_mode || 'random';
+        const bgColor = appSettings.background_color || '#ffffff';
+        const bgOverlay = (appSettings.background_overlay_opacity !== undefined) ? appSettings.background_overlay_opacity : 0.35;
+
+        document.documentElement.style.setProperty('--lyrics-text-color', textColor);
+        document.documentElement.style.setProperty('--lyrics-stroke-color', strokeColor);
+        document.documentElement.style.setProperty('--lyrics-stroke-width', `${strokeWidth}px`);
+        document.documentElement.style.setProperty('--bg-overlay-opacity', bgOverlay);
+
+        if (settingTextColor) settingTextColor.value = textColor;
+        if (settingStrokeColor) settingStrokeColor.value = strokeColor;
+        if (settingStrokeWidth) settingStrokeWidth.value = strokeWidth;
+        if (strokeWidthVal) strokeWidthVal.textContent = `${strokeWidth}px`;
+        if (settingBgMode) settingBgMode.value = bgMode;
+        if (settingBgColor) settingBgColor.value = bgColor;
+        if (bgColorVal) bgColorVal.textContent = bgColor;
+        if (settingBgOverlay) settingBgOverlay.value = bgOverlay;
+        if (bgOverlayVal) bgOverlayVal.textContent = `${Math.round(bgOverlay * 100)}%`;
+
+        updateBackgroundDisplay();
+
         if (settingSplitVerses) {
           settingSplitVerses.checked = (appSettings.auto_split_long_verses !== false);
         }
@@ -949,12 +1126,19 @@
       async function saveAppSettings() {
         if (settingFontFamily) appSettings.font_family = settingFontFamily.value;
         if (settingFontSize) appSettings.font_size_alkitab_rem = parseFloat(settingFontSize.value);
+        if (settingTextColor) appSettings.text_color = settingTextColor.value;
+        if (settingStrokeColor) appSettings.text_stroke_color = settingStrokeColor.value;
+        if (settingStrokeWidth) appSettings.text_stroke_width_px = parseFloat(settingStrokeWidth.value);
+        if (settingBgMode) appSettings.background_mode = settingBgMode.value;
+        if (settingBgColor) appSettings.background_color = settingBgColor.value;
+        if (settingBgOverlay) appSettings.background_overlay_opacity = parseFloat(settingBgOverlay.value);
         if (settingSplitVerses) appSettings.auto_split_long_verses = settingSplitVerses.checked;
         if (settingShowVerseNum) appSettings.show_verse_num = settingShowVerseNum.checked;
         if (settingAutohideNav) appSettings.autohide_nav = settingAutohideNav.checked;
 
         applySettingsToUI();
         rebuildSlideSequenceAndKeepPosition();
+        syncCurrentToProjector(false);
 
         try {
           localStorage.setItem('lagu_sion_settings', JSON.stringify(appSettings));
@@ -1115,6 +1299,7 @@
       }
 
       async function init() {
+        await loadBackgrounds();
         await loadAppSettings();
         await loadBooks();
         await loadPlaylist();
@@ -1222,6 +1407,11 @@
 
           currentQueryResult = result;
           currentSlideSequence = buildBibleSlideSequence(result.verses, fontSizeRem);
+
+          if (appSettings.background_mode === 'random' && availableBackgrounds.length > 0) {
+            currentBgImage = pickRandomBackground();
+            updateBackgroundDisplay();
+          }
 
           if (slideIndexInSequence >= currentSlideSequence.length) slideIndexInSequence = Math.max(0, currentSlideSequence.length - 1);
           if (slideIndexInSequence < 0) slideIndexInSequence = 0;
@@ -1580,7 +1770,53 @@
           rebuildSlideSequenceAndKeepPosition();
           document.querySelectorAll('.full-verse-text').forEach(el => el.style.fontSize = `${fontSizeRem * 0.65}rem`);
         });
-        settingFontSize.addEventListener('change', saveAppSettings);
+        if (settingTextColor) {
+          settingTextColor.addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--lyrics-text-color', e.target.value);
+          });
+          settingTextColor.addEventListener('change', saveAppSettings);
+        }
+
+        if (settingStrokeColor) {
+          settingStrokeColor.addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--lyrics-stroke-color', e.target.value);
+          });
+          settingStrokeColor.addEventListener('change', saveAppSettings);
+        }
+
+        if (settingStrokeWidth) {
+          settingStrokeWidth.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            document.documentElement.style.setProperty('--lyrics-stroke-width', `${val}px`);
+            if (strokeWidthVal) strokeWidthVal.textContent = `${val}px`;
+          });
+          settingStrokeWidth.addEventListener('change', saveAppSettings);
+        }
+
+        if (settingBgMode) {
+          settingBgMode.addEventListener('change', () => {
+            appSettings.background_mode = settingBgMode.value;
+            updateBackgroundDisplay();
+            saveAppSettings();
+          });
+        }
+
+        if (settingBgColor) {
+          settingBgColor.addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--slide-bg-color', e.target.value);
+            if (bgColorVal) bgColorVal.textContent = e.target.value;
+          });
+          settingBgColor.addEventListener('change', saveAppSettings);
+        }
+
+        if (settingBgOverlay) {
+          settingBgOverlay.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            document.documentElement.style.setProperty('--bg-overlay-opacity', val);
+            if (bgOverlayVal) bgOverlayVal.textContent = `${Math.round(val * 100)}%`;
+          });
+          settingBgOverlay.addEventListener('change', saveAppSettings);
+        }
 
         settingSplitVerses.addEventListener('change', saveAppSettings);
         settingShowVerseNum.addEventListener('change', saveAppSettings);

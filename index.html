@@ -142,6 +142,16 @@
       box-shadow: 0 0 0 2px rgba(24, 24, 27, 0.15);
     }
 
+    :root {
+      --slide-bg-color: #ffffff;
+      --slide-bg-image: none;
+      --bg-overlay-opacity: 0.35;
+      --bg-overlay-display: none;
+      --lyrics-text-color: #000000;
+      --lyrics-stroke-color: #ffffff;
+      --lyrics-stroke-width: 3.5px;
+    }
+
     /* ==========================================================================
        MAIN PRESENTATION SLIDE VIEW - CENTERED & HIGH CONTRAST
        ========================================================================== */
@@ -154,8 +164,31 @@
       width: 100%;
       height: 100%;
       padding: 70px 40px 60px 40px;
-      background-color: #ffffff;
+      background-color: var(--slide-bg-color, #ffffff);
+      background-image: var(--slide-bg-image, none);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      overflow: hidden;
       cursor: pointer;
+      transition: background-image 0.4s ease-in-out, background-color 0.2s ease;
+    }
+
+    .slide-viewport::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, var(--bg-overlay-opacity, 0.35));
+      pointer-events: none;
+      z-index: 1;
+      display: var(--bg-overlay-display, none);
+      transition: background-color 0.2s ease;
+    }
+
+    .slide-header, .slide-body, .full-song-container {
+      position: relative;
+      z-index: 2;
     }
 
     .slide-header {
@@ -167,15 +200,18 @@
       font-size: 2.2rem;
       font-weight: 800;
       letter-spacing: 0.5px;
-      color: #000000;
+      color: var(--lyrics-text-color, #000000);
+      -webkit-text-stroke: calc(var(--lyrics-stroke-width, 3.5px) * 0.55) var(--lyrics-stroke-color, #ffffff);
+      paint-order: stroke fill;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
       text-transform: uppercase;
       margin-bottom: 6px;
     }
 
     .song-meta {
       font-size: 1.1rem;
-      font-weight: 500;
-      color: #555555;
+      font-weight: 600;
+      color: #334155;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -183,11 +219,13 @@
     }
 
     .meta-badge {
-      background: #f0f0f0;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-weight: 600;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 2px 10px;
+      border-radius: 6px;
+      font-weight: 700;
       font-size: 0.95rem;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(4px);
     }
 
     .verse-badge {
@@ -202,7 +240,8 @@
       font-weight: 800;
       font-size: 1.8rem;
       letter-spacing: 1px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       transition: all 0.2s ease;
     }
 
@@ -225,7 +264,10 @@
       font-size: 3.4rem;
       font-weight: 700;
       line-height: 1.45;
-      color: #000000;
+      color: var(--lyrics-text-color, #000000);
+      -webkit-text-stroke: var(--lyrics-stroke-width, 3.5px) var(--lyrics-stroke-color, #ffffff);
+      paint-order: stroke fill;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
       white-space: pre-line;
       text-align: center;
       transition: font-size 0.15s ease;
@@ -304,7 +346,10 @@
       font-size: var(--full-verse-font-size, 3.4rem);
       font-weight: 700;
       line-height: 1.5;
-      color: #000000;
+      color: var(--lyrics-text-color, #000000);
+      -webkit-text-stroke: var(--lyrics-stroke-width, 3.5px) var(--lyrics-stroke-color, #ffffff);
+      paint-order: stroke fill;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
       white-space: pre-line;
       text-align: center;
       transition: font-size 0.15s ease;
@@ -878,6 +923,48 @@
         </div>
       </div>
       <div class="setting-row">
+        <label class="setting-label" for="setting-text-color">Warna Teks Lirik:</label>
+        <div class="setting-control" style="display: flex; align-items: center; gap: 8px;">
+          <input type="color" id="setting-text-color" value="#000000" style="width: 42px; height: 32px; padding: 2px; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer;">
+        </div>
+      </div>
+      <div class="setting-row">
+        <label class="setting-label" for="setting-stroke-color">Warna Garis Luar (Outline):</label>
+        <div class="setting-control" style="display: flex; align-items: center; gap: 8px;">
+          <input type="color" id="setting-stroke-color" value="#ffffff" style="width: 42px; height: 32px; padding: 2px; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer;">
+        </div>
+      </div>
+      <div class="setting-row">
+        <label class="setting-label" for="setting-stroke-width">Ketebalan Garis Luar:</label>
+        <div class="setting-control" style="display: flex; align-items: center; gap: 8px;">
+          <input type="range" id="setting-stroke-width" min="0" max="8.0" step="0.5" value="3.5">
+          <span id="stroke-width-val" style="font-size: 13px; font-weight: 700; width: 45px;">3.5px</span>
+        </div>
+      </div>
+      <div class="setting-row">
+        <label class="setting-label" for="setting-bg-mode">Mode Latar Belakang:</label>
+        <div class="setting-control">
+          <select id="setting-bg-mode">
+            <option value="random">🖼️ Acak Gambar (Folder background/)</option>
+            <option value="solid">⬛ / ⬜ Warna Polos (Solid Color)</option>
+          </select>
+        </div>
+      </div>
+      <div class="setting-row" id="row-bg-color">
+        <label class="setting-label" for="setting-bg-color">Warna Latar Polos:</label>
+        <div class="setting-control" style="display: flex; align-items: center; gap: 8px;">
+          <input type="color" id="setting-bg-color" value="#ffffff" style="width: 42px; height: 32px; padding: 2px; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer;">
+          <span id="bg-color-val" style="font-size: 13px; font-weight: 700; color: #475569;">#ffffff</span>
+        </div>
+      </div>
+      <div class="setting-row" id="row-bg-overlay">
+        <label class="setting-label" for="setting-bg-overlay">Kegelapan Overlay Gambar:</label>
+        <div class="setting-control" style="display: flex; align-items: center; gap: 8px;">
+          <input type="range" id="setting-bg-overlay" min="0" max="0.8" step="0.05" value="0.35">
+          <span id="bg-overlay-val" style="font-size: 13px; font-weight: 700; width: 45px;">35%</span>
+        </div>
+      </div>
+      <div class="setting-row">
         <label class="setting-label" for="setting-show-meta">Tampilkan Info Nada & Ketukan:</label>
         <div class="setting-control">
           <input type="checkbox" id="setting-show-meta" checked style="width: 18px; height: 18px;">
@@ -1070,6 +1157,17 @@
       const settingFontFamily = document.getElementById('setting-font-family');
       const settingFontSize = document.getElementById('setting-font-size');
       const fontSizeVal = document.getElementById('font-size-val');
+      const settingTextColor = document.getElementById('setting-text-color');
+      const settingStrokeColor = document.getElementById('setting-stroke-color');
+      const settingStrokeWidth = document.getElementById('setting-stroke-width');
+      const strokeWidthVal = document.getElementById('stroke-width-val');
+      const settingBgMode = document.getElementById('setting-bg-mode');
+      const settingBgColor = document.getElementById('setting-bg-color');
+      const bgColorVal = document.getElementById('bg-color-val');
+      const settingBgOverlay = document.getElementById('setting-bg-overlay');
+      const bgOverlayVal = document.getElementById('bg-overlay-val');
+      const rowBgColor = document.getElementById('row-bg-color');
+      const rowBgOverlay = document.getElementById('row-bg-overlay');
       const settingShowMeta = document.getElementById('setting-show-meta');
       const settingAutohideNav = document.getElementById('setting-autohide-nav');
       const toast = document.getElementById('toast');
@@ -1077,6 +1175,12 @@
       const defaultSettings = {
         font_family: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
         font_size_lagusion_rem: 3.4,
+        text_color: "#000000",
+        text_stroke_color: "#ffffff",
+        text_stroke_width_px: 3.5,
+        background_mode: "random",
+        background_color: "#ffffff",
+        background_overlay_opacity: 0.35,
         show_metadata: true,
         autohide_nav: true,
         auto_split_long_verses: true,
@@ -1089,6 +1193,10 @@
       const settingInterleaveRef = document.getElementById('setting-interleave-ref');
       const settingsSaveStatus = document.getElementById('settings-save-status');
       const btnConnectFile = document.getElementById('btn-connect-file');
+
+      // Available background images
+      let availableBackgrounds = [];
+      let currentBgImage = null;
 
       // Playlist DOM Elements
       const btnTogglePlaylist = document.getElementById('btn-toggle-playlist');
@@ -1183,7 +1291,13 @@
           isChorus: !!slide.isChorus,
           lyrics: slide.text || '',
           fontSizeRem: fontSizeRem,
-          fontFamily: appSettings.font_family
+          fontFamily: appSettings.font_family,
+          textColor: appSettings.text_color || '#000000',
+          strokeColor: appSettings.text_stroke_color || '#ffffff',
+          strokeWidth: (appSettings.text_stroke_width_px !== undefined) ? appSettings.text_stroke_width_px : 3.5,
+          bgColor: appSettings.background_color || '#ffffff',
+          bgImage: (appSettings.background_mode === 'random' && currentBgImage) ? currentBgImage : null,
+          bgOverlay: (appSettings.background_overlay_opacity !== undefined) ? appSettings.background_overlay_opacity : 0.35
         };
 
         try {
@@ -1282,6 +1396,7 @@
 
       // Initialize
       async function init() {
+        await loadBackgrounds();
         await loadAppSettings();
         await loadAllSongs();
         await loadCustomSongs();
@@ -1316,58 +1431,96 @@
         setTimeout(() => toast.classList.remove('show'), 2000);
       }
 
+      // Load available backgrounds from background/ directory
+      async function loadBackgrounds() {
+        try {
+          const res = await fetch('/api/backgrounds', { cache: 'no-store' });
+          if (res.ok) {
+            const list = await res.json();
+            if (Array.isArray(list)) {
+              availableBackgrounds = list;
+            }
+          }
+        } catch (e) {
+          console.warn('Could not fetch backgrounds:', e);
+        }
+      }
+
+      function pickRandomBackground() {
+        if (availableBackgrounds && availableBackgrounds.length > 0) {
+          const randomIndex = Math.floor(Math.random() * availableBackgrounds.length);
+          return availableBackgrounds[randomIndex];
+        }
+        return null;
+      }
+
+      function updateBackgroundDisplay() {
+        const isRandom = (appSettings.background_mode === 'random' && availableBackgrounds.length > 0);
+        const bgColor = appSettings.background_color || '#ffffff';
+        document.documentElement.style.setProperty('--slide-bg-color', bgColor);
+
+        if (isRandom) {
+          if (!currentBgImage) {
+            currentBgImage = pickRandomBackground();
+          }
+          if (currentBgImage) {
+            document.documentElement.style.setProperty('--slide-bg-image', `url("${currentBgImage}")`);
+            document.documentElement.style.setProperty('--bg-overlay-display', 'block');
+          } else {
+            document.documentElement.style.setProperty('--slide-bg-image', 'none');
+            document.documentElement.style.setProperty('--bg-overlay-display', 'none');
+          }
+        } else {
+          document.documentElement.style.setProperty('--slide-bg-image', 'none');
+          document.documentElement.style.setProperty('--bg-overlay-display', 'none');
+        }
+
+        // Toggle visibility of setting rows in modal
+        if (rowBgColor) rowBgColor.style.display = (appSettings.background_mode === 'solid') ? 'flex' : 'none';
+        if (rowBgOverlay) rowBgOverlay.style.display = (appSettings.background_mode === 'random') ? 'flex' : 'none';
+      }
+
       // Load all songs from all_songs.json (Single Source of Truth)
       async function loadAllSongs() {
         try {
           const res = await fetch('all_songs.json?t=' + Date.now(), { cache: 'no-store' });
-          if (res.ok) {
-            const data = await res.json();
-            if (data && typeof data === 'object') {
-              songsData = data;
-            }
-          }
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          songsData = await res.json();
+          songsIndex = Object.values(songsData).map(s => ({
+            id: String(s.number || s.id),
+            number: s.number,
+            title: s.title,
+            versesCount: s.verses ? s.verses.length : 0
+          }));
         } catch (e) {
-          console.warn('Could not fetch all_songs.json:', e);
+          console.error('Gagal memuat all_songs.json:', e);
         }
       }
 
-      function getLaguSionList() {
-        return Object.values(songsData).sort((a, b) => (a.number || 0) - (b.number || 0));
-      }
-
-      // Load Custom Songs from Server API, local custom_songs.json, or localStorage
+      // Load custom / unnumbered songs
       async function loadCustomSongs() {
-        let loaded = null;
         try {
           const res = await fetch('/api/custom_songs', { cache: 'no-store' });
           if (res.ok) {
             const data = await res.json();
-            if (Array.isArray(data) && data.length > 0) loaded = data;
+            if (Array.isArray(data)) {
+              customSongs = data;
+              return;
+            }
           }
         } catch (e) {}
 
-        if (!loaded || loaded.length === 0) {
-          try {
-            const res = await fetch('custom_songs.json?t=' + Date.now(), { cache: 'no-store' });
-            if (res.ok) {
-              const data = await res.json();
-              if (Array.isArray(data) && data.length > 0) loaded = data;
-            }
-          } catch (e) {}
-        }
+        try {
+          const localStr = localStorage.getItem('lagu_sion_custom_songs');
+          if (localStr) {
+            const parsed = JSON.parse(localStr);
+            if (Array.isArray(parsed)) customSongs = parsed;
+          }
+        } catch (e) {}
+      }
 
-        if (!loaded || loaded.length === 0) {
-          try {
-            const localStr = localStorage.getItem('lagu_sion_custom_songs');
-            if (localStr) {
-              const localData = JSON.parse(localStr);
-              if (Array.isArray(localData)) loaded = localData;
-            }
-          } catch (e) {}
-        }
-
-        customSongs = Array.isArray(loaded) ? loaded : [];
-        updateCustomSongsCount();
+      function getLaguSionList() {
+        return Object.values(songsData).sort((a, b) => (a.number || 0) - (b.number || 0));
       }
 
       function updateCustomSongsCount() {
@@ -1376,20 +1529,20 @@
         if (countLaguSion) countLaguSion.textContent = sionCount;
       }
 
+      // Helper finding song
       function findSong(idOrNum) {
-        if (idOrNum === undefined || idOrNum === null) return null;
+        if (!idOrNum) return null;
         const strVal = String(idOrNum).trim();
-        if (!strVal) return null;
+        const numVal = parseInt(strVal);
         const queryLower = strVal.toLowerCase();
-        
-        // 1. Check customSongs first by id or title
-        const custom = customSongs.find(s => s.id === strVal || String(s.id).toLowerCase() === queryLower || (s.title && s.title.toLowerCase() === queryLower));
+
+        // 1. Match custom song ID
+        const custom = customSongs.find(s => s.id === strVal);
         if (custom) return custom;
 
-        // 2. Check songsData directly by key or number
-        const num = parseInt(strVal);
-        if (!isNaN(num) && (songsData[num] || songsData[String(num)])) {
-          return songsData[num] || songsData[String(num)];
+        // 2. Match exact number in songsData
+        if (!isNaN(numVal) && songsData[String(numVal)]) {
+          return songsData[String(numVal)];
         }
         if (songsData[strVal]) {
           return songsData[strVal];
@@ -1485,6 +1638,31 @@
         settingFontSize.value = fontSizeRem;
         fontSizeVal.textContent = `${fontSizeRem.toFixed(1)}rem`;
 
+        // Color & Outline & Background settings
+        const textColor = appSettings.text_color || '#000000';
+        const strokeColor = appSettings.text_stroke_color || '#ffffff';
+        const strokeWidth = (appSettings.text_stroke_width_px !== undefined) ? appSettings.text_stroke_width_px : 3.5;
+        const bgMode = appSettings.background_mode || 'random';
+        const bgColor = appSettings.background_color || '#ffffff';
+        const bgOverlay = (appSettings.background_overlay_opacity !== undefined) ? appSettings.background_overlay_opacity : 0.35;
+
+        document.documentElement.style.setProperty('--lyrics-text-color', textColor);
+        document.documentElement.style.setProperty('--lyrics-stroke-color', strokeColor);
+        document.documentElement.style.setProperty('--lyrics-stroke-width', `${strokeWidth}px`);
+        document.documentElement.style.setProperty('--bg-overlay-opacity', bgOverlay);
+
+        if (settingTextColor) settingTextColor.value = textColor;
+        if (settingStrokeColor) settingStrokeColor.value = strokeColor;
+        if (settingStrokeWidth) settingStrokeWidth.value = strokeWidth;
+        if (strokeWidthVal) strokeWidthVal.textContent = `${strokeWidth}px`;
+        if (settingBgMode) settingBgMode.value = bgMode;
+        if (settingBgColor) settingBgColor.value = bgColor;
+        if (bgColorVal) bgColorVal.textContent = bgColor;
+        if (settingBgOverlay) settingBgOverlay.value = bgOverlay;
+        if (bgOverlayVal) bgOverlayVal.textContent = `${Math.round(bgOverlay * 100)}%`;
+
+        updateBackgroundDisplay();
+
         settingShowMeta.checked = appSettings.show_metadata !== false;
         dispMeta.style.display = settingShowMeta.checked ? 'flex' : 'none';
         fullDispMeta.style.display = settingShowMeta.checked ? 'flex' : 'none';
@@ -1504,6 +1682,13 @@
         if (settingFontSize && settingFontSize.value) {
           appSettings.font_size_lagusion_rem = parseFloat(settingFontSize.value);
         }
+        if (settingTextColor) appSettings.text_color = settingTextColor.value;
+        if (settingStrokeColor) appSettings.text_stroke_color = settingStrokeColor.value;
+        if (settingStrokeWidth) appSettings.text_stroke_width_px = parseFloat(settingStrokeWidth.value);
+        if (settingBgMode) appSettings.background_mode = settingBgMode.value;
+        if (settingBgColor) appSettings.background_color = settingBgColor.value;
+        if (settingBgOverlay) appSettings.background_overlay_opacity = parseFloat(settingBgOverlay.value);
+
         if (settingShowMeta) appSettings.show_metadata = settingShowMeta.checked;
         if (settingAutohideNav) appSettings.autohide_nav = settingAutohideNav.checked;
         if (settingSplitVerses) appSettings.auto_split_long_verses = settingSplitVerses.checked;
@@ -1513,6 +1698,7 @@
         if (currentSongNumber) {
           loadSong(currentSongNumber, currentVerseIndex);
         }
+        syncCurrentToProjector(false);
 
         // Save in LocalStorage
         try {
@@ -2012,8 +2198,14 @@
           return;
         }
 
+        const isNewSong = (currentSongId !== (song.id || song.number || songIdOrNum));
         currentSongId = song.id || song.number || songIdOrNum;
         currentSongNumber = song.number || currentSongId;
+        if (isNewSong && appSettings.background_mode === 'random' && availableBackgrounds.length > 0) {
+          currentBgImage = pickRandomBackground();
+          updateBackgroundDisplay();
+        }
+
         if (song.number) {
           jumpNumInput.value = song.number;
         } else {
@@ -2767,6 +2959,55 @@
           fontSizeVal.textContent = `${fontSizeRem.toFixed(1)}rem`;
         });
         settingFontSize.addEventListener('change', () => saveAppSettings(false));
+
+        if (settingTextColor) {
+          settingTextColor.addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--lyrics-text-color', e.target.value);
+          });
+          settingTextColor.addEventListener('change', () => saveAppSettings(false));
+        }
+
+        if (settingStrokeColor) {
+          settingStrokeColor.addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--lyrics-stroke-color', e.target.value);
+          });
+          settingStrokeColor.addEventListener('change', () => saveAppSettings(false));
+        }
+
+        if (settingStrokeWidth) {
+          settingStrokeWidth.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            document.documentElement.style.setProperty('--lyrics-stroke-width', `${val}px`);
+            if (strokeWidthVal) strokeWidthVal.textContent = `${val}px`;
+          });
+          settingStrokeWidth.addEventListener('change', () => saveAppSettings(false));
+        }
+
+        if (settingBgMode) {
+          settingBgMode.addEventListener('change', () => {
+            appSettings.background_mode = settingBgMode.value;
+            updateBackgroundDisplay();
+            saveAppSettings(false);
+          });
+        }
+
+        if (settingBgColor) {
+          settingBgColor.addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--slide-bg-color', e.target.value);
+            if (bgColorVal) bgColorVal.textContent = e.target.value;
+          });
+          settingBgColor.addEventListener('change', () => saveAppSettings(false));
+        }
+
+        if (settingBgOverlay) {
+          settingBgOverlay.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            document.documentElement.style.setProperty('--bg-overlay-opacity', val);
+            if (bgOverlayVal) bgOverlayVal.textContent = `${Math.round(val * 100)}%`;
+          });
+          settingBgOverlay.addEventListener('change', () => saveAppSettings(false));
+        }
+
         settingShowMeta.addEventListener('change', () => saveAppSettings(false));
         settingAutohideNav.addEventListener('change', () => saveAppSettings(false));
         settingSplitVerses.addEventListener('change', () => saveAppSettings(false));

@@ -189,18 +189,45 @@ State yang dikirimkan ke layar proyektor (`display.html`) memiliki skema JSON be
 
 ---
 
+### 10. Integrasi Dataset Resmi GMAHK, Text Outline / Stroke, & Random Background Loader
+* **User Requests**:
+  1. *"check this @data-source.json ... convert it to ur version in @all_songs.json? ... make it as the main songs."*
+  2. *"implement the color in the settings and the background."*
+  3. *"make the text has outer color like this @text.png"*
+  4. *"make the background random from the list in background folder. i will download it later in webp format"*
+* **Aksi/Solusi**:
+  * **Dataset Resmi GMAHK (`all_songs.json`)**:
+    * Mengonversi `data-source.json` (database resmi API Lagu Sion GMAHK) menjadi `all_songs.json` master baru dengan metadata sangat lengkap: Judul Asli Inggris, Komposer, Pengaransemen (*Arranger*), Kunci & Birama standar Lagu Sion, Ayat Alkitab referensi, URL gambar Partitur/Not Balok, dan URL streaming MP3 (Instrumental & Vokal).
+  * **Text Outer Stroke / Outline Styling (Sesuai `text.png`)**:
+    * Menggunakan kombinasi CSS `-webkit-text-stroke: var(--lyrics-stroke-width) var(--lyrics-stroke-color);` dengan `paint-order: stroke fill;` dan `color: var(--lyrics-text-color);`.
+    * `paint-order: stroke fill;` memastikan garis luar digambar *di belakang* isi huruf sehingga huruf tetap tebal, tajam, dan tidak terpotong oleh outline.
+  * **Random Background Image Loader**:
+    * Menambahkan folder `background/` dan endpoint backend Golang `/api/backgrounds` yang secara otomatis memindai file `.webp`, `.jpg`, `.jpeg`, `.png`, dan `.avif`.
+    * Saat lagu atau ayat baru dibuka pada mode `random`, sistem secara otomatis mengundi gambar latar belakang dari folder `background/`.
+    * Dilengkapi slider kegelapan (*overlay dimming*) untuk memastikan teks selalu memiliki kontras tinggi dan mudah dibaca jemaat.
+  * **Solid Background Color Picker & Akurasi Warna Layar Proyektor**:
+    * Menambahkan *Color Picker* mandiri untuk **Warna Latar Polos** (`background_color`, default `#ffffff`).
+    * Memperbaiki tampilan proyektor (`display.html`): pseudo-element overlay kegelapan kini hanya aktif saat mode background gambar acak (`--bg-overlay-display: block`), dan dinonaktifkan (`--bg-overlay-display: none`) saat mode solid. Hal ini memastikan warna polos yang dipilih pengguna tampil **100% presisi dan identik** di layar operator maupun layar proyektor Monitor 2 tanpa terdistorsi oleh overlay/default warna lain.
+    * Row pengaturan di modal *Settings* beradaptasi secara dinamis (menampilkan *Color Picker* saat mode Polos, dan menampilkan Slider Overlay saat mode Acak Gambar).
+  * **Sinkronisasi Otomatis Layar Proyektor (`display.html`)**:
+    * Mengirim seluruh konfigurasi warna teks, warna garis luar, ketebalan garis luar, warna latar polos (`bgColor`), gambar background acak, dan tingkat overlay melalui `BroadcastChannel('lagusion_live_bus')` sehingga tampilan proyektor jemaat (Monitor 2) sinkron 100%.
+
+---
+
 ## 📁 Peta File Proyek
 
-* `index.html` — Konsol Operator untuk Lagu Sion (dengan pencarian lirik lengkap).
+* `index.html` — Konsol Operator untuk Lagu Sion (dengan text stroke, background switcher, dan pencarian lirik lengkap).
 * `alkitab.html` — Konsol Operator untuk Alkitab TB.
-* `display.html` — Halaman Layar Khusus Proyektor Jemaat (Monitor 2).
-* `server.go` — Backend native Golang yang melayani file statis dan REST API.
+* `display.html` — Halaman Layar Khusus Proyektor Jemaat (Monitor 2) dengan sinkronisasi background & text stroke otomatis.
+* `server.go` — Backend native Golang yang melayani file statis dan REST API (termasuk `/api/backgrounds`).
 * `server-linux` — Binary server siap jalan untuk Linux x86_64.
 * `server-windows.exe` — Binary server siap jalan untuk Windows x86_64.
-* `all_songs.json` — Single Source of Truth database 525 Lagu Sion.
+* `all_songs.json` — Database master 525 Lagu Sion dengan metadata komposer, bahasa Inggris, partitur, ayat Alkitab, dan audio streaming.
+* `all_songs_v2.json` — Backup hasil konversi dari dataset resmi.
+* `convert_data_source.py` — Script konverter dari format API `data-source.json` ke skema `all_songs.json`.
+* `background/` — Folder penyimpanan gambar latar belakang (.webp, .jpg, .png).
 * `alkitab_tb.txt` — Database lengkap 31.084 ayat Alkitab Terjemahan Baru.
-* `scrape_alkitab_app.py` — Script pembaruan lirik dari `alkitab.app`.
-* `settings.json` — Konfigurasi ukuran font mandiri (`font_size_lagusion_rem` & `font_size_alkitab_rem`), playlist ibadah, dll.
+* `settings.json` — Konfigurasi warna teks, warna garis luar, background mode, ukuran font, dan playlist ibadah.
 * `custom_songs.json` — Penyimpanan lagu kustom tambahan.
 * `README.md` — Panduan penggunaan pengguna akhir.
 * `agents.md` — Arsip pengetahuan teknis dan histori percakapan proyek ini.
