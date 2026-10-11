@@ -28,9 +28,8 @@ Dokumentasi ini adalah **panduan utama dan sumber kebenaran teknis (Single Sourc
 ├── server-windows.exe       # Binary server executable untuk Windows x86_64
 ├── all_songs.json           # Database master 525 Lagu Sion (metadata lengkap, partitur, audio)
 ├── alkitab_tb.txt           # Database teks Alkitab TB (31.084 baris TSV: ID, BookID, Chap, Verse, Text)
-├── alkitab_playlist.json    # File konfigurasi antrean ayat ibadah
 ├── custom_songs.json        # File penyimpanan lagu tambahan/kustom mandiri
-├── settings.json            # Konfigurasi global aplikasi & playlist ibadah Lagu Sion
+├── settings.json            # Konfigurasi global aplikasi & antrean playlist (Lagu Sion & Alkitab)
 ├── README.md                # Dokumentasi petunjuk penggunaan untuk pengguna akhir
 ├── agents.md                # Panduan teknis & knowledge base untuk AI Agent
 │
@@ -212,7 +211,8 @@ Komunikasi antara konsol operator (`index.html` & `alkitab.html`) dan layar proy
   "text_color": "#ffffff",
   "text_stroke_color": "#000000",
   "text_stroke_width_px": 4.0,
-  "worship_playlist": [322, "223:1", "73:1-2"]
+  "worship_playlist": [322, "223:1", "73:1-2"],
+  "alkitab_playlist": ["Yohanes 3:16", "Mazmur 23:1-6"]
 }
 ```
 
@@ -300,6 +300,12 @@ Berikut adalah histori perubahan, permintaan pengguna, dan keputusan arsitektura
 11. **Sistem Pemutar Musik Instrumental (`js/audio.js`)**: Tombol `▶ Play` / `⏸ Pause` pada toolbar atas. Otomatis membaca file lokal `audio/instrumental/<nomor>.mp3` atau URL audio resmi. Menghentikan lagu lama saat berpindah dan melanjutkan playback jika status sebelumnya sedang aktif.
 12. **Perilaku Toolbar Autohide Terpadu**: Toolbar atas dan bawah mendukung hover zone (`.top-hover-zone` dan `.bottom-hover-zone`) saat setting `autohide_nav` aktif, atau tetap tampak permanen saat dinonaktifkan.
 13. **Penyederhanaan UI**: Menghapus tombol "Tampilkan Semua" (*Full Song Mode*) dan tombol duplikat fullscreen dari toolbar atas agar tampilan operator bersih dan fokus pada alur presentasi ibadah utama.
+14. **Standarisasi Format Baris Lirik (`all_songs.json`)**:
+    * Seluruh baris lirik pada setiap bait (`verse`) dan refrein (`chorus`) telah distandarisasi untuk kenyamanan tayangan proyektor:
+      * **Pembersihan Tanda Baca Akhir**: Tanda baca di akhir setiap baris (`.`, `,`, `;`, `:`) dihapus bersih pada semua baris lagu.
+      * **Pemecahan Baris Panjang**: Baris yang terlalu panjang (> 48 karakter) dipecah pada pemisah alami (koma, titik koma, kapitalisasi klausa) dengan panjang seimbang (~20–45 karakter per baris).
+      * **Penggabungan Baris Terlalu Pendek**: Baris terisolasi/1 kata (seperti `"Tuhan,"`, `"Amin."`) dan potongan pendek digabungkan ke baris pendamping (misalnya pada Lagu 514 dan Lagu 519) agar proporsi visual slide proyektor seimbang dan rapi.
+      * Kolom `lines` (array) dan `text` (`lines.join('\n')`) selalu disinkronkan.
 
 ---
 

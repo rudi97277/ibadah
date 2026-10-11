@@ -26,7 +26,8 @@ export const defaultSettings = {
   auto_split_long_verses: true,
   refrain_interleaving: true,
   projector_font_scale: 1.0,
-  worship_playlist: []
+  worship_playlist: [],
+  alkitab_playlist: []
 };
 
 export const state = {

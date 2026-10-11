@@ -1123,12 +1123,22 @@
             const data = await res.json();
             if (data && typeof data === 'object') {
               appSettings = { ...appSettings, ...data };
+              if (Array.isArray(appSettings.alkitab_playlist)) {
+                playlist = [...appSettings.alkitab_playlist];
+                updatePlaylistCount();
+              }
             }
           }
         } catch (e) {
           const localStr = localStorage.getItem('lagu_sion_settings');
           if (localStr) {
-            try { appSettings = { ...appSettings, ...JSON.parse(localStr) }; } catch (err) {}
+            try {
+              appSettings = { ...appSettings, ...JSON.parse(localStr) };
+              if (Array.isArray(appSettings.alkitab_playlist)) {
+                playlist = [...appSettings.alkitab_playlist];
+                updatePlaylistCount();
+              }
+            } catch (err) {}
           }
         }
 
@@ -1401,11 +1411,18 @@
       }
 
       async function loadPlaylist() {
+        if (Array.isArray(appSettings.alkitab_playlist) && appSettings.alkitab_playlist.length > 0) {
+          playlist = [...appSettings.alkitab_playlist];
+          updatePlaylistCount();
+          return;
+        }
+
         try {
           const res = await fetch('/api/alkitab/playlist', { cache: 'no-store' });
           const ct = res.headers.get('content-type') || '';
           if (res.ok && ct.includes('json')) {
             playlist = await res.json();
+            appSettings.alkitab_playlist = playlist;
           }
         } catch (e) {
           const localStr = localStorage.getItem('alkitab_playlist');
@@ -1418,6 +1435,7 @@
       }
 
       async function savePlaylist() {
+        appSettings.alkitab_playlist = playlist;
         try {
           localStorage.setItem('alkitab_playlist', JSON.stringify(playlist));
           await fetch('/api/alkitab/playlist', {

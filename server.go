@@ -21,10 +21,9 @@ import (
 )
 
 const (
-	settingsFileName       = "settings.json"
-	customSongsFileName    = "custom_songs.json"
-	alkitabPlaylistFileName = "alkitab_playlist.json"
-	alkitabDataFileName    = "alkitab_tb.txt"
+	settingsFileName    = "settings.json"
+	customSongsFileName = "custom_songs.json"
+	alkitabDataFileName = "alkitab_tb.txt"
 )
 
 // Book metadata definition
@@ -469,6 +468,65 @@ func handleSettingsAPI(filePath string) http.HandlerFunc {
 	}
 }
 
+func handleBiblePlaylistAPI(settingsPath string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+
+		switch r.Method {
+		case http.MethodGet:
+			existing := make(map[string]interface{})
+			if currentBytes, err := os.ReadFile(settingsPath); err == nil {
+				_ = json.Unmarshal(currentBytes, &existing)
+			}
+			playlist, ok := existing["alkitab_playlist"]
+			if !ok || playlist == nil {
+				playlist = []string{}
+			}
+			_ = json.NewEncoder(w).Encode(playlist)
+
+		case http.MethodPost:
+			body, err := io.ReadAll(r.Body)
+			if err != nil {
+				http.Error(w, fmt.Sprintf(`{"status":"error","message":"%s"}`, err.Error()), http.StatusBadRequest)
+				return
+			}
+			defer r.Body.Close()
+
+			var newPlaylist []string
+			if err := json.Unmarshal(body, &newPlaylist); err != nil {
+				http.Error(w, fmt.Sprintf(`{"status":"error","message":"Invalid JSON array: %s"}`, err.Error()), http.StatusBadRequest)
+				return
+			}
+
+			existing := make(map[string]interface{})
+			if currentBytes, err := os.ReadFile(settingsPath); err == nil {
+				_ = json.Unmarshal(currentBytes, &existing)
+			}
+
+			existing["alkitab_playlist"] = newPlaylist
+
+			mergedBytes, err := json.MarshalIndent(existing, "", "  ")
+			if err != nil {
+				http.Error(w, fmt.Sprintf(`{"status":"error","message":"Failed to serialize settings: %s"}`, err.Error()), http.StatusInternalServerError)
+				return
+			}
+
+			if err := os.WriteFile(settingsPath, mergedBytes, 0644); err != nil {
+				http.Error(w, fmt.Sprintf(`{"status":"error","message":"Failed to write file: %s"}`, err.Error()), http.StatusInternalServerError)
+				return
+			}
+
+			log.Printf("[Saved] Updated alkitab_playlist in settings.json (%d items)", len(newPlaylist))
+			w.WriteHeader(http.StatusOK)
+			_, _ = w.Write([]byte(`{"status":"success","message":"Alkitab playlist saved to settings.json"}`))
+
+		default:
+			http.Error(w, `{"status":"error","message":"Method not allowed"}`, http.StatusMethodNotAllowed)
+		}
+	}
+}
+
 func getLocalIP() string {
 	addrs, err := net.InterfaceAddrs()
 	if err != nil {
@@ -507,7 +565,6 @@ func main() {
 
 	settingsPath := filepath.Join(baseDir, settingsFileName)
 	customSongsPath := filepath.Join(baseDir, customSongsFileName)
-	alkitabPlaylistPath := filepath.Join(baseDir, alkitabPlaylistFileName)
 
 	mux := http.NewServeMux()
 
@@ -569,8 +626,8 @@ func main() {
 		_ = json.NewEncoder(w).Encode(res)
 	})
 
-	mux.HandleFunc("/api/alkitab/playlist", handleJSONAPI(alkitabPlaylistPath, `["Yohanes 3:16", "Mazmur 23:1-6", "Kejadian 1:1-3"]`))
-	mux.HandleFunc("/api/alkitab/playlist/", handleJSONAPI(alkitabPlaylistPath, `["Yohanes 3:16", "Mazmur 23:1-6", "Kejadian 1:1-3"]`))
+	mux.HandleFunc("/api/alkitab/playlist", handleBiblePlaylistAPI(settingsPath))
+	mux.HandleFunc("/api/alkitab/playlist/", handleBiblePlaylistAPI(settingsPath))
 
 	// Static File Server
 	fileServer := http.FileServer(http.Dir(baseDir))

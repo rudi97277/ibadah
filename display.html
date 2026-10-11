@@ -507,12 +507,66 @@
         if (e.key === 'f' || e.key === 'F' || e.key === 'F11') {
           e.preventDefault();
           if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen().catch(() => {});
+            document.documentElement.requestFullscreen().catch((err) => {
+              console.warn('[Fullscreen API] Gagal masuk fullscreen:', err.message);
+            });
           } else {
             document.exitFullscreen().catch(() => {});
           }
         }
       });
+
+      // Auto-simulate keypress on window open
+      function triggerAutoFullscreenKeyPress() {
+        if (document.fullscreenElement) return;
+
+        // 1. Simulasikan event KeyboardEvent 'F11'
+        try {
+          const f11Event = new KeyboardEvent('keydown', {
+            key: 'F11',
+            code: 'F11',
+            keyCode: 122,
+            which: 122,
+            bubbles: true,
+            cancelable: true,
+            view: window
+          });
+          window.dispatchEvent(f11Event);
+        } catch (e) {
+          console.warn('Simulated F11 keydown error:', e);
+        }
+
+        // 2. Simulasikan event KeyboardEvent 'f'
+        try {
+          const fEvent = new KeyboardEvent('keydown', {
+            key: 'f',
+            code: 'KeyF',
+            keyCode: 70,
+            which: 70,
+            bubbles: true,
+            cancelable: true,
+            view: window
+          });
+          window.dispatchEvent(fEvent);
+        } catch (e) {
+          console.warn('Simulated key F error:', e);
+        }
+
+        // 3. Percobaan langsung requestFullscreen
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch((err) => {
+            console.warn('[Auto-Fullscreen] Ditolak browser (memerlukan klik fisik pengguna):', err.message);
+          });
+        }
+      }
+
+      // Jalankan percobaan auto-keypress saat halaman selesai dimuat & dengan delay pendek
+      if (document.readyState === 'complete') {
+        triggerAutoFullscreenKeyPress();
+      } else {
+        window.addEventListener('load', triggerAutoFullscreenKeyPress);
+      }
+      setTimeout(triggerAutoFullscreenKeyPress, 300);
     })();
   </script>
 </body>
