@@ -6,34 +6,48 @@
     "time_signature": "",
     "author": "",
     "is_custom": true,
+    "audio": {
+      "instrumental": "audio/instrumental/misi-kita.mp3"
+    },
     "verses": [
       {
         "type": "verse",
         "label": "1/2",
         "lines": [
-          "Kita terpanggil, untuk b'ritakan, hanya Yesuslah jalan",
-          "Rendahkan hati, lakukan tugas, kerjakanlah tiap hari",
-          "Nubuat dig'napi, janganlah lengah, kabarkan tentang Yesus",
-          "Yang Mahakasih, s'rahkan hidup-Nya, Dialah Jurus'lamat"
+          "Kita terpanggil, untuk b'ritakan",
+          "Hanya Yesuslah jalan",
+          "Rendahkan hati, lakukan tugas",
+          "Kerjakanlah tiap hari",
+          "Nubuat dig'napi, janganlah lengah",
+          "Kabarkan tentang Yesus",
+          "Yang Mahakasih, s'rahkan hidup-Nya",
+          "Dialah Jurus'lamat"
         ]
       },
       {
         "type": "chorus",
         "label": "Refrein",
         "lines": [
-          "Berdasar Alkitab, tekun pada misi, hingga lihat Tuhan datang",
-          "Dengar suara t'rompet, merdu membahana, mulia kedatangan-Nya",
-          "Raja s'gala raja, agung dan berjaya, sungguh mulia hari itu"
+          "Berdasar Alkitab, tekun pada misi",
+          "Hingga lihat Tuhan datang",
+          "Dengar suara t'rompet, merdu membahana",
+          "Mulia kedatangan-Nya",
+          "Raja s'gala raja, agung dan berjaya",
+          "Sungguh mulia hari itu"
         ]
       },
       {
         "type": "verse",
         "label": "2/2",
         "lines": [
-          "Mari berdoa 'tuk hujan akhir, bersatu kita jalan",
-          "Bergandeng tangan, pergi kabarkan, agar dunia percaya",
-          "Dialah Tuhan yang maha tinggi, sembah puji pada-Nya",
-          "Mukjizat nyata oleh kuasa Roh bila kita setia"
+          "Mari berdoa 'tuk hujan akhir",
+          "Bersatu kita jalan",
+          "Bergandeng tangan, pergi kabarkan",
+          "Agar dunia percaya",
+          "Dialah Tuhan yang maha tinggi",
+          "Sembah puji pada-Nya",
+          "Mukjizat nyata oleh kuasa Roh",
+          "Bila kita setia"
         ]
       }
     ]
@@ -45,17 +59,20 @@
     "time_signature": "",
     "author": "",
     "is_custom": true,
+    "audio": {
+      "instrumental": "audio/instrumental/ssa.mp3"
+    },
     "verses": [
       {
         "type": "verse",
-        "label": "",
+        "label": "1/1",
         "lines": [
           "Dengar suara trompet membahana",
           "Tanda Yesus datang s'bagai Raja",
           "Menjemput kita anak yang setia",
           "Diangkat, dibawa ke Surga",
           "Ayo kita siap dan sedia",
-          "b'ritakanlah ke seluruh dunia",
+          "B'ritakanlah ke seluruh dunia",
           "Agar dunia mau percaya",
           "Yesuslah jalan kes'lamatan",
           "Misi kita, agar dunia",

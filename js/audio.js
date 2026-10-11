@@ -66,8 +66,12 @@ export function getSongAudioSrc(song) {
   if (!isNaN(num) && num > 0) {
     return `audio/${folder}/${num}.mp3`;
   }
-  if (song.audio && song.audio.instrumental) {
-    return song.audio.instrumental;
+  const customSrc = (song.audio && song.audio.instrumental) || song.instrumental;
+  if (customSrc) {
+    if (customSrc.startsWith('http://') || customSrc.startsWith('https://') || customSrc.startsWith('/') || customSrc.startsWith('audio/')) {
+      return customSrc;
+    }
+    return `audio/${folder}/${customSrc}`;
   }
   return null;
 }

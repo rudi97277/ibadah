@@ -256,7 +256,36 @@ Setiap lagu memiliki struktur data lengkap hasil konversi API resmi GMAHK:
 
 ---
 
-### 4. Skema Data Alkitab TB (`alkitab_tb.txt`)
+### 4. Skema Data Lagu Tambahan (`custom_songs.json`)
+Lagu kustom/tambahan mandiri disimpan dalam `custom_songs.json`:
+```json
+{
+  "id": "misi-kita",
+  "title": "Misi Kita",
+  "key": "G",
+  "time_signature": "4/4",
+  "author": "Pdt. X",
+  "is_custom": true,
+  "audio": {
+    "instrumental": "audio/instrumental/misi-kita.mp3"
+  },
+  "verses": [
+    {
+      "type": "verse",
+      "label": "1/2",
+      "lines": ["Kita terpanggil, untuk b'ritakan", "Hanya Yesuslah jalan"]
+    }
+  ]
+}
+```
+* **Audio Instrumental Link**:
+  * Standar: `"audio": { "instrumental": "audio/instrumental/nama-lagu.mp3" }`
+  * Shorthand fleksibel: `"audio": { "instrumental": "nama-lagu.mp3" }` atau `"instrumental": "nama-lagu.mp3"` (otomatis dipetakan oleh `js/audio.js` ke folder `audio/instrumental/`).
+  * URL eksternal: `"https://..."` juga didukung langsung.
+
+---
+
+### 5. Skema Data Alkitab TB (`alkitab_tb.txt`)
 Format Tab-Separated Values (TSV) tanpa header:
 * **Kolom 1**: Nomor Urut Ayat Global (1 s.d. 31084)
 * **Kolom 2**: ID Kitab (1 s.d. 66)
