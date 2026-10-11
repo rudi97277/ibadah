@@ -1,7 +1,8 @@
 import { state, findSong, parsePlaylistItem, buildSlideSequence } from './state.js';
-import { renderSlide, renderFullSong, renderVerseJumpPills, updateBackgroundDisplay } from './render.js';
+import { renderSlide, renderVerseJumpPills, updateBackgroundDisplay } from './render.js';
 import { updateActiveDrawerItem } from './drawer.js';
 import { loadAllSongs, pickRandomBackground } from './song-loader.js';
+import { handleSongChangedForAudio } from './audio.js';
 
 const $ = (id) => document.getElementById(id);
 
@@ -20,13 +21,15 @@ export async function loadSong(songIdOrSpec, slideIdx = 0) {
   }
 
   state.currentPlaylistItem = songIdOrSpec;
-  const isNewSong = (state.currentSongId !== (song.id || song.number || parsed.songId));
-  state.currentSongId = song.id || song.number || parsed.songId;
+  const newSongId = song.id || song.number || parsed.songId;
+  const isNewSong = (String(state.currentSongId) !== String(newSongId));
+  state.currentSongId = newSongId;
   state.currentSongNumber = song.number || state.currentSongId;
   if (isNewSong && state.appSettings.background_mode === 'random' && state.availableBackgrounds.length > 0) {
     state.currentBgImage = pickRandomBackground();
     updateBackgroundDisplay();
   }
+  handleSongChangedForAudio(song, isNewSong);
 
   const jumpNumInput = $('jump-num-input');
   if (jumpNumInput) jumpNumInput.value = song.number ? song.number : '';
@@ -44,7 +47,6 @@ export async function loadSong(songIdOrSpec, slideIdx = 0) {
   }
 
   renderSlide(song, slideIdx);
-  renderFullSong(song, parsed.verseFilter);
   renderVerseJumpPills(state.currentSlideSequence, slideIdx);
   updateActiveDrawerItem(state.currentSongId);
 

@@ -4,7 +4,7 @@ import { parseCustomSongLyrics } from './song-utils.js';
 import { loadSong } from './navigation.js';
 import { renderDrawerList } from './drawer.js';
 
-export { buildSlideSequence, buildFullSongSequence, parseCustomSongLyrics, getMaxLinesForFontSize, getMaxCharsForFontSize, splitVerseIntoPages, parseVerseFilter, parsePlaylistItem } from './song-utils.js';
+export { buildSlideSequence, parseCustomSongLyrics, getMaxLinesForFontSize, getMaxCharsForFontSize, splitVerseIntoPages, parseVerseFilter, parsePlaylistItem } from './song-utils.js';
 export { addToPlaylist, removeFromPlaylist, movePlaylistItem, applyBatchPlaylistInput, clearPlaylist, updatePlaylistBadge, renderPlaylistModal } from './playlist.js';
 export { loadBackgrounds, pickRandomBackground, loadAllSongs, loadCustomSongs, loadAppSettings, connectDiskFileHandle } from './song-loader.js';
 export { loadSong, nextSlide, prevSlide, nextSong, prevSong } from './navigation.js';
@@ -25,6 +25,7 @@ export const defaultSettings = {
   autohide_nav: true,
   auto_split_long_verses: true,
   refrain_interleaving: true,
+  projector_font_scale: 1.0,
   worship_playlist: []
 };
 
@@ -36,7 +37,6 @@ export const state = {
   currentPlaylistItem: null,
   currentVerseIndex: 0,
   currentSlideSequence: [],
-  isFullSongMode: false,
   fontSizeRem: 3.4,
   isNavAutoHiding: true,
   availableBackgrounds: [],
@@ -46,6 +46,7 @@ export const state = {
   diskFileHandle: null,
   isProjectorConnected: false,
   isLiveBroadcasting: false,
+  isAudioPlaying: false,
   appSettings: { ...defaultSettings }
 };
 
@@ -118,6 +119,7 @@ export async function saveAppSettings(notify = false) {
   });
 
   if ($('setting-font-size')?.value) state.appSettings.font_size_lagusion_rem = parseFloat($('setting-font-size').value);
+  if ($('setting-projector-scale')?.value) state.appSettings.projector_font_scale = parseFloat($('setting-projector-scale').value);
   if ($('setting-stroke-width')?.value) state.appSettings.text_stroke_width_px = parseFloat($('setting-stroke-width').value);
   if ($('setting-bg-overlay')?.value) state.appSettings.background_overlay_opacity = parseFloat($('setting-bg-overlay').value);
   if ($('setting-show-meta')) state.appSettings.show_metadata = $('setting-show-meta').checked;

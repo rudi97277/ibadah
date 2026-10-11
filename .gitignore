@@ -1,1 +1,7 @@
 server-*
+graphify-out/*
+.commandcode/*
+sheets/*
+audio/*
+ocr-result/*
+all_song_new/*

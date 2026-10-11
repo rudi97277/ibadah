@@ -41,6 +41,7 @@
       height: 45px;
       z-index: 49;
       background: transparent;
+      display: none;
     }
 
     .bottom-hover-zone {
@@ -51,6 +52,7 @@
       height: 45px;
       z-index: 49;
       background: transparent;
+      display: none;
     }
 
     .top-toolbar {
@@ -63,13 +65,15 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 20px;
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(8px);
       border-bottom: 1px solid #e2e8f0;
       z-index: 50;
       opacity: 1;
-      transform: none;
+      transform: translateY(0);
       pointer-events: auto;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .bottom-toolbar {
@@ -82,13 +86,65 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 20px;
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(8px);
       border-top: 1px solid #e2e8f0;
       z-index: 50;
       opacity: 1;
-      transform: none;
+      transform: translateY(0);
       pointer-events: auto;
       box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.05);
+      transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Auto-Hide Toolbar Behavior (When autohide_nav setting is enabled) */
+    body.autohide-enabled .top-hover-zone,
+    body.autohide-enabled .bottom-hover-zone {
+      display: block;
+    }
+
+    body.autohide-enabled .top-toolbar {
+      opacity: 0;
+      transform: translateY(-100%);
+      pointer-events: none;
+    }
+
+    body.autohide-enabled .bottom-toolbar {
+      opacity: 0;
+      transform: translateY(100%);
+      pointer-events: none;
+    }
+
+    body.autohide-enabled .top-hover-zone:hover ~ .top-toolbar,
+    body.autohide-enabled .top-toolbar:hover,
+    body.autohide-enabled .top-toolbar.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    body.autohide-enabled .bottom-hover-zone:hover ~ .bottom-toolbar,
+    body.autohide-enabled .bottom-toolbar:hover,
+    body.autohide-enabled .bottom-toolbar.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    body.autohide-enabled .top-toolbar.force-hide {
+      opacity: 0 !important;
+      transform: translateY(-100%) !important;
+      pointer-events: none !important;
+    }
+
+    body.autohide-enabled .bottom-toolbar.force-hide {
+      opacity: 0 !important;
+      transform: translateY(100%) !important;
+      pointer-events: none !important;
+    }
+
+    body.autohide-enabled .slide-viewport {
+      padding: 40px;
     }
 
     .toolbar-group {
@@ -561,8 +617,7 @@
 <body>
   <div id="app">
     <!-- Hover Zones -->
-    <div class="top-hover-zone"></div>
-    <div class="bottom-hover-zone"></div>
+    <div class="top-hover-zone" id="top-hover-zone"></div>
 
     <!-- Top Toolbar -->
     <header class="top-toolbar" id="top-toolbar">
@@ -572,9 +627,6 @@
           📋 Urutan Ayat <span class="badge-count" id="playlist-count">0</span>
         </button>
         <a href="/" class="btn" title="Buka Lagu Sion">🎵 Lagu Sion</a>
-        <button class="btn btn-primary" id="btn-open-projector" title="Buka Layar Proyektor Khusus untuk Monitor 2">
-          📺 Proyektor <span id="projector-status-dot" style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #94a3b8; margin-left: 4px;" title="Status Proyektor"></span>
-        </button>
       </div>
 
       <div class="toolbar-group">
@@ -583,13 +635,15 @@
       </div>
 
       <div class="toolbar-group">
+        <button class="btn btn-primary" id="btn-open-projector" title="Buka Layar Proyektor Khusus untuk Monitor 2">
+          📺 Proyektor <span id="projector-status-dot" style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #94a3b8; margin-left: 4px;" title="Status Proyektor"></span>
+        </button>
         <button class="btn" id="btn-live-toggle" title="Tayangkan ke Layar Proyektor (F5 / Enter)" style="font-weight: 700; color: #16a34a; border-color: #86efac; background: #f0fdf4; min-width: 125px; justify-content: center;">
           ▶ Tayangkan
         </button>
         <button class="btn" id="btn-toggle-full-mode" title="Ubah Tampilan Slide / Tampilkan Semua">📄 Tampilkan Semua</button>
         <button class="btn btn-icon" id="btn-font-dec" title="Kecilkan Font (-)">A-</button>
         <button class="btn btn-icon" id="btn-font-inc" title="Besarkan Font (+)">A+</button>
-        <button class="btn btn-primary" id="btn-fullscreen" title="Layar Penuh / Fullscreen (F / F11)">⛶ Fullscreen</button>
         <button class="btn btn-icon" id="btn-settings" title="Pengaturan">⚙️</button>
       </div>
     </header>
@@ -616,6 +670,7 @@
     </div>
 
     <!-- Bottom Toolbar -->
+    <div class="bottom-hover-zone" id="bottom-hover-zone"></div>
     <footer class="bottom-toolbar" id="bottom-toolbar">
       <div class="toolbar-group">
         <button class="btn" id="btn-prev-verse" title="Ayat Sebelumnya (Panah Kiri / Page Up)">◀ Sblm</button>
@@ -660,6 +715,14 @@
         <div style="display: flex; align-items: center; gap: 8px;">
           <input type="range" id="setting-font-size" min="1.8" max="7.0" step="0.1" value="3.6" style="cursor: pointer;">
           <span id="font-size-val" style="font-size: 13px; font-weight: 700; width: 45px; color: #0f172a;">3.6rem</span>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9;">
+        <label for="setting-projector-scale" style="font-size: 14px; font-weight: 600; color: #334155;">Pengali Huruf Layar Proyektor:</label>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <input type="range" id="setting-projector-scale" min="0.8" max="2.0" step="0.05" value="1.0" style="cursor: pointer;">
+          <span id="projector-scale-val" style="font-size: 13px; font-weight: 700; width: 45px; color: #0f172a;">1.00x</span>
         </div>
       </div>
 
@@ -817,7 +880,6 @@
       const btnFontDec = document.getElementById('btn-font-dec');
       const btnFontInc = document.getElementById('btn-font-inc');
       const btnBlank = document.getElementById('btn-blank');
-      const btnFullscreen = document.getElementById('btn-fullscreen');
       const blankScreen = document.getElementById('blank-screen');
       const toast = document.getElementById('toast');
 
@@ -929,6 +991,7 @@
           verseNum: slide.verse,
           text: slide.slideText,
           fontSizeRem: fontSizeRem,
+          projectorFontScale: (appSettings.projector_font_scale !== undefined) ? appSettings.projector_font_scale : 1.0,
           fontFamily: appSettings.font_family,
           textColor: appSettings.text_color || '#000000',
           strokeColor: appSettings.text_stroke_color || '#ffffff',
@@ -970,6 +1033,8 @@
       const settingFontFamily = document.getElementById('setting-font-family');
       const settingFontSize = document.getElementById('setting-font-size');
       const fontSizeVal = document.getElementById('font-size-val');
+      const settingProjectorScale = document.getElementById('setting-projector-scale');
+      const projectorScaleVal = document.getElementById('projector-scale-val');
       const settingTextColor = document.getElementById('setting-text-color');
       const settingStrokeColor = document.getElementById('setting-stroke-color');
       const settingStrokeWidth = document.getElementById('setting-stroke-width');
@@ -1108,6 +1173,10 @@
         if (settingBgOverlay) settingBgOverlay.value = bgOverlay;
         if (bgOverlayVal) bgOverlayVal.textContent = `${Math.round(bgOverlay * 100)}%`;
 
+        const savedProjectorScale = (appSettings.projector_font_scale !== undefined) ? appSettings.projector_font_scale : 1.0;
+        if (settingProjectorScale) settingProjectorScale.value = savedProjectorScale;
+        if (projectorScaleVal) projectorScaleVal.textContent = `${parseFloat(savedProjectorScale).toFixed(2)}x`;
+
         updateBackgroundDisplay();
 
         if (settingSplitVerses) {
@@ -1121,11 +1190,13 @@
         if (settingAutohideNav) {
           settingAutohideNav.checked = (appSettings.autohide_nav !== false);
         }
+        document.body.classList.toggle('autohide-enabled', (appSettings.autohide_nav !== false));
       }
 
       async function saveAppSettings() {
         if (settingFontFamily) appSettings.font_family = settingFontFamily.value;
         if (settingFontSize) appSettings.font_size_alkitab_rem = parseFloat(settingFontSize.value);
+        if (settingProjectorScale) appSettings.projector_font_scale = parseFloat(settingProjectorScale.value);
         if (settingTextColor) appSettings.text_color = settingTextColor.value;
         if (settingStrokeColor) appSettings.text_stroke_color = settingStrokeColor.value;
         if (settingStrokeWidth) appSettings.text_stroke_width_px = parseFloat(settingStrokeWidth.value);
@@ -1729,14 +1800,6 @@
           });
         }
 
-        btnFullscreen.addEventListener('click', () => {
-          if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen().catch(() => {});
-          } else {
-            document.exitFullscreen().catch(() => {});
-          }
-        });
-
         slideViewport.addEventListener('click', (e) => {
           if (e.clientX > window.innerWidth / 2) {
             nextVerse();
@@ -1770,6 +1833,15 @@
           rebuildSlideSequenceAndKeepPosition();
           document.querySelectorAll('.full-verse-text').forEach(el => el.style.fontSize = `${fontSizeRem * 0.65}rem`);
         });
+        if (settingProjectorScale) {
+          settingProjectorScale.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            appSettings.projector_font_scale = val;
+            if (projectorScaleVal) projectorScaleVal.textContent = `${val.toFixed(2)}x`;
+            syncCurrentToProjector(false);
+          });
+          settingProjectorScale.addEventListener('change', saveAppSettings);
+        }
         if (settingTextColor) {
           settingTextColor.addEventListener('input', (e) => {
             document.documentElement.style.setProperty('--lyrics-text-color', e.target.value);
@@ -1820,7 +1892,11 @@
 
         settingSplitVerses.addEventListener('change', saveAppSettings);
         settingShowVerseNum.addEventListener('change', saveAppSettings);
-        settingAutohideNav.addEventListener('change', saveAppSettings);
+        settingAutohideNav.addEventListener('change', () => {
+          appSettings.autohide_nav = settingAutohideNav.checked;
+          document.body.classList.toggle('autohide-enabled', appSettings.autohide_nav);
+          saveAppSettings();
+        });
 
         // Drawer
         btnOpenDrawer.addEventListener('click', () => booksDrawer.classList.add('open'));
@@ -1929,16 +2005,6 @@
               blankScreen.classList.toggle('active');
               setTimeout(() => syncCurrentToProjector(true), 50);
               break;
-            case 'f':
-            case 'F':
-            case 'F11':
-              if (e.key !== 'F11') e.preventDefault();
-              if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(() => {});
-              } else {
-                document.exitFullscreen().catch(() => {});
-              }
-              break;
             case 'Escape':
               blankScreen.classList.remove('active');
               booksDrawer.classList.remove('open');
@@ -1955,6 +2021,72 @@
 
         window.addEventListener('resize', () => {
           renderSlide();
+        });
+
+        startAutoHideToolbars();
+      }
+
+      function startAutoHideToolbars() {
+        const topToolbar = document.getElementById('top-toolbar');
+        const bottomToolbar = document.getElementById('bottom-toolbar');
+        const verseInput = document.getElementById('verse-search-input');
+
+        const checkOverlayOpen = () =>
+          booksDrawer?.classList.contains('open') ||
+          settingsModalBackdrop?.classList.contains('open') ||
+          playlistModalBackdrop?.classList.contains('open');
+
+        window.addEventListener('mousemove', (e) => {
+          if (!document.body.classList.contains('autohide-enabled')) {
+            topToolbar?.classList.add('show');
+            bottomToolbar?.classList.add('show');
+            return;
+          }
+
+          if (checkOverlayOpen()) {
+            topToolbar?.classList.add('show');
+            bottomToolbar?.classList.add('show');
+            return;
+          }
+
+          const isInputFocused = (document.activeElement === verseInput);
+
+          if (e.clientY <= 65) {
+            topToolbar?.classList.add('show');
+          } else if (topToolbar && !topToolbar.matches(':hover') && !isInputFocused) {
+            topToolbar.classList.remove('show');
+          }
+
+          if (e.clientY >= window.innerHeight - 60) {
+            bottomToolbar?.classList.add('show');
+          } else if (bottomToolbar && !bottomToolbar.matches(':hover')) {
+            bottomToolbar.classList.remove('show');
+          }
+        });
+
+        document.addEventListener('mouseleave', () => {
+          if (document.body.classList.contains('autohide-enabled') && !checkOverlayOpen()) {
+            topToolbar?.classList.remove('show');
+            bottomToolbar?.classList.remove('show');
+          }
+        });
+
+        document.addEventListener('mouseup', (e) => {
+          const btn = e.target.closest('button');
+          if (btn) setTimeout(() => btn.blur(), 50);
+        });
+
+        document.addEventListener('fullscreenchange', () => {
+          if (document.body.classList.contains('autohide-enabled')) {
+            topToolbar?.classList.remove('show');
+            topToolbar?.classList.add('force-hide');
+            bottomToolbar?.classList.remove('show');
+            bottomToolbar?.classList.add('force-hide');
+            setTimeout(() => {
+              topToolbar?.classList.remove('force-hide');
+              bottomToolbar?.classList.remove('force-hide');
+            }, 1200);
+          }
         });
       }
 

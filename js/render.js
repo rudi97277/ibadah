@@ -1,4 +1,4 @@
-import { state, getLaguSionList, buildFullSongSequence } from './state.js';
+import { state, getLaguSionList } from './state.js';
 import { syncCurrentToProjector } from './projector.js';
 import { loadSong } from './navigation.js';
 import { updatePlaylistBadge } from './playlist.js';
@@ -110,7 +110,11 @@ export function applySettingsToUI() {
   document.documentElement.style.setProperty('--lyrics-stroke-width', `${strokeWidth}px`);
   document.documentElement.style.setProperty('--bg-overlay-opacity', bgOverlay);
 
+  const projectorScale = (s.projector_font_scale !== undefined) ? s.projector_font_scale : 1.0;
+
   const valMap = {
+    'setting-projector-scale': projectorScale,
+    'projector-scale-val': `${parseFloat(projectorScale).toFixed(2)}x`,
     'setting-text-color': textColor,
     'setting-stroke-color': strokeColor,
     'setting-stroke-width': strokeWidth,
@@ -140,6 +144,7 @@ export function applySettingsToUI() {
   if ($('disp-meta')) $('disp-meta').style.display = checkMap['setting-show-meta'] ? 'flex' : 'none';
   if ($('full-disp-meta')) $('full-disp-meta').style.display = checkMap['setting-show-meta'] ? 'flex' : 'none';
   state.isNavAutoHiding = checkMap['setting-autohide-nav'];
+  document.body.classList.toggle('autohide-enabled', state.isNavAutoHiding);
 
   updatePlaylistBadge();
 }
@@ -185,54 +190,6 @@ export function renderSlide(song, slideIdx) {
   }
 
   syncCurrentToProjector(false);
-}
-
-export function renderFullSong(song, verseFilter = null) {
-  const fullDispTitle = $('full-disp-title');
-  const fullDispKey = $('full-disp-key');
-  const fullDispTime = $('full-disp-time');
-  const fullDispAuthor = $('full-disp-author');
-  const fullVersesList = $('full-verses-list');
-
-  const titleText = (song && song.number)
-    ? `${String(song.number).padStart(3, '0')} ${song.title.toUpperCase()}`
-    : (song ? song.title.toUpperCase() : '');
-  if (fullDispTitle) fullDispTitle.textContent = titleText;
-
-  if (fullDispKey) {
-    fullDispKey.textContent = (song && song.key) ? `Nada: ${song.key}` : '';
-    fullDispKey.style.display = (song && song.key) ? 'inline-block' : 'none';
-  }
-  if (fullDispTime) {
-    fullDispTime.textContent = (song && song.time_signature) ? `Ketukan: ${song.time_signature}` : '';
-    fullDispTime.style.display = (song && song.time_signature) ? 'inline-block' : 'none';
-  }
-  if (fullDispAuthor) {
-    fullDispAuthor.textContent = (song && song.author) ? song.author : ((song && song.original_title) || '');
-    fullDispAuthor.style.display = (song && (song.author || song.original_title)) ? 'inline-block' : 'none';
-  }
-
-  if (!fullVersesList) return;
-  fullVersesList.innerHTML = '';
-  const itemsToRender = buildFullSongSequence(song, state.appSettings, verseFilter);
-
-  itemsToRender.forEach((v, idx) => {
-    const block = document.createElement('div');
-    block.className = 'full-verse-block';
-
-    const label = document.createElement('div');
-    label.className = 'full-verse-label';
-    if (v.isChorus) label.classList.add('chorus');
-    label.textContent = v.displayLabel || v.label || (v.isChorus ? 'Refrein' : `${idx + 1}`);
-
-    const lines = document.createElement('div');
-    lines.className = 'full-verse-lines';
-    lines.style.fontSize = `${state.fontSizeRem}rem`;
-    lines.textContent = v.lines ? v.lines.join('\n') : (v.text || '');
-
-    block.append(label, lines);
-    fullVersesList.appendChild(block);
-  });
 }
 
 export function renderVerseJumpPills(sequence, currentIdx) {

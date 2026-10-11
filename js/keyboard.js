@@ -37,17 +37,6 @@ export function setupKeyboardShortcuts() {
       return;
     }
 
-    if (e.key === 'f' || e.key === 'F' || e.key === 'F11') {
-      if (e.key !== 'F11') e.preventDefault();
-      if (!document.fullscreenElement) {
-        hideToolbarsImmediately();
-        document.documentElement.requestFullscreen().catch(() => {});
-      } else {
-        document.exitFullscreen().catch(() => {});
-      }
-      return;
-    }
-
     if (e.key === 'm' || e.key === 'M' || e.key === '/') {
       e.preventDefault();
       if ($('drawer')?.classList.contains('open')) closeDrawer();

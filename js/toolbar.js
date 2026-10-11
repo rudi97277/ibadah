@@ -6,7 +6,7 @@ export function hideToolbarsImmediately() {
   $('top-toolbar')?.classList.remove('show');
   $('top-toolbar')?.classList.add('force-hide');
   $('bottom-toolbar')?.classList.remove('show');
-  $('bottom-toolbar')?.classList.remove('force-hide');
+  $('bottom-toolbar')?.classList.add('force-hide');
   suppressHoverUntilMove = true;
 
   setTimeout(() => {
@@ -34,6 +34,12 @@ export function startAutoHideTimer() {
       suppressHoverUntilMove = false;
     }
 
+    if (!document.body.classList.contains('autohide-enabled')) {
+      topToolbar?.classList.add('show');
+      bottomToolbar?.classList.add('show');
+      return;
+    }
+
     if (checkOverlayOpen()) {
       topToolbar?.classList.add('show');
       bottomToolbar?.classList.add('show');
@@ -56,7 +62,7 @@ export function startAutoHideTimer() {
   });
 
   document.addEventListener('mouseleave', () => {
-    if (!checkOverlayOpen()) {
+    if (document.body.classList.contains('autohide-enabled') && !checkOverlayOpen()) {
       topToolbar?.classList.remove('show');
       bottomToolbar?.classList.remove('show');
     }

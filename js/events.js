@@ -5,6 +5,7 @@ import { renderPlaylistModal, updateCustomSongsCount } from './render.js';
 import { openProjectorWindow, toggleLiveBroadcast, syncCurrentToProjector, initProjector } from './projector.js';
 import { hideToolbarsImmediately, startAutoHideTimer } from './toolbar.js';
 import { setupKeyboardShortcuts } from './keyboard.js';
+import { toggleAudioPlayback, updateAudioToggleUI } from './audio.js';
 
 export { hideToolbarsImmediately, startAutoHideTimer } from './toolbar.js';
 export { openDrawer, closeDrawer, filterSongs } from './drawer.js';
@@ -19,7 +20,6 @@ export function setupEventListeners() {
   const slideViewport = $('slide-viewport');
   if (slideViewport) {
     slideViewport.addEventListener('click', (e) => {
-      if (state.isFullSongMode) return;
       const rect = slideViewport.getBoundingClientRect();
       const clickX = e.clientX - rect.left;
       if (clickX < rect.width * 0.2) prevSlide();
@@ -95,27 +95,9 @@ export function setupEventListeners() {
     });
   });
 
-  on('btn-view-mode', 'click', () => {
-    state.isFullSongMode = !state.isFullSongMode;
-    const slideContent = $('slide-content');
-    const fullSongContent = $('full-song-content');
-    const btnViewMode = $('btn-view-mode');
-    if (state.isFullSongMode) {
-      if (slideContent) slideContent.style.display = 'none';
-      if (fullSongContent) fullSongContent.classList.add('active');
-      if (btnViewMode) btnViewMode.textContent = '📽️ Mode Slide';
-    } else {
-      if (slideContent) slideContent.style.display = 'flex';
-      if (fullSongContent) fullSongContent.classList.remove('active');
-      if (btnViewMode) btnViewMode.textContent = '📄 Tampilkan Semua';
-    }
-  });
-
   const adjustFontSize = (delta) => {
     state.fontSizeRem = Math.min(8.0, Math.max(1.8, state.fontSizeRem + delta));
     if ($('disp-lyrics')) $('disp-lyrics').style.fontSize = `${state.fontSizeRem}rem`;
-    document.documentElement.style.setProperty('--full-verse-font-size', `${state.fontSizeRem}rem`);
-    document.querySelectorAll('.full-verse-lines').forEach(el => el.style.fontSize = `${state.fontSizeRem}rem`);
     if ($('setting-font-size')) $('setting-font-size').value = state.fontSizeRem;
     if ($('font-size-val')) $('font-size-val').textContent = `${state.fontSizeRem.toFixed(1)}rem`;
     saveAppSettings(false);
@@ -124,17 +106,9 @@ export function setupEventListeners() {
   on('btn-font-inc', 'click', () => adjustFontSize(0.3));
   on('btn-font-dec', 'click', () => adjustFontSize(-0.3));
 
-  on('btn-fullscreen', 'click', () => {
-    if (!document.fullscreenElement) {
-      hideToolbarsImmediately();
-      document.documentElement.requestFullscreen().catch((err) => console.warn('Fullscreen failed:', err));
-    } else {
-      document.exitFullscreen().catch(() => {});
-    }
-  });
-
   on('btn-open-projector', 'click', openProjectorWindow);
   on('btn-live-toggle', 'click', toggleLiveBroadcast);
+  on('btn-audio-toggle', 'click', toggleAudioPlayback);
 
   const toggleBlank = () => {
     const blank = $('blank-screen');
@@ -178,11 +152,20 @@ export function setupEventListeners() {
     settingFontSize.addEventListener('input', (e) => {
       state.fontSizeRem = parseFloat(e.target.value);
       if ($('disp-lyrics')) $('disp-lyrics').style.fontSize = `${state.fontSizeRem}rem`;
-      document.documentElement.style.setProperty('--full-verse-font-size', `${state.fontSizeRem}rem`);
-      document.querySelectorAll('.full-verse-lines').forEach(el => el.style.fontSize = `${state.fontSizeRem}rem`);
       if ($('font-size-val')) $('font-size-val').textContent = `${state.fontSizeRem.toFixed(1)}rem`;
     });
     settingFontSize.addEventListener('change', () => saveAppSettings(false));
+  }
+
+  const settingProjectorScale = $('setting-projector-scale');
+  if (settingProjectorScale) {
+    settingProjectorScale.addEventListener('input', (e) => {
+      const val = parseFloat(e.target.value);
+      state.appSettings.projector_font_scale = val;
+      if ($('projector-scale-val')) $('projector-scale-val').textContent = `${val.toFixed(2)}x`;
+      syncCurrentToProjector(false);
+    });
+    settingProjectorScale.addEventListener('change', () => saveAppSettings(false));
   }
 
   const liveCssMap = [
@@ -252,6 +235,7 @@ export async function init() {
   } catch (e) {}
 
   await loadSong(initialSong, initialSlide);
+  updateAudioToggleUI();
   setupEventListeners();
   startAutoHideTimer();
 }

@@ -39,7 +39,7 @@
       justify-content: center;
       width: 100vw;
       height: 100vh;
-      padding: 40px 48px;
+      padding: 30px 40px;
       position: relative;
       cursor: pointer;
       background-color: var(--slide-bg-color, #ffffff);
@@ -82,13 +82,28 @@
     }
 
     /* Content Containers */
-    .content-container, .standby-screen {
+    .content-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      position: relative;
+      z-index: 2;
+      padding-top: 8px;
+      transition: opacity 0.15s ease-in-out;
+    }
+
+    .standby-screen {
       width: 100%;
       height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      text-align: center;
+      color: #64748b;
       position: relative;
       z-index: 2;
       transition: opacity 0.15s ease-in-out;
@@ -97,47 +112,50 @@
     /* Song Mode Styles */
     .song-header {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
+      flex-shrink: 0;
+      width: 100%;
     }
 
     .song-title {
-      font-size: 2.2rem;
+      font-size: 3.2rem;
       font-weight: 800;
       letter-spacing: -0.5px;
       color: var(--lyrics-text-color, #000000);
-      -webkit-text-stroke: calc(var(--lyrics-stroke-width, 3.5px) * 0.55) var(--lyrics-stroke-color, #ffffff);
+      -webkit-text-stroke: calc(var(--lyrics-stroke-width, 3.5px) * 0.6) var(--lyrics-stroke-color, #ffffff);
       paint-order: stroke fill;
       text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      line-height: 1.22;
     }
 
     .song-meta {
       display: flex;
-      gap: 12px;
+      gap: 14px;
       justify-content: center;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .meta-badge {
-      font-size: 1.1rem;
+      font-size: 1.25rem;
       font-weight: 700;
       color: #334155;
       background: rgba(255, 255, 255, 0.85);
       border: 1px solid rgba(0, 0, 0, 0.1);
       backdrop-filter: blur(4px);
-      padding: 4px 14px;
+      padding: 5px 18px;
       border-radius: 20px;
     }
 
     .verse-badge {
       display: inline-block;
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       font-weight: 800;
       background: #000000;
       color: #ffffff;
       border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 4px 18px;
-      border-radius: 20px;
+      padding: 5px 24px;
+      border-radius: 22px;
     }
 
     .verse-badge.is-chorus {
@@ -150,15 +168,14 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      max-width: 1350px;
-      max-height: calc(100vh - 150px);
+      max-width: 95vw;
       text-align: center;
     }
 
     .lyrics-container {
       font-size: 3.6rem;
       font-weight: 700;
-      line-height: 1.36;
+      line-height: 1.34;
       letter-spacing: -0.2px;
       color: var(--lyrics-text-color, #000000);
       -webkit-text-stroke: var(--lyrics-stroke-width, 3.5px) var(--lyrics-stroke-color, #ffffff);
@@ -172,21 +189,23 @@
     /* Bible Mode Styles */
     .bible-header {
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 12px;
+      flex-shrink: 0;
+      width: 100%;
     }
 
     .passage-badge {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 6px 28px;
-      border-radius: 28px;
+      padding: 8px 36px;
+      border-radius: 36px;
       background: #18181b;
       color: #ffffff;
       font-weight: 800;
-      font-size: 1.8rem;
+      font-size: 2.6rem;
       letter-spacing: 1px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
     }
 
     .bible-body {
@@ -195,15 +214,14 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      max-width: 1350px;
-      max-height: calc(100vh - 150px);
+      max-width: 95vw;
       text-align: center;
     }
 
     .verse-container {
       font-size: 3.6rem;
       font-weight: 700;
-      line-height: 1.42;
+      line-height: 1.38;
       color: var(--lyrics-text-color, #000000);
       -webkit-text-stroke: var(--lyrics-stroke-width, 3.5px) var(--lyrics-stroke-color, #ffffff);
       paint-order: stroke fill;
@@ -403,8 +421,12 @@
             dispSongVerseBadge.classList.remove('is-chorus');
           }
 
+          const scale = (state.projectorFontScale !== undefined) ? Number(state.projectorFontScale) : 1.0;
+          const baseSize = Number(state.fontSizeRem) || 3.4;
+          const finalFontSize = (baseSize * scale).toFixed(2);
+
           dispSongLyrics.textContent = state.lyrics || '';
-          dispSongLyrics.style.fontSize = `${state.fontSizeRem || 3.6}rem`;
+          dispSongLyrics.style.fontSize = `${finalFontSize}rem`;
           if (state.fontFamily) {
             dispSongLyrics.style.fontFamily = state.fontFamily;
           }
@@ -424,7 +446,11 @@
             dispBibleText.appendChild(verseSpan);
           }
           dispBibleText.appendChild(document.createTextNode(state.text || ''));
-          dispBibleText.style.fontSize = `${state.fontSizeRem || 3.6}rem`;
+
+          const scale = (state.projectorFontScale !== undefined) ? Number(state.projectorFontScale) : 1.0;
+          const baseSize = Number(state.fontSizeRem) || 3.4;
+          const finalFontSize = (baseSize * scale).toFixed(2);
+          dispBibleText.style.fontSize = `${finalFontSize}rem`;
           if (state.fontFamily) {
             dispBibleText.style.fontFamily = state.fontFamily;
           }

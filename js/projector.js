@@ -87,6 +87,7 @@ export function syncCurrentToProjector(force = false) {
     isChorus: !!slide.isChorus,
     lyrics: slide.text || '',
     fontSizeRem: state.fontSizeRem,
+    projectorFontScale: (state.appSettings.projector_font_scale !== undefined) ? state.appSettings.projector_font_scale : 1.0,
     fontFamily: state.appSettings.font_family,
     textColor: state.appSettings.text_color || '#000000',
     strokeColor: state.appSettings.text_stroke_color || '#ffffff',
