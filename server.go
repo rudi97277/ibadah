@@ -282,11 +282,12 @@ func parseBibleQuery(query string) (*BibleQueryResult, error) {
 		}
 	}
 
+	if len(matches) > 0 && matches[3] != "" && verseStart > maxVerseInChap {
+		return nil, fmt.Errorf("%s pasal %d hanya memiliki %d ayat", book.Name, chapter, maxVerseInChap)
+	}
+
 	if verseEnd > maxVerseInChap {
 		verseEnd = maxVerseInChap
-	}
-	if verseStart > maxVerseInChap {
-		verseStart = maxVerseInChap
 	}
 	if verseStart <= 0 {
 		verseStart = 1

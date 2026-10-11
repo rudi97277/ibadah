@@ -1,7 +1,7 @@
 import { state, saveAppSettings, saveNewCustomSong, clearPlaylist, applyBatchPlaylistInput, loadBackgrounds, loadAppSettings, loadAllSongs, loadCustomSongs, connectDiskFileHandle } from './state.js';
 import { loadSong, prevSlide, nextSlide, prevSong, nextSong } from './navigation.js';
 import { openDrawer, closeDrawer, filterSongs, renderDrawerList } from './drawer.js';
-import { renderPlaylistModal, updateCustomSongsCount } from './render.js';
+import { renderPlaylistModal, updateCustomSongsCount, showToast } from './render.js';
 import { openProjectorWindow, toggleLiveBroadcast, syncCurrentToProjector, initProjector } from './projector.js';
 import { hideToolbarsImmediately, startAutoHideTimer } from './toolbar.js';
 import { setupKeyboardShortcuts } from './keyboard.js';
@@ -80,7 +80,7 @@ export function setupEventListeners() {
     ['btn-settings', () => $('settings-modal-backdrop')?.classList.add('open')],
     ['btn-close-settings', () => $('settings-modal-backdrop')?.classList.remove('open')],
     ['btn-save-settings', () => { saveAppSettings(true); $('settings-modal-backdrop')?.classList.remove('open'); }],
-    ['btn-toggle-playlist', () => { renderPlaylistModal(); $('playlist-modal-backdrop')?.classList.add('open'); setTimeout(() => $('playlist-batch-input')?.focus(), 150); }],
+    ['btn-toggle-playlist', () => { renderPlaylistModal(true); $('playlist-modal-backdrop')?.classList.add('open'); setTimeout(() => $('playlist-batch-input')?.focus(), 150); }],
     ['btn-close-playlist', () => $('playlist-modal-backdrop')?.classList.remove('open')],
     ['btn-done-playlist', () => $('playlist-modal-backdrop')?.classList.remove('open')]
   ];
@@ -129,11 +129,14 @@ export function setupEventListeners() {
   };
   on('btn-apply-playlist-batch', 'click', applyPlaylist);
   $('playlist-batch-input')?.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') applyPlaylist();
+    if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      applyPlaylist();
+    }
   });
 
   on('btn-clear-playlist', 'click', () => {
-    if (confirm('Kosongkan semua lagu dari daftar urutan ibadah?')) clearPlaylist();
+    clearPlaylist();
   });
 
   on('btn-start-playlist', 'click', () => {
@@ -142,7 +145,7 @@ export function setupEventListeners() {
       loadSong(list[0], 0);
       $('playlist-modal-backdrop')?.classList.remove('open');
     } else {
-      alert('Silakan masukkan nomor lagu terlebih dahulu.');
+      showToast('Silakan masukkan nomor lagu terlebih dahulu');
     }
   });
 

@@ -979,11 +979,11 @@
 
       <div style="margin-bottom: 12px;">
         <label for="playlist-batch-input" style="font-size: 13px; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">
-          Input Cepat (Ketik nomor lagu/bait dipisah koma/spasi, misal: <code>322:1, 223, 73:1-2</code>):
+          Input Cepat (Ketik nomor lagu/bait dipisah koma/spasi/baris baru, misal: <code>322:1, 223, 73:1-2</code>):
         </label>
-        <div style="display: flex; gap: 8px;">
-          <input type="text" id="playlist-batch-input" class="search-input" placeholder="Contoh: 322:1, 223, 73:2" style="flex: 1; padding: 7px 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
-          <button class="btn btn-primary" id="btn-apply-playlist-batch">Set Urutan</button>
+        <div style="display: flex; gap: 8px; align-items: flex-start;">
+          <textarea id="playlist-batch-input" class="search-input" rows="3" placeholder="Contoh: 322:1, 223, 73:2&#10;atau satu per baris..." style="flex: 1; padding: 7px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; font-size: 13px; line-height: 1.4; resize: vertical;"></textarea>
+          <button class="btn btn-primary" id="btn-apply-playlist-batch" style="white-space: nowrap; align-self: flex-start; height: 38px;">Set Urutan</button>
         </div>
       </div>
 

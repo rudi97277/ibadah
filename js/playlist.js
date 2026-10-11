@@ -15,7 +15,7 @@ export function updatePlaylistBadge() {
   }
 }
 
-export function renderPlaylistModal() {
+export function renderPlaylistModal(syncInput = false) {
   const container = $('playlist-items-container');
   const hint = $('playlist-status-hint');
   const batchInput = $('playlist-batch-input');
@@ -26,9 +26,12 @@ export function renderPlaylistModal() {
   const list = Array.isArray(state.appSettings.worship_playlist) ? state.appSettings.worship_playlist : [];
   updatePlaylistBadge();
 
+  if (syncInput && batchInput) {
+    batchInput.value = list.length > 0 ? list.join(', ') : '';
+  }
+
   if (list.length === 0) {
     if (hint) hint.textContent = '0 lagu terdaftar';
-    if (batchInput) batchInput.value = '';
     container.innerHTML = `
       <div style="text-align: center; padding: 32px 16px; color: #94a3b8; font-size: 13px; line-height: 1.6;">
         🎵 <b>Belum ada lagu dalam urutan ibadah.</b><br>
@@ -40,7 +43,6 @@ export function renderPlaylistModal() {
   }
 
   if (hint) hint.textContent = `${list.length} lagu dalam antrean`;
-  if (batchInput) batchInput.value = list.join(', ');
 
   list.forEach((item, idx) => {
     const parsed = parsePlaylistItem(item);
@@ -145,28 +147,41 @@ export function movePlaylistItem(idx, direction) {
 
 export function applyBatchPlaylistInput(str) {
   if (!str) str = '';
-  const tokens = str.split(/[,\s]+/).map(t => t.trim()).filter(t => t.length > 0);
+  const rawSegments = str.split(/[\n\r,;]+/);
   const validItems = [];
-  tokens.forEach(tok => {
-    const parsed = parsePlaylistItem(tok);
-    const num = parseInt(parsed.songId);
-    if (!isNaN(num) && num >= 1 && num <= 525) {
-      if (parsed.verseFilter && parsed.verseFilter.length > 0) {
-        validItems.push(`${num}:${parsed.verseFilterStr}`);
-      } else {
-        validItems.push(num);
-      }
-    } else {
-      const found = findSong(parsed.songId);
-      if (found) {
-        const id = found.id || parsed.songId;
+
+  rawSegments.forEach(seg => {
+    const trimmed = seg.trim();
+    if (!trimmed) return;
+
+    const wholeSong = findSong(trimmed);
+    if (wholeSong && (wholeSong.is_custom || isNaN(parseInt(trimmed)))) {
+      validItems.push(wholeSong.is_custom ? wholeSong.id : wholeSong.number);
+      return;
+    }
+
+    const tokens = trimmed.split(/\s+/).filter(t => t.length > 0);
+    tokens.forEach(tok => {
+      const parsed = parsePlaylistItem(tok);
+      const num = parseInt(parsed.songId);
+      if (!isNaN(num) && num >= 1 && num <= 525) {
         if (parsed.verseFilter && parsed.verseFilter.length > 0) {
-          validItems.push(`${id}:${parsed.verseFilterStr}`);
+          validItems.push(`${num}:${parsed.verseFilterStr}`);
         } else {
-          validItems.push(id);
+          validItems.push(num);
+        }
+      } else {
+        const found = findSong(parsed.songId);
+        if (found) {
+          const id = found.id || parsed.songId;
+          if (parsed.verseFilter && parsed.verseFilter.length > 0) {
+            validItems.push(`${id}:${parsed.verseFilterStr}`);
+          } else {
+            validItems.push(id);
+          }
         }
       }
-    }
+    });
   });
 
   state.appSettings.worship_playlist = validItems;

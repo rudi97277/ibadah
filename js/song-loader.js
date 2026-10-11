@@ -109,7 +109,7 @@ export async function connectDiskFileHandle() {
   const btnConnectFile = $('btn-connect-file');
 
   if (!('showOpenFilePicker' in window)) {
-    alert('Browser ini belum mendukung File System Access API langsung. Silakan jalankan "./server-linux" atau "server-windows.exe" untuk auto-update file langsung.');
+    showToast('Browser ini belum mendukung File System Access API langsung');
     return;
   }
 

@@ -816,28 +816,23 @@
   <div class="modal-backdrop" id="playlist-modal-backdrop">
     <div class="modal">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-        <h3 style="font-size: 16px; font-weight: 700;">📋 Daftar Urutan Ayat Ibadah (Preselect)</h3>
+        <h3 style="font-size: 16px; font-weight: 700;">📋 Daftar Urutan Ayat Ibadah (Playlist)</h3>
         <button class="btn btn-icon" id="btn-close-playlist">✕</button>
       </div>
 
       <div style="margin-bottom: 12px;">
-        <label style="font-size: 12px; font-weight: 600; color: #475569; display: block; margin-bottom: 4px;">
-          Tambah Ayat (Misal: <code>Yoh 3:16</code>, <code>Mzm 23:1-6</code>, <code>Kej 1:1-3</code>):
+        <label for="playlist-batch-input" style="font-size: 13px; font-weight: 700; color: #374151; display: block; margin-bottom: 6px;">
+          Input Ayat (Ketik atau tempel referensi ayat dipisah koma/baris baru, misal: <code>Yoh 3:16, Mzm 23:1-6, Kej 1:1-3</code>):
         </label>
-        <div style="display: flex; gap: 8px;">
-          <input type="text" id="playlist-new-ref" class="search-input" placeholder="Contoh: Yoh 3:16-18" style="flex: 1;">
-          <button class="btn btn-primary" id="btn-add-to-playlist">Tambah</button>
+        <div style="display: flex; gap: 8px; align-items: flex-start;">
+          <textarea id="playlist-batch-input" class="search-input" rows="3" placeholder="Contoh:&#10;Yohanes 3:16&#10;Mazmur 23:1-6&#10;1 Korintus 13:4-8" style="flex: 1; padding: 7px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; font-size: 13px; line-height: 1.4; resize: vertical;"></textarea>
+          <button class="btn btn-primary" id="btn-apply-playlist-batch" style="white-space: nowrap; align-self: flex-start; height: 38px;">Set Urutan</button>
         </div>
       </div>
 
-      <div style="margin-bottom: 12px;">
-        <label style="font-size: 12px; font-weight: 600; color: #475569; display: block; margin-bottom: 4px;">
-          Input Cepat Sekaligus (Pisahkan dengan koma):
-        </label>
-        <div style="display: flex; gap: 8px;">
-          <input type="text" id="playlist-batch-input" class="search-input" placeholder="Contoh: Yoh 3:16, Mzm 23:1-6, Kej 1:1-3" style="flex: 1;">
-          <button class="btn" id="btn-apply-playlist-batch">Set Semua</button>
-        </div>
+      <div style="font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 6px; display: flex; justify-content: space-between;">
+        <span>DAFTAR ANTREAN AYAT:</span>
+        <span id="playlist-status-hint">0 ayat terdaftar</span>
       </div>
 
       <div style="flex: 1; overflow-y: auto; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px; min-height: 180px; max-height: 260px;" id="playlist-items-container"></div>
@@ -905,11 +900,10 @@
       const btnClosePlaylist = document.getElementById('btn-close-playlist');
       const btnDonePlaylist = document.getElementById('btn-done-playlist');
       const playlistCount = document.getElementById('playlist-count');
-      const playlistNewRef = document.getElementById('playlist-new-ref');
-      const btnAddToPlaylist = document.getElementById('btn-add-to-playlist');
       const playlistBatchInput = document.getElementById('playlist-batch-input');
       const btnApplyPlaylistBatch = document.getElementById('btn-apply-playlist-batch');
       const playlistItemsContainer = document.getElementById('playlist-items-container');
+      const playlistStatusHint = document.getElementById('playlist-status-hint');
       const btnClearPlaylist = document.getElementById('btn-clear-playlist');
       const btnStartPlaylist = document.getElementById('btn-start-playlist');
 
@@ -1484,13 +1478,13 @@
           const res = await fetch(`/api/alkitab/query?q=${encodeURIComponent(refString)}`, { cache: 'no-store' });
           const ct = res.headers.get('content-type') || '';
           if (!ct.includes('json')) {
-            alert('Server belum merespon dalam format JSON. Pastikan server Golang terbaru sudah berjalan.');
+            showToast('Server belum merespon JSON. Pastikan server berjalan');
             return;
           }
 
           const result = await res.json();
           if (!res.ok) {
-            alert(result.message || 'Ayat tidak ditemukan.');
+            showToast(result.message || 'Ayat tidak ditemukan');
             return;
           }
 
@@ -1690,12 +1684,19 @@
         chapterPicker.style.display = 'none';
       }
 
-      function renderPlaylistModal() {
+      function renderPlaylistModal(syncInput = false) {
         playlistItemsContainer.innerHTML = '';
+        if (playlistStatusHint) {
+          playlistStatusHint.textContent = (playlist.length === 0) ? '0 ayat terdaftar' : `${playlist.length} ayat dalam antrean`;
+        }
+        if (syncInput && playlistBatchInput) {
+          playlistBatchInput.value = playlist.join('\n');
+        }
         if (playlist.length === 0) {
           playlistItemsContainer.innerHTML = `
-            <div style="text-align: center; color: #64748b; padding: 30px 16px; font-size: 13px;">
-              Belum ada ayat terdaftar.<br>Ketik referensi ayat di atas lalu klik Tambah.
+            <div style="text-align: center; color: #64748b; padding: 30px 16px; font-size: 13px; line-height: 1.6;">
+              📖 <b>Belum ada ayat dalam urutan ibadah.</b><br>
+              Ketik referensi ayat di atas lalu klik <b>Set Urutan</b>.
             </div>
           `;
           return;
@@ -1935,56 +1936,97 @@
 
         // Playlist
         btnOpenPlaylist.addEventListener('click', () => {
-          renderPlaylistModal();
+          renderPlaylistModal(true);
           playlistModalBackdrop.classList.add('open');
+          setTimeout(() => playlistBatchInput?.focus(), 150);
         });
         btnClosePlaylist.addEventListener('click', () => playlistModalBackdrop.classList.remove('open'));
         btnDonePlaylist.addEventListener('click', () => playlistModalBackdrop.classList.remove('open'));
 
-        btnAddToPlaylist.addEventListener('click', () => {
-          const val = playlistNewRef.value.trim();
-          if (val) {
-            playlist.push(val);
-            playlistNewRef.value = '';
-            savePlaylist();
-            renderPlaylistModal();
-            showToast(`"${val}" ditambahkan`);
-            playlistNewRef.focus();
-          }
-        });
-
-        playlistNewRef.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            btnAddToPlaylist.click();
-          }
-        });
-
-        btnApplyPlaylistBatch.addEventListener('click', () => {
+        const applyAlkitabPlaylist = async () => {
           const val = playlistBatchInput.value.trim();
-          if (val) {
-            const tokens = val.split(/[,\n]+/).map(t => t.trim()).filter(t => t.length > 0);
-            playlist = tokens;
-            playlistBatchInput.value = '';
+          if (!val) {
+            playlist = [];
             savePlaylist();
             renderPlaylistModal();
-            showToast(`${tokens.length} ayat diset`);
+            showToast('Urutan ayat dikosongkan');
+            return;
           }
-        });
+
+          const tokens = val.split(/[\n\r,;]+/).map(t => t.trim()).filter(t => t.length > 0);
+          if (tokens.length === 0) {
+            playlist = [];
+            savePlaylist();
+            renderPlaylistModal();
+            showToast('Urutan ayat dikosongkan');
+            return;
+          }
+
+          btnApplyPlaylistBatch.disabled = true;
+          const originalBtnText = btnApplyPlaylistBatch.textContent;
+          btnApplyPlaylistBatch.textContent = 'Memverifikasi...';
+
+          try {
+            const checkResults = await Promise.all(tokens.map(async (tok) => {
+              try {
+                const res = await fetch(`/api/alkitab/query?q=${encodeURIComponent(tok)}`, { cache: 'no-store' });
+                if (!res.ok) {
+                  return { raw: tok, valid: false };
+                }
+                const data = await res.json();
+                if (data && data.verses && data.verses.length > 0) {
+                  return { raw: tok, valid: true, canonical: data.reference };
+                }
+                return { raw: tok, valid: false };
+              } catch (err) {
+                console.warn('Gagal memverifikasi ayat:', tok, err);
+                return { raw: tok, valid: false };
+              }
+            }));
+
+            const validList = [];
+            const invalidList = [];
+
+            checkResults.forEach(item => {
+              if (item.valid) {
+                validList.push(item.canonical || item.raw);
+              } else {
+                invalidList.push(item.raw);
+              }
+            });
+
+            if (validList.length > 0) {
+              playlist = validList;
+              savePlaylist();
+              renderPlaylistModal();
+              if (invalidList.length > 0) {
+                showToast(`⚠️ ${validList.length} ayat valid disimpan. ${invalidList.length} tidak ditemukan: ${invalidList.join(', ')}`);
+              } else {
+                showToast(`Urutan ayat diperbarui (${validList.length} ayat valid)`);
+              }
+            } else {
+              showToast(`❌ Tidak ada ayat yang valid (${invalidList.join(', ')} tidak ditemukan)`);
+            }
+          } finally {
+            btnApplyPlaylistBatch.disabled = false;
+            btnApplyPlaylistBatch.textContent = originalBtnText;
+          }
+        };
+
+        btnApplyPlaylistBatch.addEventListener('click', applyAlkitabPlaylist);
 
         playlistBatchInput.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') {
+          if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
             e.preventDefault();
-            btnApplyPlaylistBatch.click();
+            applyAlkitabPlaylist();
           }
         });
 
         btnClearPlaylist.addEventListener('click', () => {
-          if (confirm('Kosongkan semua daftar ayat ibadah?')) {
-            playlist = [];
-            savePlaylist();
-            renderPlaylistModal();
-          }
+          playlist = [];
+          savePlaylist();
+          renderPlaylistModal(false);
+          showToast('Urutan ayat dikosongkan');
         });
 
         btnStartPlaylist.addEventListener('click', () => {
@@ -2022,6 +2064,17 @@
               e.preventDefault();
               blankScreen.classList.toggle('active');
               setTimeout(() => syncCurrentToProjector(true), 50);
+              break;
+            case 'l':
+            case 'L':
+              e.preventDefault();
+              if (playlistModalBackdrop.classList.contains('open')) {
+                playlistModalBackdrop.classList.remove('open');
+              } else {
+                renderPlaylistModal(true);
+                playlistModalBackdrop.classList.add('open');
+                setTimeout(() => playlistBatchInput?.focus(), 150);
+              }
               break;
             case 'Escape':
               blankScreen.classList.remove('active');

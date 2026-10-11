@@ -211,8 +211,8 @@ export async function saveNewCustomSong() {
   const time = (newSongTime?.value || '').trim();
   const author = (newSongAuthor?.value || '').trim();
 
-  if (!title) { alert('Mohon masukkan judul lagu.'); newSongTitle?.focus(); return; }
-  if (!lyrics) { alert('Mohon masukkan lirik lagu.'); newSongLyrics?.focus(); return; }
+  if (!title) { showToast('Mohon masukkan judul lagu.'); newSongTitle?.focus(); return; }
+  if (!lyrics) { showToast('Mohon masukkan lirik lagu.'); newSongLyrics?.focus(); return; }
 
   const verses = parseCustomSongLyrics(lyrics);
   const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || `song-${Date.now()}`;

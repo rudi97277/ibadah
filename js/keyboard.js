@@ -49,7 +49,7 @@ export function setupKeyboardShortcuts() {
       if ($('playlist-modal-backdrop')?.classList.contains('open')) {
         $('playlist-modal-backdrop').classList.remove('open');
       } else if ($('playlist-modal-backdrop') && $('playlist-batch-input')) {
-        renderPlaylistModal();
+        renderPlaylistModal(true);
         $('playlist-modal-backdrop').classList.add('open');
         setTimeout(() => $('playlist-batch-input')?.focus(), 150);
       }

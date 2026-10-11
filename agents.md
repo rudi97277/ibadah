@@ -335,6 +335,17 @@ Berikut adalah histori perubahan, permintaan pengguna, dan keputusan arsitektura
       * **Pemecahan Baris Panjang**: Baris yang terlalu panjang (> 48 karakter) dipecah pada pemisah alami (koma, titik koma, kapitalisasi klausa) dengan panjang seimbang (~20–45 karakter per baris).
       * **Penggabungan Baris Terlalu Pendek**: Baris terisolasi/1 kata (seperti `"Tuhan,"`, `"Amin."`) dan potongan pendek digabungkan ke baris pendamping (misalnya pada Lagu 514 dan Lagu 519) agar proporsi visual slide proyektor seimbang dan rapi.
       * Kolom `lines` (array) dan `text` (`lines.join('\n')`) selalu disinkronkan.
+15. **Harmonisasi Modal Urutan Ibadah (Lagu Sion & Alkitab)**:
+    * Modal Urutan Lagu (`index.html`) dan Urutan Ayat (`alkitab.html`) kini diseragamkan dengan satu input textarea multiline yang leluasa (`rows="3"`).
+    * Mendukung pemisah koma, spasi, titik koma, maupun baris baru (Enter).
+    * Shortcut keyboard `L` membuka/menutup modal playlist di kedua halaman secara konsisten.
+16. **Verifikasi Ayat Otomatis pada Playlist Alkitab**:
+    * Saat operator menyimpan urutan ayat (`Set Urutan` / `Ctrl+Enter`), sistem secara asinkron memvalidasi setiap ayat ke server engine (`/api/alkitab/query`).
+    * Ayat yang valid dinormalisasi ke format resmi (contoh: `yoh 3:16` -> `Yohanes 3:16`).
+    * Referensi palsu/salah ketik (seperti kitab yang tidak ada atau nomor ayat yang melebihi jumlah ayat dalam pasal) otomatis diabaikan dan tidak dimasukkan ke antrean.
+17. **Eliminasi Native Alert/Confirm Window (Proteksi Layar Penuh / Fullscreen)**:
+    * Seluruh panggilan native browser `alert()` dan `confirm()` dihilangkan 100% dan digantikan dengan sistem notifikasi `showToast()`. Hal ini mencegah mode fullscreen browser terputus secara tiba-tiba saat ibadah berlangsung.
+    * Tombol **🗑️ Kosongkan** langsung mengosongkan antrean ibadah tanpa dialog konfirmasi yang mengganggu, serta tetap mempertahankan teks yang sedang diketik pada textarea input.
 
 ---
 
