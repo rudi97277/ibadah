@@ -41,13 +41,14 @@ export const state = {
   fontSizeRem: 3.4,
   isNavAutoHiding: true,
   availableBackgrounds: [],
-  currentBgImage: null,
+  currentBgImage: (() => { try { return localStorage.getItem('lagu_sion_active_bg'); } catch (e) { return null; } })(),
   customSongs: [],
   currentActiveTab: 'sion',
   diskFileHandle: null,
   isProjectorConnected: false,
   isLiveBroadcasting: true,
   isAudioPlaying: false,
+  isBlank: false,
   appSettings: { ...defaultSettings }
 };
 

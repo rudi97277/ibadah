@@ -4,6 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alkitab Terjemahan Baru (TB)</title>
+  <script>
+    (function() {
+      try {
+        const savedSettings = localStorage.getItem('lagu_sion_settings');
+        if (savedSettings) {
+          const s = JSON.parse(savedSettings);
+          if (s.background_color) document.documentElement.style.setProperty('--slide-bg-color', s.background_color);
+        }
+        const savedBg = localStorage.getItem('lagu_sion_active_bg');
+        if (savedBg) {
+          document.documentElement.style.setProperty('--slide-bg-image', 'url("' + savedBg + '")');
+          document.documentElement.style.setProperty('--bg-overlay-display', 'block');
+        }
+      } catch (e) {}
+    })();
+  </script>
   <style>
     * {
       box-sizing: border-box;
@@ -259,7 +275,6 @@
       position: relative;
       overflow: hidden;
       cursor: pointer;
-      transition: background-image 0.4s ease-in-out, background-color 0.2s ease;
     }
 
     .slide-viewport::before {
@@ -834,13 +849,21 @@
       const projectorStatusDot = document.getElementById('projector-status-dot');
       const projectorChannel = new BroadcastChannel('lagusion_live_bus');
       let isProjectorConnected = false;
+      let isProjectorBlank = false;
       let projectorWindow = null;
 
       function updateProjectorStatusUI() {
         if (projectorStatusDot) {
-          projectorStatusDot.style.background = isProjectorConnected ? '#22c55e' : '#94a3b8';
-          projectorStatusDot.title = isProjectorConnected ? 'Layar Proyektor Terhubung (Monitor 2)' : 'Layar Proyektor Belum Terbuka';
+          projectorStatusDot.style.background = isProjectorConnected ? (isProjectorBlank ? '#f59e0b' : '#22c55e') : '#94a3b8';
+          projectorStatusDot.title = isProjectorConnected ? (isProjectorBlank ? 'Layar Proyektor: BLANK (Tekan B untuk memulihkan)' : 'Layar Proyektor Terhubung (Monitor 2)') : 'Layar Proyektor Belum Terbuka';
         }
+      }
+
+      function toggleProjectorBlank() {
+        isProjectorBlank = !isProjectorBlank;
+        syncCurrentToProjector(true);
+        updateProjectorStatusUI();
+        showToast(isProjectorBlank ? 'Layar Proyektor: BLANK' : 'Layar Proyektor: AKTIF');
       }
 
       function openProjectorWindow() {
@@ -859,7 +882,7 @@
         if (!slide) return;
 
         const showNum = (appSettings.show_verse_num !== false && slide.subIndex === 0);
-        const isBlankActive = !!blankScreen?.classList.contains('active');
+        const isBlankActive = isProjectorBlank;
 
         const state = {
           mode: 'bible',
@@ -897,8 +920,7 @@
         } else if (data.type === 'NAV_PREV') {
           prevVerse();
         } else if (data.type === 'NAV_BLANK') {
-          blankScreen.classList.toggle('active');
-          setTimeout(() => syncCurrentToProjector(true), 50);
+          toggleProjectorBlank();
         }
       };
 
@@ -929,7 +951,7 @@
       const settingAutohideNav = document.getElementById('setting-autohide-nav');
 
       let availableBackgrounds = [];
-      let currentBgImage = null;
+      let currentBgImage = (() => { try { return localStorage.getItem('lagu_sion_active_bg'); } catch (e) { return null; } })();
 
       let appSettings = {
         font_family: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
@@ -945,13 +967,37 @@
         autohide_nav: true
       };
 
+      let nextPreloadedBg = null;
+
+      function preloadNextBackground() {
+        if (!availableBackgrounds || availableBackgrounds.length === 0) return;
+        const candidates = availableBackgrounds.filter(bg => bg !== currentBgImage);
+        const list = candidates.length > 0 ? candidates : availableBackgrounds;
+        nextPreloadedBg = list[Math.floor(Math.random() * list.length)];
+        if (nextPreloadedBg) {
+          const img = new Image();
+          img.src = nextPreloadedBg;
+        }
+      }
+
+      function pickNextBackground() {
+        let chosen = nextPreloadedBg;
+        if (!chosen) chosen = pickRandomBackground();
+        setTimeout(preloadNextBackground, 50);
+        return chosen;
+      }
+
       async function loadBackgrounds() {
         try {
           const res = await fetch('/api/backgrounds', { cache: 'no-store' });
           if (res.ok) {
             const list = await res.json();
-            if (Array.isArray(list)) {
+            if (Array.isArray(list) && list.length > 0) {
               availableBackgrounds = list;
+              if (!currentBgImage || !availableBackgrounds.includes(currentBgImage)) {
+                currentBgImage = availableBackgrounds[0];
+              }
+              preloadNextBackground();
             }
           }
         } catch (e) {
@@ -968,17 +1014,30 @@
       }
 
       function updateBackgroundDisplay() {
-        const isRandom = (appSettings.background_mode === 'random' && availableBackgrounds.length > 0);
+        const isRandom = (appSettings.background_mode === 'random');
         const bgColor = appSettings.background_color || '#ffffff';
         document.documentElement.style.setProperty('--slide-bg-color', bgColor);
 
         if (isRandom) {
-          if (!currentBgImage) {
-            currentBgImage = pickRandomBackground();
+          if (!currentBgImage && availableBackgrounds && availableBackgrounds.length > 0) {
+            try {
+              const savedBg = localStorage.getItem('lagu_sion_active_bg');
+              if (savedBg && availableBackgrounds.includes(savedBg)) {
+                currentBgImage = savedBg;
+              } else {
+                currentBgImage = availableBackgrounds[0];
+              }
+            } catch (e) {
+              currentBgImage = availableBackgrounds[0];
+            }
           }
+
           if (currentBgImage) {
             document.documentElement.style.setProperty('--slide-bg-image', `url("${currentBgImage}")`);
             document.documentElement.style.setProperty('--bg-overlay-display', 'block');
+            try {
+              localStorage.setItem('lagu_sion_active_bg', currentBgImage);
+            } catch (e) {}
           } else {
             document.documentElement.style.setProperty('--slide-bg-image', 'none');
             document.documentElement.style.setProperty('--bg-overlay-display', 'none');
@@ -1377,7 +1436,7 @@
           currentSlideSequence = buildBibleSlideSequence(result.verses, fontSizeRem);
 
           if (appSettings.background_mode === 'random' && availableBackgrounds.length > 0) {
-            currentBgImage = pickRandomBackground();
+            currentBgImage = pickNextBackground();
             updateBackgroundDisplay();
           }
 
@@ -1652,10 +1711,7 @@
         if (btnOpenProjector) btnOpenProjector.addEventListener('click', openProjectorWindow);
 
         if (btnBlank) {
-          btnBlank.addEventListener('click', () => {
-            blankScreen.classList.toggle('active');
-            setTimeout(() => syncCurrentToProjector(true), 50);
-          });
+          btnBlank.addEventListener('click', toggleProjectorBlank);
         }
 
         slideViewport.addEventListener('click', (e) => {
@@ -1891,8 +1947,7 @@
             case 'B':
             case '.':
               e.preventDefault();
-              blankScreen.classList.toggle('active');
-              setTimeout(() => syncCurrentToProjector(true), 50);
+              toggleProjectorBlank();
               break;
             case 'l':
             case 'L':
@@ -1906,7 +1961,12 @@
               }
               break;
             case 'Escape':
-              blankScreen.classList.remove('active');
+              if (isProjectorBlank) {
+                isProjectorBlank = false;
+                syncCurrentToProjector(true);
+                updateProjectorStatusUI();
+                showToast('Layar Proyektor: AKTIF');
+              }
               booksDrawer.classList.remove('open');
               playlistModalBackdrop.classList.remove('open');
               settingsModalBackdrop.classList.remove('open');

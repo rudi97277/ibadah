@@ -27,25 +27,38 @@ export function showToast(msg) {
 export function updateProjectorStatusUI() {
   const dot = $('projector-status-dot');
   if (dot) {
-    dot.style.background = state.isProjectorConnected ? '#22c55e' : '#94a3b8';
-    dot.title = state.isProjectorConnected ? 'Layar Proyektor Terhubung (Monitor 2)' : 'Layar Proyektor Belum Terbuka';
+    dot.style.background = state.isProjectorConnected ? (state.isBlank ? '#f59e0b' : '#22c55e') : '#94a3b8';
+    dot.title = state.isProjectorConnected ? (state.isBlank ? 'Layar Proyektor: BLANK (Tekan B untuk memulihkan)' : 'Layar Proyektor Terhubung (Monitor 2)') : 'Layar Proyektor Belum Terbuka';
   }
 }
 
 export function updateLiveToggleUI() {}
 
 export function updateBackgroundDisplay() {
-  const isRandom = (state.appSettings.background_mode === 'random' && state.availableBackgrounds.length > 0);
+  const isRandom = (state.appSettings.background_mode === 'random');
   const bgColor = state.appSettings.background_color || '#ffffff';
   document.documentElement.style.setProperty('--slide-bg-color', bgColor);
 
   if (isRandom) {
-    if (!state.currentBgImage && state.availableBackgrounds.length > 0) {
-      state.currentBgImage = state.availableBackgrounds[Math.floor(Math.random() * state.availableBackgrounds.length)];
+    if (!state.currentBgImage && state.availableBackgrounds && state.availableBackgrounds.length > 0) {
+      try {
+        const savedBg = localStorage.getItem('lagu_sion_active_bg');
+        if (savedBg && state.availableBackgrounds.includes(savedBg)) {
+          state.currentBgImage = savedBg;
+        } else {
+          state.currentBgImage = state.availableBackgrounds[0];
+        }
+      } catch (e) {
+        state.currentBgImage = state.availableBackgrounds[0];
+      }
     }
+
     if (state.currentBgImage) {
       document.documentElement.style.setProperty('--slide-bg-image', `url("${state.currentBgImage}")`);
       document.documentElement.style.setProperty('--bg-overlay-display', 'block');
+      try {
+        localStorage.setItem('lagu_sion_active_bg', state.currentBgImage);
+      } catch (e) {}
     } else {
       document.documentElement.style.setProperty('--slide-bg-image', 'none');
       document.documentElement.style.setProperty('--bg-overlay-display', 'none');

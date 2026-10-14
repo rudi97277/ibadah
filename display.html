@@ -4,6 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Layar Proyektor - Lagu Sion & Alkitab</title>
+  <script>
+    (function() {
+      try {
+        const saved = localStorage.getItem('lagusion_live_state');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed.bgColor) document.documentElement.style.setProperty('--slide-bg-color', parsed.bgColor);
+          if (parsed.bgImage) {
+            document.documentElement.style.setProperty('--slide-bg-image', 'url("' + parsed.bgImage + '")');
+            document.documentElement.style.setProperty('--bg-overlay-display', 'block');
+          }
+        }
+        const savedBg = localStorage.getItem('lagu_sion_active_bg');
+        if (savedBg) {
+          document.documentElement.style.setProperty('--slide-bg-image', 'url("' + savedBg + '")');
+          document.documentElement.style.setProperty('--bg-overlay-display', 'block');
+        }
+      } catch (e) {}
+    })();
+  </script>
   <style>
     * {
       box-sizing: border-box;
@@ -48,7 +68,7 @@
       background-position: center;
       background-repeat: no-repeat;
       overflow: hidden;
-      transition: background-image 0.4s ease-in-out, background-color 0.2s ease;
+      transition: background-color 0.2s ease;
     }
 
     .projector-viewport::before {
@@ -69,11 +89,11 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background-color: #ffffff;
+      background-color: var(--slide-bg-color, #ffffff);
       z-index: 9999;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.2s ease;
+      transition: opacity 0.2s ease, background-color 0.2s ease;
     }
 
     .blank-screen.active {
@@ -368,10 +388,14 @@
         }
         if (state.bgColor) {
           document.documentElement.style.setProperty('--slide-bg-color', state.bgColor);
+          if (blankScreen) blankScreen.style.backgroundColor = state.bgColor;
         }
         if (state.bgImage) {
           document.documentElement.style.setProperty('--slide-bg-image', `url("${state.bgImage}")`);
           document.documentElement.style.setProperty('--bg-overlay-display', 'block');
+          try {
+            localStorage.setItem('lagu_sion_active_bg', state.bgImage);
+          } catch (e) {}
         } else {
           document.documentElement.style.setProperty('--slide-bg-image', 'none');
           document.documentElement.style.setProperty('--bg-overlay-display', 'none');
@@ -508,8 +532,22 @@
         }
       });
 
+      if (blankScreen) {
+        blankScreen.addEventListener('click', (e) => {
+          e.stopPropagation();
+          channel.postMessage({ type: 'NAV_BLANK' });
+        });
+      }
+
       // Keyboard shortcuts (allows navigation even when focus is on display.html)
       window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (blankScreen && blankScreen.classList.contains('active')) {
+            channel.postMessage({ type: 'NAV_BLANK' });
+          }
+          return;
+        }
+
         if (e.key === 'f' || e.key === 'F' || e.key === 'F11') {
           e.preventDefault();
           if (!document.fullscreenElement) {

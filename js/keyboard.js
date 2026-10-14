@@ -1,18 +1,19 @@
+import { state } from './state.js';
 import { prevSlide, nextSlide, prevSong, nextSong } from './navigation.js';
 import { syncCurrentToProjector } from './projector.js';
 import { openDrawer, closeDrawer } from './drawer.js';
 import { renderPlaylistModal } from './playlist.js';
+import { showToast, updateProjectorStatusUI } from './render.js';
 import { hideToolbarsImmediately } from './toolbar.js';
 
 const $ = (id) => document.getElementById(id);
 
 export function setupKeyboardShortcuts() {
   const toggleBlank = () => {
-    const blank = $('blank-screen');
-    if (blank) {
-      blank.classList.toggle('active');
-      setTimeout(() => syncCurrentToProjector(true), 50);
-    }
+    state.isBlank = !state.isBlank;
+    syncCurrentToProjector(true);
+    updateProjectorStatusUI();
+    showToast(state.isBlank ? 'Layar Proyektor: BLANK' : 'Layar Proyektor: AKTIF');
   };
 
   const keyMap = {
@@ -60,7 +61,12 @@ export function setupKeyboardShortcuts() {
       $('playlist-modal-backdrop')?.classList.remove('open');
       $('settings-modal-backdrop')?.classList.remove('open');
       $('add-song-modal-backdrop')?.classList.remove('open');
-      $('blank-screen')?.classList.remove('active');
+      if (state.isBlank) {
+        state.isBlank = false;
+        syncCurrentToProjector(true);
+        updateProjectorStatusUI();
+        showToast('Layar Proyektor: AKTIF');
+      }
       return;
     }
 

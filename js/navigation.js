@@ -1,7 +1,7 @@
 import { state, findSong, parsePlaylistItem, buildSlideSequence } from './state.js';
 import { renderSlide, renderVerseJumpPills, updateBackgroundDisplay } from './render.js';
 import { updateActiveDrawerItem } from './drawer.js';
-import { loadAllSongs, pickRandomBackground } from './song-loader.js';
+import { loadAllSongs, pickRandomBackground, pickNextBackground } from './song-loader.js';
 import { handleSongChangedForAudio } from './audio.js';
 
 const $ = (id) => document.getElementById(id);
@@ -26,7 +26,7 @@ export async function loadSong(songIdOrSpec, slideIdx = 0) {
   state.currentSongId = newSongId;
   state.currentSongNumber = song.number || state.currentSongId;
   if (isNewSong && state.appSettings.background_mode === 'random' && state.availableBackgrounds.length > 0) {
-    state.currentBgImage = pickRandomBackground();
+    state.currentBgImage = pickNextBackground();
     updateBackgroundDisplay();
   }
   handleSongChangedForAudio(song, isNewSong);

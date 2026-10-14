@@ -4,12 +4,41 @@ import { saveAppSettings } from './state.js';
 
 const $ = (id) => document.getElementById(id);
 
+export let nextPreloadedBg = null;
+
+export function preloadNextBackground() {
+  if (!state.availableBackgrounds || state.availableBackgrounds.length === 0) return;
+  const candidates = state.availableBackgrounds.filter(bg => bg !== state.currentBgImage);
+  const list = candidates.length > 0 ? candidates : state.availableBackgrounds;
+  nextPreloadedBg = list[Math.floor(Math.random() * list.length)];
+  if (nextPreloadedBg) {
+    const img = new Image();
+    img.src = nextPreloadedBg;
+  }
+}
+
+export function pickNextBackground() {
+  let chosen = nextPreloadedBg;
+  if (!chosen) {
+    chosen = pickRandomBackground();
+  }
+  // Schedule preload for the upcoming next switch
+  setTimeout(preloadNextBackground, 50);
+  return chosen;
+}
+
 export async function loadBackgrounds() {
   try {
     const res = await fetch('/api/backgrounds', { cache: 'no-store' });
     if (res.ok) {
       const list = await res.json();
-      if (Array.isArray(list)) state.availableBackgrounds = list;
+      if (Array.isArray(list) && list.length > 0) {
+        state.availableBackgrounds = list;
+        if (!state.currentBgImage || !state.availableBackgrounds.includes(state.currentBgImage)) {
+          state.currentBgImage = state.availableBackgrounds[0];
+        }
+        preloadNextBackground();
+      }
     }
   } catch (err) {
     console.warn('Could not fetch backgrounds from /api/backgrounds:', err);

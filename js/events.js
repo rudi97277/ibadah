@@ -1,7 +1,7 @@
 import { state, saveAppSettings, saveNewCustomSong, clearPlaylist, applyBatchPlaylistInput, loadBackgrounds, loadAppSettings, loadAllSongs, loadCustomSongs } from './state.js';
 import { loadSong, prevSlide, nextSlide, prevSong, nextSong } from './navigation.js';
 import { openDrawer, closeDrawer, filterSongs, renderDrawerList } from './drawer.js';
-import { renderPlaylistModal, updateCustomSongsCount, showToast } from './render.js';
+import { renderPlaylistModal, updateCustomSongsCount, showToast, updateProjectorStatusUI } from './render.js';
 import { openProjectorWindow, syncCurrentToProjector, initProjector } from './projector.js';
 import { hideToolbarsImmediately, startAutoHideTimer } from './toolbar.js';
 import { setupKeyboardShortcuts } from './keyboard.js';
@@ -109,17 +109,12 @@ export function setupEventListeners() {
   on('btn-audio-toggle', 'click', toggleAudioPlayback);
 
   const toggleBlank = () => {
-    const blank = $('blank-screen');
-    if (blank) {
-      blank.classList.toggle('active');
-      setTimeout(() => syncCurrentToProjector(true), 50);
-    }
+    state.isBlank = !state.isBlank;
+    syncCurrentToProjector(true);
+    updateProjectorStatusUI();
+    showToast(state.isBlank ? 'Layar Proyektor: BLANK' : 'Layar Proyektor: AKTIF');
   };
   on('btn-blank', 'click', toggleBlank);
-  on('blank-screen', 'click', () => {
-    $('blank-screen')?.classList.remove('active');
-    setTimeout(() => syncCurrentToProjector(true), 50);
-  });
 
   const applyPlaylist = () => {
     const input = $('playlist-batch-input');

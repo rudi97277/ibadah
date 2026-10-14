@@ -58,7 +58,7 @@ export function syncCurrentToProjector(force = false) {
   const slide = (state.currentSlideSequence && state.currentSlideSequence[state.currentVerseIndex]) ? state.currentSlideSequence[state.currentVerseIndex] : null;
   if (!song || !slide) return;
 
-  const isBlankActive = !!document.getElementById('blank-screen')?.classList.contains('active');
+  const isBlankActive = !!state.isBlank;
 
   const liveState = {
     mode: 'song',
@@ -100,11 +100,9 @@ export function initProjector() {
     } else if (data.type === 'NAV_PREV') {
       prevSlide();
     } else if (data.type === 'NAV_BLANK') {
-      const blank = document.getElementById('blank-screen');
-      if (blank) {
-        blank.classList.toggle('active');
-        setTimeout(() => syncCurrentToProjector(true), 50);
-      }
+      state.isBlank = !state.isBlank;
+      syncCurrentToProjector(true);
+      updateProjectorStatusUI();
     }
   };
 

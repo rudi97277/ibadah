@@ -304,10 +304,10 @@ Format Tab-Separated Values (TSV) tanpa header:
 | **`N` / `P`** | Lagu berikutnya / Lagu sebelumnya | - | - |
 | **`M` / `/`** | Buka/Tutup Drawer Daftar Lagu | Buka/Tutup Drawer Kitab & Pasal | - |
 | **`L`** | Buka/Tutup Modal Urutan Lagu | Buka/Tutup Modal Urutan Ayat | - |
-| **`B` / `.`** | Layar Blank Gelap Sementara | Layar Blank Gelap Sementara | Layar Blank Gelap Sementara (*Two-way Sync*) |
+| **`B` / `.`** | Blank Layar Proyektor (Konsol tetap aktif, indikator amber) | Blank Layar Proyektor (Konsol tetap aktif, indikator amber) | Layar Blank sesuai warna `background_color` (*Two-way Sync*) |
 | **`+` / `-`** | Membesarkan / Mengecilkan font | Membesarkan / Mengecilkan font | - |
 | **`F` / `F11`** | Layar Penuh (*Fullscreen*) | Layar Penuh (*Fullscreen*) | Layar Penuh (*Fullscreen*) |
-| **`Escape`** | Tutup Drawer, Modal, atau Blank | Tutup Drawer, Modal, atau Blank | - |
+| **`Escape`** | Tutup Drawer, Modal, atau Pulihkan Blank | Tutup Drawer, Modal, atau Pulihkan Blank | Pulihkan Layar Blank |
 
 ---
 
@@ -333,19 +333,24 @@ Berikut adalah histori perubahan, permintaan pengguna, dan keputusan arsitektura
       * **Pembersihan Tanda Baca Akhir**: Tanda baca di akhir setiap baris (`.`, `,`, `;`, `:`) dihapus bersih pada semua baris lagu.
       * **Pemecahan Baris Panjang**: Baris yang terlalu panjang (> 48 karakter) dipecah pada pemisah alami (koma, titik koma, kapitalisasi klausa) dengan panjang seimbang (~20–45 karakter per baris).
       * **Penggabungan Baris Terlalu Pendek**: Baris terisolasi/1 kata (seperti `"Tuhan,"`, `"Amin."`) dan potongan pendek digabungkan ke baris pendamping (misalnya pada Lagu 514 dan Lagu 519) agar proporsi visual slide proyektor seimbang dan rapi.
-      * Kolom `lines` (array) dan `text` (`lines.join('\n')`) selalu disinkronkan.
-15. **Harmonisasi Modal Urutan Ibadah (Lagu Sion & Alkitab)**:
+15. **Arsitektur Anti-Flicker & Preload Gambar Berikutnya (Next-Image Preload)**:
+    * **Single Next-Image Preload (`preloadNextBackground`)**: Sistem tidak memuat puluhan gambar sekaligus ke memori. Hanya **1 gambar berikutnya** yang disiapkan dan di-load ke memory cache browser menggunakan `new Image()`.
+    * **Pergantian Gambar Instan (0ms)**: Karena gambar berikutnya sudah selesai di-load di memori sebelumnya, saat lagu atau ayat berganti, gambar langsung diterapkan seketika tanpa jeda/delay dan tanpa flickering. Begitu berganti, sistem otomatis mem-preload 1 gambar berikutnya untuk giliran selanjutnya.
+    * **Eliminasi Kedip saat Reload (Early Hydration `<head>`)**: Skrip inline synchronous pada `<head>` langsung membaca `localStorage` (`lagu_sion_active_bg` & `lagusion_live_state`) dan mengeset variabel CSS sebelum first paint browser, meniadakan kedipan ke background_color saat halaman di-refresh.
+    * **Penyembunyian Default Elemen Nada (`disp-meta`)**: Elemen info nada diinisialisasi dengan `display: none;` pada HTML statis agar tidak berkedip sesaat saat reload jika setting `show_metadata` dalam posisi nonaktif.
+    * **Isolasi Tombol Blank `B`**: Tombol `B` atau `.` hanya menggelapkan layar proyektor (`display.html`), sementara layar operator tetap aktif dengan indikator amber pada toolbar status dot. Warna blank layar mengikuti setting `background_color`.
+16. **Harmonisasi Modal Urutan Ibadah (Lagu Sion & Alkitab)**:
     * Modal Urutan Lagu (`index.html`) dan Urutan Ayat (`alkitab.html`) kini diseragamkan dengan satu input textarea multiline yang leluasa (`rows="3"`).
     * Mendukung pemisah koma, spasi, titik koma, maupun baris baru (Enter).
     * Shortcut keyboard `L` membuka/menutup modal playlist di kedua halaman secara konsisten.
-16. **Verifikasi Ayat Otomatis pada Playlist Alkitab**:
+17. **Verifikasi Ayat Otomatis pada Playlist Alkitab**:
     * Saat operator menyimpan urutan ayat (`Set Urutan` / `Ctrl+Enter`), sistem secara asinkron memvalidasi setiap ayat ke server engine (`/api/alkitab/query`).
     * Ayat yang valid dinormalisasi ke format resmi (contoh: `yoh 3:16` -> `Yohanes 3:16`).
     * Referensi palsu/salah ketik (seperti kitab yang tidak ada atau nomor ayat yang melebihi jumlah ayat dalam pasal) otomatis diabaikan dan tidak dimasukkan ke antrean.
-17. **Eliminasi Native Alert/Confirm Window (Proteksi Layar Penuh / Fullscreen)**:
+18. **Eliminasi Native Alert/Confirm Window (Proteksi Layar Penuh / Fullscreen)**:
     * Seluruh panggilan native browser `alert()` dan `confirm()` dihilangkan 100% dan digantikan dengan sistem notifikasi `showToast()`. Hal ini mencegah mode fullscreen browser terputus secara tiba-tiba saat ibadah berlangsung.
     * Tombol **🗑️ Kosongkan** langsung mengosongkan antrean ibadah tanpa dialog konfirmasi yang mengganggu, serta tetap mempertahankan teks yang sedang diketik pada textarea input.
-18. **Eliminasi Tombol Tayangkan & Arsitektur Always-On Display Sync**:
+19. **Eliminasi Tombol Tayangkan & Arsitektur Always-On Display Sync**:
     * Tombol `▶ Tayangkan` / `⏹ Stop Tayang` dihilangkan sepenuhnya dari toolbar Lagu Sion (`index.html`) dan Alkitab (`alkitab.html`).
     * Menghilangkan potensi kebingungan operator pemula atau penekanan shortcut `Enter` / `F5` yang dapat mematikan tayangan proyektor jemaat secara tidak sengaja di tengah ibadah.
     * Jendela proyektor (`display.html`) kini selalu terhubung dan tersinkronisasi otomatis (*always-on zero-latency sync*) setiap kali lagu/ayat dibuka, slide berganti, atau preferensi visual diubah.
