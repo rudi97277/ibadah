@@ -1,5 +1,5 @@
 import { prevSlide, nextSlide, prevSong, nextSong } from './navigation.js';
-import { toggleLiveBroadcast, syncCurrentToProjector } from './projector.js';
+import { syncCurrentToProjector } from './projector.js';
 import { openDrawer, closeDrawer } from './drawer.js';
 import { renderPlaylistModal } from './playlist.js';
 import { hideToolbarsImmediately } from './toolbar.js';
@@ -19,7 +19,6 @@ export function setupKeyboardShortcuts() {
     ArrowRight: nextSlide, ' ': nextSlide, PageDown: nextSlide, ArrowDown: nextSlide,
     ArrowLeft: prevSlide, PageUp: prevSlide, ArrowUp: prevSlide,
     n: nextSong, N: nextSong, p: prevSong, P: prevSong,
-    F5: toggleLiveBroadcast, Enter: toggleLiveBroadcast,
     b: toggleBlank, B: toggleBlank, '.': toggleBlank,
     '+': () => $('btn-font-inc')?.click(), '=': () => $('btn-font-inc')?.click(),
     '-': () => $('btn-font-dec')?.click(), '_': () => $('btn-font-dec')?.click()

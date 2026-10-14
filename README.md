@@ -26,14 +26,12 @@ Dilengkapi dengan arsitektur **Dual-Screen** (Konsol Operator vs Layar Proyektor
 
 ### 🖥️ 3. Sistem Dual-Screen (Operator Controller & Layar Proyektor)
 - **Konsol Operator (Monitor 1 / Laptop)**:
-  - Toolbar tetap (*always visible*) dengan kontrol pencarian, playlist, pengaturan, dan navigasi.
-  - Bebas mencari lagu/ayat tanpa jemaat melihat proses pengetikan.
+  - Toolbar praktis dengan kontrol pencarian, playlist, pengaturan, dan navigasi.
+  - Bebas memilih lagu atau ayat dengan pratinjau yang selalu tersinkronisasi otomatis.
 - **Layar Proyektor Khusus (Monitor 2 / Proyektor Jemaat - `/display.html`)**:
   - 100% bersih tanpa tombol toolbar atau navigasi.
-  - Sinkronisasi instan (*0ms latency*) antar jendela browser melalui `BroadcastChannel`.
-- **Tombol Live Tunggal (`▶ Tayangkan` $\leftrightarrow$ `⏹ Stop Tayang`)**:
-  - Tombol hijau **`▶ Tayangkan`** saat menyiapkan materi di laptop.
-  - Tombol merah **`⏹ Stop Tayang`** saat siaran aktif ke proyektor (mendukung shortcut `Enter` / `F5`).
+  - Selalu terhubung dan sinkron secara otomatis (*always-on zero-latency sync*) melalui `BroadcastChannel`.
+  - Operator tidak perlu menekan tombol tayangkan; materi aktif langsung tampil di layar proyektor.
 
 ### 📋 4. Urutan Ibadah (Playlist Lagu & Ayat)
 - Susun daftar lagu dan ayat yang akan dibawakan dalam satu ibadah.
@@ -78,12 +76,15 @@ server-windows.exe
 | :--- | :--- |
 | **`Space` / `→` / `↓` / `PageDown`** | Pindah ke slide / ayat berikutnya |
 | **`←` / `↑` / `PageUp`** | Pindah ke slide / ayat sebelumnya |
-| **`Enter` / `F5`** | Tayangkan ke Layar Proyektor / Stop Tayang |
+| **`B` / `.`** | Blank Screen (layar hitam/kosong sementara) |
 | **`M` / `/`** | Buka/Tutup Drawer (Daftar Lagu / Kitab & Pasal) |
 | **`L`** | Buka/Tutup Modal Urutan Ibadah (Playlist) |
 | **`F` / `F11`** | Masuk/Keluar Layar Penuh (*Fullscreen*) |
 | **`+` / `-`** | Membesarkan / mengecilkan ukuran huruf |
 | **`Escape`** | Menutup modal, drawer, atau popup |
+
+> [!TIP]
+> Tombol navigasi slide (`Space`, `→`, `←`, `PageDown`, `PageUp`, `B`, dan klik kiri/kanan saat layar penuh) juga dapat digunakan langsung saat kursor/fokus jendela berada di **Layar Proyektor** (`/display.html`), sehingga sangat ramah untuk remote presenter / wireless clicker.
 
 ---
 

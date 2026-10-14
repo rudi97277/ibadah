@@ -1,5 +1,6 @@
 import { state, findSong } from './state.js';
-import { showToast, updateLiveToggleUI, updateProjectorStatusUI } from './render.js';
+import { nextSlide, prevSlide } from './navigation.js';
+import { updateProjectorStatusUI } from './render.js';
 
 export let projectorWindow = null;
 export const projectorChannel = new BroadcastChannel('lagusion_live_bus');
@@ -47,38 +48,21 @@ export async function openProjectorWindow() {
     projectorWindow.focus();
   }
 
-  if (state.isLiveBroadcasting) {
-    setTimeout(() => syncCurrentToProjector(true), 300);
-  }
-}
-
-export function toggleLiveBroadcast() {
-  state.isLiveBroadcasting = !state.isLiveBroadcasting;
-  updateLiveToggleUI();
-  if (state.isLiveBroadcasting) {
-    syncCurrentToProjector(true);
-    showToast('▶ Sedang Tayang di Proyektor');
-  } else {
-    const standbyState = { mode: 'standby' };
-    try {
-      localStorage.setItem('lagusion_live_state', JSON.stringify(standbyState));
-    } catch (e) {}
-    projectorChannel.postMessage({ type: 'DISPLAY_UPDATE', state: standbyState });
-    showToast('⏹ Siaran Proyektor Dihentikan');
-  }
+  setTimeout(() => syncCurrentToProjector(true), 300);
 }
 
 export function syncCurrentToProjector(force = false) {
   if (!state.currentSongId) return;
-  if (!state.isLiveBroadcasting && !force) return;
 
   const song = findSong(state.currentSongId);
   const slide = (state.currentSlideSequence && state.currentSlideSequence[state.currentVerseIndex]) ? state.currentSlideSequence[state.currentVerseIndex] : null;
   if (!song || !slide) return;
 
+  const isBlankActive = !!document.getElementById('blank-screen')?.classList.contains('active');
+
   const liveState = {
     mode: 'song',
-    isBlank: false,
+    isBlank: isBlankActive,
     title: song.number ? `${String(song.number).padStart(3, '0')} ${song.title.toUpperCase()}` : song.title.toUpperCase(),
     key: song.key || '',
     time: song.time || '',
@@ -107,15 +91,19 @@ export function initProjector() {
   projectorChannel.onmessage = (event) => {
     const data = event.data;
     if (!data) return;
-    if (data.type === 'DISPLAY_CONNECTED' || data.type === 'DISPLAY_READY') {
+    if (data.type === 'DISPLAY_CONNECTED' || data.type === 'DISPLAY_READY' || data.type === 'REQUEST_SYNC') {
       state.isProjectorConnected = true;
       updateProjectorStatusUI();
-      if (state.isLiveBroadcasting) {
-        syncCurrentToProjector(true);
-      }
-    } else if (data.type === 'REQUEST_SYNC') {
-      if (state.isLiveBroadcasting) {
-        syncCurrentToProjector(true);
+      syncCurrentToProjector(true);
+    } else if (data.type === 'NAV_NEXT') {
+      nextSlide();
+    } else if (data.type === 'NAV_PREV') {
+      prevSlide();
+    } else if (data.type === 'NAV_BLANK') {
+      const blank = document.getElementById('blank-screen');
+      if (blank) {
+        blank.classList.toggle('active');
+        setTimeout(() => syncCurrentToProjector(true), 50);
       }
     }
   };

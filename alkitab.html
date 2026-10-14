@@ -264,7 +264,7 @@
       transition: background-color 0.2s ease;
     }
 
-    .slide-header, .slide-body, .full-passage-container {
+    .slide-header, .slide-body {
       position: relative;
       z-index: 2;
     }
@@ -323,72 +323,6 @@
       color: #2563eb;
       font-weight: 800;
       margin-right: 8px;
-    }
-
-    /* Full Passage Scroll View */
-    .full-passage-container {
-      display: none;
-      width: 100%;
-      height: 100%;
-      overflow-y: auto;
-      padding: 70px 40px 90px 40px;
-      background: #ffffff;
-    }
-
-    .full-passage-header {
-      position: sticky;
-      top: 0;
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(8px);
-      padding: 10px 0 16px 0;
-      text-align: center;
-      border-bottom: 1px solid #e2e8f0;
-      z-index: 10;
-      margin-bottom: 24px;
-    }
-
-    .full-verses-list {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .full-verse-row {
-      display: flex;
-      align-items: baseline;
-      gap: 14px;
-      padding: 12px 16px;
-      border-radius: 8px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-
-    .full-verse-row:hover {
-      background: #f1f5f9;
-      border-color: #cbd5e1;
-    }
-
-    .full-verse-badge {
-      background: #18181b;
-      color: #ffffff;
-      font-weight: 700;
-      font-size: 1.1rem;
-      padding: 2px 10px;
-      border-radius: 6px;
-      min-width: 38px;
-      text-align: center;
-    }
-
-    .full-verse-text {
-      font-size: 2.2rem;
-      font-weight: 600;
-      color: #0f172a;
-      line-height: 1.45;
-      flex: 1;
     }
 
     /* Verse Quick Jump Buttons */
@@ -638,10 +572,6 @@
         <button class="btn btn-primary" id="btn-open-projector" title="Buka Layar Proyektor Khusus untuk Monitor 2">
           📺 Proyektor <span id="projector-status-dot" style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #94a3b8; margin-left: 4px;" title="Status Proyektor"></span>
         </button>
-        <button class="btn" id="btn-live-toggle" title="Tayangkan ke Layar Proyektor (F5 / Enter)" style="font-weight: 700; color: #16a34a; border-color: #86efac; background: #f0fdf4; min-width: 125px; justify-content: center;">
-          ▶ Tayangkan
-        </button>
-        <button class="btn" id="btn-toggle-full-mode" title="Ubah Tampilan Slide / Tampilkan Semua">📄 Tampilkan Semua</button>
         <button class="btn btn-icon" id="btn-font-dec" title="Kecilkan Font (-)">A-</button>
         <button class="btn btn-icon" id="btn-font-inc" title="Besarkan Font (+)">A+</button>
         <button class="btn btn-icon" id="btn-settings" title="Pengaturan">⚙️</button>
@@ -660,14 +590,6 @@
         </div>
       </div>
     </main>
-
-    <!-- Full Passage Mode (All Verses on One Page) -->
-    <div class="full-passage-container" id="full-passage-container">
-      <div class="full-passage-header">
-        <span class="passage-badge" id="full-disp-ref-badge">YOHANES 3:16</span>
-      </div>
-      <div class="full-verses-list" id="full-verses-list"></div>
-    </div>
 
     <!-- Bottom Toolbar -->
     <div class="bottom-hover-zone" id="bottom-hover-zone"></div>
@@ -782,10 +704,6 @@
         <label for="setting-autohide-nav" style="font-size: 14px; font-weight: 600; color: #334155;">Auto-Hide Toolbar (Hanya Saat Hover):</label>
         <input type="checkbox" id="setting-autohide-nav" checked style="width: 18px; height: 18px; cursor: pointer;">
       </div>
-
-      <div style="margin-top: 18px; text-align: right;">
-        <button class="btn btn-primary" id="btn-save-settings">Tutup & Simpan</button>
-      </div>
     </div>
   </div>
 
@@ -855,7 +773,6 @@
       let currentQueryResult = null;
       let currentSlideSequence = [];
       let currentSlideIndex = 0;
-      let isFullPassageMode = false;
       let fontSizeRem = 3.6;
       let playlist = [];
       let currentPlaylistIndex = -1;
@@ -863,15 +780,11 @@
       // DOM Elements
       const app = document.getElementById('app');
       const slideViewport = document.getElementById('slide-viewport');
-      const fullPassageContainer = document.getElementById('full-passage-container');
       const dispRefBadge = document.getElementById('disp-ref-badge');
       const dispVerseText = document.getElementById('disp-verse-text');
-      const fullDispRefBadge = document.getElementById('full-disp-ref-badge');
-      const fullVersesList = document.getElementById('full-verses-list');
 
       const verseSearchInput = document.getElementById('verse-search-input');
       const btnSearchGo = document.getElementById('btn-search-go');
-      const btnToggleFullMode = document.getElementById('btn-toggle-full-mode');
       const btnFontDec = document.getElementById('btn-font-dec');
       const btnFontInc = document.getElementById('btn-font-inc');
       const btnBlank = document.getElementById('btn-blank');
@@ -910,11 +823,8 @@
       // Projector DOM Elements & Sync
       const btnOpenProjector = document.getElementById('btn-open-projector');
       const projectorStatusDot = document.getElementById('projector-status-dot');
-      const btnLiveToggle = document.getElementById('btn-live-toggle');
-
       const projectorChannel = new BroadcastChannel('lagusion_live_bus');
       let isProjectorConnected = false;
-      let isLiveBroadcasting = false; // true = Sedang Tayang (Stop Tayang), false = Belum Tayang (Tayangkan)
       let projectorWindow = null;
 
       function updateProjectorStatusUI() {
@@ -924,62 +834,27 @@
         }
       }
 
-      function updateLiveToggleUI() {
-        if (isLiveBroadcasting) {
-          btnLiveToggle.textContent = '⏹ Stop Tayang';
-          btnLiveToggle.style.color = '#ffffff';
-          btnLiveToggle.style.background = '#dc2626';
-          btnLiveToggle.style.borderColor = '#dc2626';
-          btnLiveToggle.title = 'Hentikan Siaran ke Layar Proyektor (F5 / Enter)';
-        } else {
-          btnLiveToggle.textContent = '▶ Tayangkan';
-          btnLiveToggle.style.color = '#16a34a';
-          btnLiveToggle.style.background = '#f0fdf4';
-          btnLiveToggle.style.borderColor = '#86efac';
-          btnLiveToggle.title = 'Tayangkan ke Layar Proyektor (F5 / Enter)';
-        }
-      }
-
-      function toggleLiveBroadcast() {
-        isLiveBroadcasting = !isLiveBroadcasting;
-        updateLiveToggleUI();
-        if (isLiveBroadcasting) {
-          syncCurrentToProjector(true);
-          showToast('▶ Sedang Tayang di Proyektor');
-        } else {
-          // Send standby to projector
-          const standbyState = { mode: 'standby' };
-          try {
-            localStorage.setItem('lagusion_live_state', JSON.stringify(standbyState));
-          } catch (e) {}
-          projectorChannel.postMessage({ type: 'DISPLAY_UPDATE', state: standbyState });
-          showToast('⏹ Siaran Proyektor Dihentikan');
-        }
-      }
-
       function openProjectorWindow() {
         if (!projectorWindow || projectorWindow.closed) {
           projectorWindow = window.open('display.html', 'LaguSionProjector', 'width=1280,height=720,menubar=no,toolbar=no,location=no');
         } else {
           projectorWindow.focus();
         }
-        if (isLiveBroadcasting) {
-          setTimeout(() => syncCurrentToProjector(true), 300);
-        }
+        setTimeout(() => syncCurrentToProjector(true), 300);
       }
 
       function syncCurrentToProjector(force = false) {
         if (!currentSlideSequence || currentSlideSequence.length === 0) return;
-        if (!isLiveBroadcasting && !force) return;
 
         const slide = currentSlideSequence[currentSlideIndex];
         if (!slide) return;
 
         const showNum = (appSettings.show_verse_num !== false && slide.subIndex === 0);
+        const isBlankActive = !!blankScreen?.classList.contains('active');
 
         const state = {
           mode: 'bible',
-          isBlank: false,
+          isBlank: isBlankActive,
           reference: `${slide.book_name} ${slide.chapter}:${slide.verse}`,
           showVerseNum: showNum,
           verseNum: slide.verse,
@@ -1004,16 +879,17 @@
       projectorChannel.onmessage = (event) => {
         const data = event.data;
         if (!data) return;
-        if (data.type === 'DISPLAY_CONNECTED' || data.type === 'DISPLAY_READY') {
+        if (data.type === 'DISPLAY_CONNECTED' || data.type === 'DISPLAY_READY' || data.type === 'REQUEST_SYNC') {
           isProjectorConnected = true;
           updateProjectorStatusUI();
-          if (isLiveBroadcasting) {
-            syncCurrentToProjector(true);
-          }
-        } else if (data.type === 'REQUEST_SYNC') {
-          if (isLiveBroadcasting) {
-            syncCurrentToProjector(true);
-          }
+          syncCurrentToProjector(true);
+        } else if (data.type === 'NAV_NEXT') {
+          nextVerse();
+        } else if (data.type === 'NAV_PREV') {
+          prevVerse();
+        } else if (data.type === 'NAV_BLANK') {
+          blankScreen.classList.toggle('active');
+          setTimeout(() => syncCurrentToProjector(true), 50);
         }
       };
 
@@ -1023,7 +899,6 @@
       const btnSettings = document.getElementById('btn-settings');
       const settingsModalBackdrop = document.getElementById('settings-modal-backdrop');
       const btnCloseSettings = document.getElementById('btn-close-settings');
-      const btnSaveSettings = document.getElementById('btn-save-settings');
       const settingFontFamily = document.getElementById('setting-font-family');
       const settingFontSize = document.getElementById('setting-font-size');
       const fontSizeVal = document.getElementById('font-size-val');
@@ -1382,6 +1257,7 @@
         const lastRef = localStorage.getItem('alkitab_last_ref') || (playlist.length > 0 ? playlist[0] : 'Yohanes 3:16');
         const lastSlideIdx = parseInt(localStorage.getItem('alkitab_last_slide_idx') || '0') || 0;
         await openPassage(lastRef, lastSlideIdx);
+        syncCurrentToProjector(true);
         setupEventListeners();
       }
 
@@ -1508,7 +1384,6 @@
           } catch (e) {}
 
           renderSlide();
-          renderFullPassage();
           renderVersePills();
           updateStatusIndicator();
         } catch (e) {
@@ -1531,30 +1406,6 @@
         if (appSettings.font_family) dispVerseText.style.fontFamily = appSettings.font_family;
 
         syncCurrentToProjector(false);
-      }
-
-      function renderFullPassage() {
-        if (!currentQueryResult) return;
-        fullDispRefBadge.textContent = currentQueryResult.reference.toUpperCase();
-        fullVersesList.innerHTML = '';
-
-        currentQueryResult.verses.forEach((v) => {
-          const row = document.createElement('div');
-          row.className = 'full-verse-row';
-          row.innerHTML = `
-            <div class="full-verse-badge">${v.verse}</div>
-            <div class="full-verse-text" style="font-size: ${fontSizeRem * 0.65}rem; ${appSettings.font_family ? `font-family: ${appSettings.font_family};` : ''}">${v.text}</div>
-          `;
-          row.addEventListener('click', () => {
-            const foundIdx = currentSlideSequence.findIndex(s => s.verse === v.verse);
-            if (foundIdx !== -1) currentSlideIndex = foundIdx;
-            renderSlide();
-            renderVersePills();
-            updateStatusIndicator();
-            toggleFullMode(false);
-          });
-          fullVersesList.appendChild(row);
-        });
       }
 
       function renderVersePills() {
@@ -1620,24 +1471,6 @@
           if (currentPlaylistIndex > 0) {
             openPassage(playlist[currentPlaylistIndex - 1], 999);
           }
-        }
-      }
-
-      function toggleFullMode(forceState) {
-        if (forceState !== undefined) {
-          isFullPassageMode = forceState;
-        } else {
-          isFullPassageMode = !isFullPassageMode;
-        }
-
-        if (isFullPassageMode) {
-          slideViewport.style.display = 'none';
-          fullPassageContainer.style.display = 'block';
-          btnToggleFullMode.textContent = '📽️ Mode Slide';
-        } else {
-          slideViewport.style.display = 'flex';
-          fullPassageContainer.style.display = 'none';
-          btnToggleFullMode.textContent = '📄 Tampilkan Semua';
         }
       }
 
@@ -1790,8 +1623,6 @@
         btnPrevVerse.addEventListener('click', prevVerse);
         btnNextVerse.addEventListener('click', nextVerse);
 
-        btnToggleFullMode.addEventListener('click', () => toggleFullMode());
-
         btnFontDec.addEventListener('click', () => {
           fontSizeRem = Math.max(1.8, fontSizeRem - 0.3);
           if (settingFontSize) settingFontSize.value = fontSizeRem;
@@ -1810,7 +1641,6 @@
 
         // Projector Window & Single Live Toggle Control
         if (btnOpenProjector) btnOpenProjector.addEventListener('click', openProjectorWindow);
-        if (btnLiveToggle) btnLiveToggle.addEventListener('click', toggleLiveBroadcast);
 
         if (btnBlank) {
           btnBlank.addEventListener('click', () => {
@@ -1833,11 +1663,6 @@
         });
         btnCloseSettings.addEventListener('click', () => {
           settingsModalBackdrop.classList.remove('open');
-        });
-        btnSaveSettings.addEventListener('click', () => {
-          saveAppSettings();
-          settingsModalBackdrop.classList.remove('open');
-          showToast('Pengaturan tersimpan');
         });
 
         settingFontFamily.addEventListener('change', () => {
@@ -2052,11 +1877,6 @@
             case 'PageUp':
               e.preventDefault();
               prevVerse();
-              break;
-            case 'F5':
-            case 'Enter':
-              e.preventDefault();
-              toggleLiveBroadcast();
               break;
             case 'b':
             case 'B':

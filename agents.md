@@ -299,13 +299,12 @@ Format Tab-Separated Values (TSV) tanpa header:
 
 | Tombol Shortcut | Aksi di Lagu Sion (`index.html`) | Aksi di Alkitab (`alkitab.html`) | Aksi di Proyektor (`display.html`) |
 | :--- | :--- | :--- | :--- |
-| **`Space` / `→` / `↓` / `PageDown`** | Pindah ke slide/bait berikutnya | Pindah ke slide/ayat berikutnya | - |
-| **`←` / `↑` / `PageUp`** | Pindah ke slide/bait sebelumnya | Pindah ke slide/ayat sebelumnya | - |
-| **`Enter` / `F5`** | Toggle Tayang $\leftrightarrow$ Stop Siaran | Toggle Tayang $\leftrightarrow$ Stop Siaran | - |
+| **`Space` / `→` / `↓` / `PageDown`** | Pindah ke slide/bait berikutnya | Pindah ke slide/ayat berikutnya | Pindah ke slide berikutnya (*Two-way Sync*) |
+| **`←` / `↑` / `PageUp`** | Pindah ke slide/bait sebelumnya | Pindah ke slide/ayat sebelumnya | Pindah ke slide sebelumnya (*Two-way Sync*) |
 | **`N` / `P`** | Lagu berikutnya / Lagu sebelumnya | - | - |
 | **`M` / `/`** | Buka/Tutup Drawer Daftar Lagu | Buka/Tutup Drawer Kitab & Pasal | - |
 | **`L`** | Buka/Tutup Modal Urutan Lagu | Buka/Tutup Modal Urutan Ayat | - |
-| **`B` / `.`** | Layar Blank Gelap Sementara | Layar Blank Gelap Sementara | - |
+| **`B` / `.`** | Layar Blank Gelap Sementara | Layar Blank Gelap Sementara | Layar Blank Gelap Sementara (*Two-way Sync*) |
 | **`+` / `-`** | Membesarkan / Mengecilkan font | Membesarkan / Mengecilkan font | - |
 | **`F` / `F11`** | Layar Penuh (*Fullscreen*) | Layar Penuh (*Fullscreen*) | Layar Penuh (*Fullscreen*) |
 | **`Escape`** | Tutup Drawer, Modal, atau Blank | Tutup Drawer, Modal, atau Blank | - |
@@ -346,6 +345,13 @@ Berikut adalah histori perubahan, permintaan pengguna, dan keputusan arsitektura
 17. **Eliminasi Native Alert/Confirm Window (Proteksi Layar Penuh / Fullscreen)**:
     * Seluruh panggilan native browser `alert()` dan `confirm()` dihilangkan 100% dan digantikan dengan sistem notifikasi `showToast()`. Hal ini mencegah mode fullscreen browser terputus secara tiba-tiba saat ibadah berlangsung.
     * Tombol **🗑️ Kosongkan** langsung mengosongkan antrean ibadah tanpa dialog konfirmasi yang mengganggu, serta tetap mempertahankan teks yang sedang diketik pada textarea input.
+18. **Eliminasi Tombol Tayangkan & Arsitektur Always-On Display Sync**:
+    * Tombol `▶ Tayangkan` / `⏹ Stop Tayang` dihilangkan sepenuhnya dari toolbar Lagu Sion (`index.html`) dan Alkitab (`alkitab.html`).
+    * Menghilangkan potensi kebingungan operator pemula atau penekanan shortcut `Enter` / `F5` yang dapat mematikan tayangan proyektor jemaat secara tidak sengaja di tengah ibadah.
+    * Jendela proyektor (`display.html`) kini selalu terhubung dan tersinkronisasi otomatis (*always-on zero-latency sync*) setiap kali lagu/ayat dibuka, slide berganti, atau preferensi visual diubah.
+19. **Navigasi Dua Arah Proyektor (*Bidirectional Remote Navigation*)**:
+    * Layar proyektor (`display.html`) kini dilengkapi listener keyboard (`Space`, `ArrowRight`, `ArrowDown`, `PageDown` -> `NAV_NEXT`; `ArrowLeft`, `ArrowUp`, `PageUp` -> `NAV_PREV`; `B`, `.` -> `NAV_BLANK`) serta klik kiri/kanan saat fullscreen.
+    * Pesan dikirimkan secara instan via `BroadcastChannel` ke konsol operator (`index.html` dan `alkitab.html`) sehingga operator atau pembicara yang menggunakan *wireless presenter clicker* tetap dapat memajukan/memundurkan slide meskipun jendela yang aktif/fokus di OS adalah `display.html`.
 
 ---
 

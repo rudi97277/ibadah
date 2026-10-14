@@ -495,14 +495,20 @@
       sendHandshake();
       channel.postMessage({ type: 'REQUEST_SYNC' });
 
-      // Click to toggle fullscreen
+      // Click to toggle fullscreen, or navigate if already in fullscreen
       document.body.addEventListener('click', (e) => {
         if (!document.fullscreenElement) {
           document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          if (e.clientX > window.innerWidth / 2) {
+            channel.postMessage({ type: 'NAV_NEXT' });
+          } else {
+            channel.postMessage({ type: 'NAV_PREV' });
+          }
         }
       });
 
-      // Keyboard shortcuts
+      // Keyboard shortcuts (allows navigation even when focus is on display.html)
       window.addEventListener('keydown', (e) => {
         if (e.key === 'f' || e.key === 'F' || e.key === 'F11') {
           e.preventDefault();
@@ -513,6 +519,25 @@
           } else {
             document.exitFullscreen().catch(() => {});
           }
+          return;
+        }
+
+        if (['ArrowRight', ' ', 'PageDown', 'ArrowDown'].includes(e.key)) {
+          e.preventDefault();
+          channel.postMessage({ type: 'NAV_NEXT' });
+          return;
+        }
+
+        if (['ArrowLeft', 'PageUp', 'ArrowUp'].includes(e.key)) {
+          e.preventDefault();
+          channel.postMessage({ type: 'NAV_PREV' });
+          return;
+        }
+
+        if (e.key === 'b' || e.key === 'B' || e.key === '.') {
+          e.preventDefault();
+          channel.postMessage({ type: 'NAV_BLANK' });
+          return;
         }
       });
 

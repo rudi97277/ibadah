@@ -32,23 +32,7 @@ export function updateProjectorStatusUI() {
   }
 }
 
-export function updateLiveToggleUI() {
-  const btn = $('btn-live-toggle');
-  if (!btn) return;
-  if (state.isLiveBroadcasting) {
-    btn.textContent = '⏹ Stop Tayang';
-    btn.style.color = '#ffffff';
-    btn.style.background = '#dc2626';
-    btn.style.borderColor = '#dc2626';
-    btn.title = 'Hentikan Siaran ke Layar Proyektor (F5 / Enter)';
-  } else {
-    btn.textContent = '▶ Tayangkan';
-    btn.style.color = '#16a34a';
-    btn.style.background = '#f0fdf4';
-    btn.style.borderColor = '#86efac';
-    btn.title = 'Tayangkan ke Layar Proyektor (F5 / Enter)';
-  }
-}
+export function updateLiveToggleUI() {}
 
 export function updateBackgroundDisplay() {
   const isRandom = (state.appSettings.background_mode === 'random' && state.availableBackgrounds.length > 0);

@@ -46,7 +46,7 @@ export const state = {
   currentActiveTab: 'sion',
   diskFileHandle: null,
   isProjectorConnected: false,
-  isLiveBroadcasting: false,
+  isLiveBroadcasting: true,
   isAudioPlaying: false,
   appSettings: { ...defaultSettings }
 };
@@ -177,17 +177,6 @@ export async function saveAppSettings(notify = false) {
     }
     showToast('Gagal menyimpan pengaturan.');
     return;
-  }
-
-  const status = $('settings-save-status');
-  if (status) {
-    if (savedToDiskFile || savedToServer) {
-      status.textContent = '💾 Status: Berhasil disimpan & diperbarui langsung di file settings.json!';
-      status.style.color = '#15803d';
-    } else {
-      status.textContent = '💾 Status: Tersimpan di browser (Jalankan server-linux / server-windows.exe untuk auto-update file settings.json)';
-      status.style.color = '#0284c7';
-    }
   }
 
   if (notify) {

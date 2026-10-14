@@ -1,8 +1,8 @@
-import { state, saveAppSettings, saveNewCustomSong, clearPlaylist, applyBatchPlaylistInput, loadBackgrounds, loadAppSettings, loadAllSongs, loadCustomSongs, connectDiskFileHandle } from './state.js';
+import { state, saveAppSettings, saveNewCustomSong, clearPlaylist, applyBatchPlaylistInput, loadBackgrounds, loadAppSettings, loadAllSongs, loadCustomSongs } from './state.js';
 import { loadSong, prevSlide, nextSlide, prevSong, nextSong } from './navigation.js';
 import { openDrawer, closeDrawer, filterSongs, renderDrawerList } from './drawer.js';
 import { renderPlaylistModal, updateCustomSongsCount, showToast } from './render.js';
-import { openProjectorWindow, toggleLiveBroadcast, syncCurrentToProjector, initProjector } from './projector.js';
+import { openProjectorWindow, syncCurrentToProjector, initProjector } from './projector.js';
 import { hideToolbarsImmediately, startAutoHideTimer } from './toolbar.js';
 import { setupKeyboardShortcuts } from './keyboard.js';
 import { toggleAudioPlayback, updateAudioToggleUI } from './audio.js';
@@ -79,7 +79,6 @@ export function setupEventListeners() {
     ['btn-save-new-song', saveNewCustomSong],
     ['btn-settings', () => $('settings-modal-backdrop')?.classList.add('open')],
     ['btn-close-settings', () => $('settings-modal-backdrop')?.classList.remove('open')],
-    ['btn-save-settings', () => { saveAppSettings(true); $('settings-modal-backdrop')?.classList.remove('open'); }],
     ['btn-toggle-playlist', () => { renderPlaylistModal(true); $('playlist-modal-backdrop')?.classList.add('open'); setTimeout(() => $('playlist-batch-input')?.focus(), 150); }],
     ['btn-close-playlist', () => $('playlist-modal-backdrop')?.classList.remove('open')],
     ['btn-done-playlist', () => $('playlist-modal-backdrop')?.classList.remove('open')]
@@ -107,7 +106,6 @@ export function setupEventListeners() {
   on('btn-font-dec', 'click', () => adjustFontSize(-0.3));
 
   on('btn-open-projector', 'click', openProjectorWindow);
-  on('btn-live-toggle', 'click', toggleLiveBroadcast);
   on('btn-audio-toggle', 'click', toggleAudioPlayback);
 
   const toggleBlank = () => {
@@ -207,8 +205,6 @@ export function setupEventListeners() {
     on(id, 'change', () => saveAppSettings(false));
   });
 
-  on('btn-connect-file', 'click', connectDiskFileHandle);
-
   setupKeyboardShortcuts();
 }
 
@@ -238,6 +234,7 @@ export async function init() {
   } catch (e) {}
 
   await loadSong(initialSong, initialSlide);
+  syncCurrentToProjector(true);
   updateAudioToggleUI();
   setupEventListeners();
   startAutoHideTimer();
